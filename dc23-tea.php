@@ -4,7 +4,7 @@
  * Description:       A plugin to help list the events you attend(ed).
  * Requires at least: 6.6
  * Requires PHP:      7.2
- * Requires Plugins:  yoast-seo, the-events-calendar
+ * Requires Plugins:  wordpress-seo, the-events-calendar
  * Version:           0.1.0
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
