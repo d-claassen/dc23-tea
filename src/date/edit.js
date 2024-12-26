@@ -1,43 +1,40 @@
 /**
  * WordPress dependencies.
  */
-import { __ } from '@wordpress/i18n';
 import { useBlockProps } from '@wordpress/block-editor';
-import { Button, DateTimePicker, Dropdown } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
+import { dateI18n, getDate } from '@wordpress/date';
 
 /**
  * Internal dependencies.
  */
 import './editor.scss';
 
-const DropdownDateTimePicker = ( {
-	date,
-	setDate,
-	buttonLabel = 'Select date',
-} ) => {
-	return (
-		<Dropdown
-			renderToggle={ ( { isOpen, onToggle } ) => (
-				<Button variant="link" onClick={ onToggle } aria-expanded={ isOpen }>
-					{ buttonLabel }
-				</Button>
-			) }
-			renderContent={ ( { onClose } ) => (
-				<DateTimePicker
-					currentDate={ date }
-					onChange={ ( newDate ) => {
-						setDate( newDate );
-						onClose();
-					} }
-				/>
-			) }
-		/>
-	);
-};
+function formatDate(date ) {
+	const now = new Date();
+
+	// When the date is this year, don't show the year.
+	const hideYearFromDate = now.getFullYear() === date.getFullYear();
+
+	return {
+		date: hideYearFromDate ? dateI18n('F j', date) : dateI18n('F j, Y', date),
+		time: dateI18n('H:i', date),
+	}
+}
+
+
+
+function isSameMoment(startDate, endDate) {
+	return startDate.toISOString() === endDate.toISOString();
+}
+
+function isSameDay(startDate, endDate) {
+	return startDate.toDateString() === endDate.toDateString();
+}
 
 /**
- * The edit function describes the structure of your block in the context of the
+ * The edit function describes the structure of your block in the context of
+ * the
  * editor. This represents what the editor will render when the block is used.
  *
  * @param  root0
@@ -66,23 +63,59 @@ function Content( { context: { postType, postId } } ) {
 		_EventTimeRangeSeparator, // string
 	} = meta;
 
+	const startDate = getDate( _EventStartDate );
+	const startLabels = formatDate(startDate);
+
+	const endDate = getDate( _EventEndDate );
+	const endLabels = formatDate(endDate);
+
+	const isOneMoment = isSameMoment( startDate, endDate );
+	const isOneDayEvent = isSameDay(startDate, endDate);
+
 	return (
 		<div { ...useBlockProps() }>
 			<div>
-				<DropdownDateTimePicker
-					date={ _EventStartDate }
-					setDate={ ( newDate ) =>
-						updateMeta( { ...meta, _EventStartDate: newDate } )
-					}
-					buttonLabel={ _EventStartDate }
-				/>
-				<DropdownDateTimePicker
-					date={ _EventEndDate }
-					setDate={ ( newDate ) =>
-						updateMeta( { ...meta, _EventEndDate: newDate } )
-					}
-					buttonLabel={ _EventEndDate }
-				/>
+				<span> { startLabels.date } </span>
+
+				{/* ! all day?*/}
+				{ ! _EventAllDay ? (
+					<>
+						<span> { _EventDateTimeSeparator } </span>
+						<span> { startLabels.time } </span>
+					</>
+				) : (
+					isOneDayEvent && <span> all day </span>
+				) }
+
+
+				{/* if start date time <> end date time*/}
+				{ ! isOneMoment && (
+					<>
+						{ /* Separator between Start Date(time) + End Date/Time/Datetime */ }
+						{ ( ! _EventAllDay || ! isOneDayEvent ) && (
+							<span> { _EventTimeRangeSeparator } </span>
+						) }
+
+						{/*// if end date <> start date*/}
+						{ ! isOneDayEvent ? (
+							<>
+								<span> { endLabels.date } </span>
+
+								{ ! _EventAllDay && (
+									<>
+										<span> { _EventDateTimeSeparator } </span>
+										<span> { endLabels.time }</span>
+									</>
+								)}
+							</>
+						) : (
+							! _EventAllDay && (<span> {endLabels.time}</span>)
+						)	}
+
+						{/*// if timezone*/}
+							{/*// timezone*/}
+					</>
+				) }
 			</div>
 		</div>
 	);

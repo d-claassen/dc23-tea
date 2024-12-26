@@ -1,11 +1,47 @@
 <?php
-$startDate = get_post_meta( $block->context['postId'], '_EventStartDate', true );
-$endDate = get_post_meta( $block->context['postId'], '_EventEndDate', true );
+$eventAllDay = (bool) get_post_meta( $block->context['postId'], '_EventAllDay', true );
+$startDate = new DateTimeImmutable( get_post_meta( $block->context['postId'], '_EventStartDate', true ) );
+$endDate = new DateTimeImmutable( get_post_meta( $block->context['postId'], '_EventEndDate', true ) );
+$dateTimeSeparator = get_post_meta( $block->context['postId'], '_EventDateTimeSeparator', true );
+$timeRangeSeparator = get_post_meta( $block->context['postId'], '_EventTimeRangeSeparator', true );
 
+$now = new DateTimeImmutable();
+
+$hideYearFromStartDate = $now->format('Y')===$startDate->format('Y');
+$hideYearFromEndDate = $now->format('Y')===$endDate->format('Y');
+$startDateFormatted = date_i18n( ($hideYearFromStartDate ? 'F j' : 'F j, Y'), $startDate->getTimestamp() );
+$startTimeFormatted = date_i18n( 'H:i', $startDate->getTimestamp() );
+$endDateFormatted = date_i18n( ( $hideYearFromEndDate ? 'F j' : 'F j, Y' ), $endDate->getTimestamp() );
+$endTimeFormatted = date_i18n( 'H:i', $endDate->getTimestamp() );
+
+$isOneMoment = $startDate->getTimestamp() === $endDate->getTimestamp();
+$isOneDayEvent = $startDate->format('Y-m-d') === $endDate->format('Y-m-d');
 
 ?>
 <div <?php echo get_block_wrapper_attributes(); ?>>
-	<span><?php echo esc_html( $startDate ) ?></span>
-	<span><?php echo esc_html( $endDate ) ?></span>
-	<span>All day</span>
+	<span><?php echo esc_html( $startDateFormatted ) ?></span>
+
+	<?php if ( ! $eventAllDay ) : ?>
+		<span><?php echo esc_html( $dateTimeSeparator ) ?></span>
+		<span><?php echo esc_html( $startTimeFormatted ) ?></span>
+	<?php elseif ( $isOneDayEvent ) : ?>
+		<span>all day</span>
+	<?php endif; ?>
+
+	<?php if ( ! $isOneMoment ) : ?>
+		<?php if ( ! $eventAllDay || ! $isOneDayEvent ) : ?>
+			<span><?php echo esc_html( $timeRangeSeparator ) ?></span>
+		<?php endif; ?>
+
+		<?php if ( ! $isOneDayEvent ) : ?>
+			<span><?php echo esc_html( $endDateFormatted ) ?></span>
+
+			<?php if ( ! $eventAllDay ) : ?>
+				<span><?php echo esc_html( $dateTimeSeparator ) ?></span>
+				<span><?php echo esc_html( $endTimeFormatted ) ?></span>
+			<?php endif; ?>
+		<?php elseif ( ! $eventAllDay ) : ?>
+			<span><?php echo esc_html( $endTimeFormatted ) ?></span>
+		<?php endif; ?>
+	<?php endif; ?>
 </div>
