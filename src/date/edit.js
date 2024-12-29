@@ -124,7 +124,7 @@ function Content( { context: { postType, postId } } ) {
 function Placeholder() {
 	return (
 		<div { ...useBlockProps() }>
-			<span>Time & date</span>
+			<span>Date & time</span>
 		</div>
 	);
 }
