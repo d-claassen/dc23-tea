@@ -9,7 +9,19 @@
 	"description": "A block for The Event Calendar event date from post meta.",
 	"example": {},
 	"supports": {
-		"html": false
+		"html": false,
+		"align": true,
+		"color": {
+			"gradients": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		}
 	},
 	"usesContext": [ "postId", "postType" ],
 	"textdomain": "dc23-tea",
