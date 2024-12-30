@@ -74,49 +74,47 @@ function Content( { context: { postType, postId } } ) {
 
 	return (
 		<div { ...useBlockProps() }>
-			<div>
-				<span> { startLabels.date } </span>
+			<span className="wp-block-dc23-tea-date__date"> { startLabels.date } </span>
 
-				{/* ! all day?*/}
-				{ ! _EventAllDay ? (
-					<>
-						<span> { _EventDateTimeSeparator } </span>
-						<span> { startLabels.time } </span>
-					</>
-				) : (
-					isOneDayEvent && <span> all day </span>
-				) }
+			{/* ! all day?*/}
+			{ ! _EventAllDay ? (
+				<>
+					<span className="wp-block-dc23-tea-date__date-time-separator"> { _EventDateTimeSeparator } </span>
+					<span className="wp-block-dc23-tea-date__time"> { startLabels.time } </span>
+				</>
+			) : (
+				isOneDayEvent && <span className="wp-block-dc23-tea-date__all-day"> all day </span>
+			) }
 
 
-				{/* if start date time <> end date time*/}
-				{ ! isOneMoment && (
-					<>
-						{ /* Separator between Start Date(time) + End Date/Time/Datetime */ }
-						{ ( ! _EventAllDay || ! isOneDayEvent ) && (
-							<span> { _EventTimeRangeSeparator } </span>
-						) }
+			{/* if start date time <> end date time*/}
+			{ ! isOneMoment && (
+				<>
+					{ /* Separator between Start Date(time) + End Date/Time/Datetime */ }
+					{ ( ! _EventAllDay || ! isOneDayEvent ) && (
+						<span className="wp-block-dc23-tea-date__range-separator"> { _EventTimeRangeSeparator } </span>
+					) }
 
-						{/*// if end date <> start date*/}
-						{ ! isOneDayEvent ? (
-							<>
-								<span> { endLabels.date } </span>
+					{/*// if end date <> start date*/}
+					{ ! isOneDayEvent ? (
+						<>
+							<span className="wp-block-dc23-tea-date__date"> { endLabels.date } </span>
 
-								{ ! _EventAllDay && (
-									<>
-										<span> { _EventDateTimeSeparator } </span>
-										<span> { endLabels.time }</span>
-									</>
-								)}
-							</>
-						) : (
-							! _EventAllDay && (<span> {endLabels.time}</span>)
-						)	}
+							{ ! _EventAllDay && (
+								<>
+									<span className="wp-block-dc23-tea-date__date-time-separator"> { _EventDateTimeSeparator } </span>
+									<span className="wp-block-dc23-tea-date__time"> { endLabels.time }</span>
+								</>
+							)}
+						</>
+					) : (
+						! _EventAllDay && (<span className="wp-block-dc23-tea-date__time"> {endLabels.time}</span>)
+					)	}
 
-						{/*// if timezone*/}
-							{/*// timezone*/}
-					</>
-				) }
-			</div>
+					{/*// if timezone*/}
+						{/*// timezone*/}
+				</>
+			) }
 		</div>
 	);
 }
