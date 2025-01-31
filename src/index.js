@@ -1,28 +1,39 @@
 import {
 	Button, DateTimePicker, DatePicker, Dropdown,
-	BaseControl, useBaseControlProps,
-	CheckboxControl, ToggleControl,
+	CheckboxControl, FormToggle,
 	TextControl,
 	PanelBody, PanelRow,
+	__experimentalToolsPanel as ToolsPanel,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
+import { useMemo } from "@wordpress/element";
 const { useSelect } = require( '@wordpress/data' );
-const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
+const { PluginDocumentSettingPanel, PostPanelRow: Brrr } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
 import { dateI18n, getDate } from '@wordpress/date';
+
+const PostPanelRow = ( ( { className, label, children } ) => {
+	return (
+		<HStack
+			className={ 'editor-post-panel__row ' + className }
+		>
+			{ label && (
+				<div className="editor-post-panel__row-label">{ label }</div>
+			) }
+			<div className="editor-post-panel__row-control">{ children }</div>
+		</HStack>
+	);
+} );
 
 const DropdownDateTimePicker = ( {
 	date,
 	setDate,
 	buttonLabel = 'Select date',
-	help = "",
-	label = "Date",
 	hasTimePicker = true,
 } ) => {
-	const { baseControlProps, controlProps } = useBaseControlProps( { label, help } );
-
 	const PickerComponent = hasTimePicker ? DateTimePicker : DatePicker;
 
 	return (
@@ -31,11 +42,9 @@ const DropdownDateTimePicker = ( {
 				position: 'bottom left left'
 		} }
 			renderToggle={ ( { isOpen, onToggle } ) => (
-				<BaseControl { ...baseControlProps } __nextHasNoMarginBottom>
-					<Button variant="link" onClick={ onToggle } aria-expanded={ isOpen } { ...controlProps }>
-						{ buttonLabel }
-					</Button>
-				</BaseControl>
+				<Button variant="tertiary" onClick={ onToggle } aria-expanded={ isOpen }>
+					{ buttonLabel }
+				</Button>
 			) }
 			renderContent={ ( { onClose } ) => (
 				<PickerComponent
@@ -50,11 +59,47 @@ const DropdownDateTimePicker = ( {
 	);
 };
 
+const DropdownText = ( {
+	value,
+	onChange,
+	label,
+} ) => {
+	return (
+		<Dropdown
+			popoverProps={ {
+				position: 'bottom left left'
+			} }
+			renderToggle={ ( { isOpen, onToggle } ) => (
+				<Button variant="tertiary" onClick={ onToggle } aria-expanded={ isOpen }>
+					{ value }
+				</Button>
+			) }
+			renderContent={ () => (
+				<TextControl
+					__nextHasNoMarginBottom
+					label={ label }
+					value={ value }
+					onChange={ onChange }
+				/>
+			) }
+		/>
+	);
+};
+
 
 
 const DC23TeaExtendedPanel = () => {
-	const postType = useSelect( select => select( 'core/editor' ).getCurrentPostType() );
-	const postId = useSelect( select => select( 'core/editor' ).getCurrentPostId() );
+	const {
+		postId,
+		postType,
+	} = useSelect( select => {
+		const store = select( 'core/editor' );
+
+		return {
+			postType: store.getCurrentPostType(),
+			postId: store.getCurrentPostId(),
+		};
+	}, [] );
 
 	const [ meta, updateMeta ] = useEntityProp(
 		'postType',
@@ -62,6 +107,11 @@ const DC23TeaExtendedPanel = () => {
 		'meta',
 		postId
 	);
+
+	const oldMeta = useMemo( () => {
+		console.log( 'memoize meta' );
+		return meta;
+	}, [ postType, postId ] );
 
 	if ( 'tribe_events' !== postType ) {
 		return null;
@@ -88,62 +138,74 @@ const DC23TeaExtendedPanel = () => {
 			name="dc23-tea-extended-panel"
 			title="The Event Attendee"
 		>
-			<PanelRow>
-				<ToggleControl
-					__nextHasNoMarginBottom
-					label="Is all day event"
-					checked={ _EventAllDay }
-					onChange={ ( isAllDay ) =>
-						updateMeta( { ...meta, _EventAllDay: isAllDay } ) }
-				/>
-			</PanelRow>
-			<PanelRow>
-				<DropdownDateTimePicker
-					label={ "Start date" }
-					date={ _EventStartDate }
-					setDate={ ( newDate ) =>
-						updateMeta( { ...meta, _EventStartDate: newDate } )
-					}
-					buttonLabel={ startLabel }
-					hasTimePicker={ !_EventAllDay }
-				/>
-			</PanelRow>
+			<VStack spacing={ 1 }>
+				<PostPanelRow label="Is all day event" className="">
+					<Button variant="tertiary" onClick={ () => updateMeta({ ...meta, _EventAllDay: !_EventAllDay })}>
+						<FormToggle
+							checked={ _EventAllDay }
+							// Disable tab focus and mouse events to make the button the interaction point.
+							style={ { pointerEvents: 'none' } }
+							tabIndex={ -1 }
+						/>
+					</Button>
+				</PostPanelRow>
+				<PostPanelRow label="Start date" className="">
+					<DropdownDateTimePicker
+						date={ _EventStartDate }
+						setDate={ ( newDate ) =>
+							updateMeta( { ...meta, _EventStartDate: newDate } )
+						}
+						buttonLabel={ startLabel }
+						hasTimePicker={ !_EventAllDay }
+					/>
+				</PostPanelRow>
 
-			<PanelRow>
-				<DropdownDateTimePicker
-					label={ "End date" }
-					date={ _EventEndDate }
-					setDate={ ( newDate ) =>
-						updateMeta( { ...meta, _EventEndDate: newDate } )
-					}
-					buttonLabel={ endLabel }
-					hasTimePicker={ !_EventAllDay }
-				/>
-			</PanelRow>
-			<PanelBody title="Advanced" initialOpen={ false }>
-				<PanelRow>
+				<PostPanelRow label="End date" className="">
+					<DropdownDateTimePicker
+						date={ _EventEndDate }
+						setDate={ ( newDate ) =>
+							updateMeta( { ...meta, _EventEndDate: newDate } )
+						}
+						buttonLabel={ endLabel }
+						hasTimePicker={ !_EventAllDay }
+					/>
+				</PostPanelRow>
+			</VStack>
+
+			<ToolsPanel label="Advanced date" resetAll={ () => {
+				updateMeta( {
+					...meta,
+					_EventDateTimeSeparator: oldMeta._EventDateTimeSeparator,
+					_EventTimeRangeSeparator: oldMeta._EventTimeRangeSeparator } );
+				} }>
+				<ToolsPanelItem
+					label="Date time separator"
+					hasValue={ () => oldMeta._EventDateTimeSeparator !== _EventDateTimeSeparator }
+				>
 					<TextControl
 						__nextHasNoMarginBottom
 						label="Date time separator"
 						value={ _EventDateTimeSeparator }
-						onChange={ ( separator ) =>
-							updateMeta( {...meta, _EventDateTimeSeparator: separator})}
+						onChange={ ( separator ) => updateMeta( {...meta, _EventDateTimeSeparator: separator } ) }
 					/>
-				</PanelRow>
-				<PanelRow>
+				</ToolsPanelItem>
+
+				<ToolsPanelItem
+					label="Date range separator"
+					hasValue={ () => oldMeta._EventTimeRangeSeparator !== _EventTimeRangeSeparator }
+				>
 					<TextControl
 						__nextHasNoMarginBottom
 						label="Date range separator"
 						value={ _EventTimeRangeSeparator }
-						onChange={ ( separator ) =>
-							updateMeta( { ...meta, _EventTimeRangeSeparator: separator } ) }
+						onChange={ ( separator ) => updateMeta( {...meta, _EventTimeRangeSeparator: separator } ) }
 					/>
-				</PanelRow>
-			</PanelBody>
+				</ToolsPanelItem>
+			</ToolsPanel>
+
 			<PanelBody title="Location" initialOpen={ false } />
 			<PanelBody title="Organizers" initialOpen={ false } />
 			<PanelBody title="Event website" initialOpen={ false } />
-
 		</PluginDocumentSettingPanel>
 	);
 }
