@@ -37,10 +37,10 @@ function isSameDay( startDate, endDate ) {
  * the
  * editor. This represents what the editor will render when the block is used.
  *
- * @param  root0
- * @param  root0.context
- * @param  root0.context.postType
- * @param  root0.context.postId
+ * @param {Object} root0
+ * @param {Object} root0.context
+ * @param {String} root0.context.postType
+ * @param {Number} root0.context.postId
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
