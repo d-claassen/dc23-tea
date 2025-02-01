@@ -13,23 +13,21 @@ import {
 } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
 import { dateI18n, getDate } from '@wordpress/date';
-import { useMemo } from "@wordpress/element";
+import { useMemo } from '@wordpress/element';
 const { useSelect } = require( '@wordpress/data' );
 const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
 
-const PostPanelRow = ( ( { className, label, children } ) => {
+const PostPanelRow = ( { className, label, children } ) => {
 	return (
-		<HStack
-			className={ 'editor-post-panel__row ' + className }
-		>
+		<HStack className={ 'editor-post-panel__row ' + className }>
 			{ label && (
 				<div className="editor-post-panel__row-label">{ label }</div>
 			) }
 			<div className="editor-post-panel__row-control">{ children }</div>
 		</HStack>
 	);
-} );
+};
 
 const DropdownDateTimePicker = ( {
 	date,
