@@ -189,7 +189,12 @@ const DC23TeaExtendedPanel = () => {
 						__nextHasNoMarginBottom
 						label="Date range separator"
 						value={ _EventTimeRangeSeparator }
-						onChange={ ( separator ) => updateMeta( {...meta, _EventTimeRangeSeparator: separator } ) }
+						onChange={ ( separator ) =>
+							updateMeta( {
+								...meta,
+								_EventTimeRangeSeparator: separator,
+							} )
+						}
 					/>
 				</ToolsPanelItem>
 			</ToolsPanel>
