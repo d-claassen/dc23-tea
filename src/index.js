@@ -163,7 +163,7 @@ const DC23TeaExtendedPanel = () => {
 					updateMeta( {
 						...meta,
 						_EventDateTimeSeparator: oldMeta._EventDateTimeSeparator,
-						_EventTimeRangeSeparator: oldMeta._EventTimeRangeSeparator
+						_EventTimeRangeSeparator: oldMeta._EventTimeRangeSeparator,
 					} )
 				}
 			>
@@ -175,7 +175,9 @@ const DC23TeaExtendedPanel = () => {
 						__nextHasNoMarginBottom
 						label="Date time separator"
 						value={ _EventDateTimeSeparator }
-						onChange={ ( separator ) => updateMeta( {...meta, _EventDateTimeSeparator: separator } ) }
+						onChange={ ( separator ) =>
+							updateMeta( { ...meta, _EventDateTimeSeparator: separator } )
+						}
 					/>
 				</ToolsPanelItem>
 
@@ -197,5 +199,6 @@ const DC23TeaExtendedPanel = () => {
 			<PanelBody title="Event website" initialOpen={ false } />
 		</PluginDocumentSettingPanel>
 	);
-}
+};
+
 registerPlugin( 'dc23-tea-extended', { render: DC23TeaExtendedPanel } );
