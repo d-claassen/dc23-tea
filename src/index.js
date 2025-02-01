@@ -119,8 +119,8 @@ const DC23TeaExtendedPanel = () => {
 				<PostPanelRow label="Is all day event" className="">
 					<Button
 						variant="tertiary"
-						onClick={
-							() => updateMeta( {
+						onClick={ () =>
+							updateMeta( {
 								...meta,
 								_EventAllDay: ! _EventAllDay,
 							} )
