@@ -10,25 +10,25 @@ import { dateI18n, getDate } from '@wordpress/date';
  */
 import './editor.scss';
 
-function formatDate(date ) {
+function formatDate( date ) {
 	const now = new Date();
 
 	// When the date is this year, don't show the year.
 	const hideYearFromDate = now.getFullYear() === date.getFullYear();
 
 	return {
-		date: hideYearFromDate ? dateI18n('F j', date) : dateI18n('F j, Y', date),
-		time: dateI18n('H:i', date),
+		date: hideYearFromDate ? dateI18n( 'F j', date ) : dateI18n( 'F j, Y', date ),
+		time: dateI18n( 'H:i', date ),
 	}
 }
 
 
 
-function isSameMoment(startDate, endDate) {
+function isSameMoment( startDate, endDate ) {
 	return startDate.toISOString() === endDate.toISOString();
 }
 
-function isSameDay(startDate, endDate) {
+function isSameDay( startDate, endDate ) {
 	return startDate.toDateString() === endDate.toDateString();
 }
 
@@ -64,19 +64,19 @@ function Content( { context: { postType, postId } } ) {
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
-	const startLabels = formatDate(startDate);
+	const startLabels = formatDate( startDate );
 
 	const endDate = getDate( _EventEndDate );
-	const endLabels = formatDate(endDate);
+	const endLabels = formatDate( endDate );
 
 	const isOneMoment = isSameMoment( startDate, endDate );
-	const isOneDayEvent = isSameDay(startDate, endDate);
+	const isOneDayEvent = isSameDay( startDate, endDate );
 
 	return (
 		<div { ...useBlockProps() }>
 			<span className="wp-block-dc23-tea-date__date"> { startLabels.date } </span>
 
-			{/* ! all day?*/}
+			{ /* ! all day? */ }
 			{ ! _EventAllDay ? (
 				<>
 					<span className="wp-block-dc23-tea-date__date-time-separator"> { _EventDateTimeSeparator } </span>
@@ -87,7 +87,7 @@ function Content( { context: { postType, postId } } ) {
 			) }
 
 
-			{/* if start date time <> end date time*/}
+			{ /* if start date time <> end date time */ }
 			{ ! isOneMoment && (
 				<>
 					{ /* Separator between Start Date(time) + End Date/Time/Datetime */ }
