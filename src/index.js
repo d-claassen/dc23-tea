@@ -93,20 +93,24 @@ const DC23TeaExtendedPanel = () => {
 	const {
 		_EventAllDay, // boolean
 		_EventStartDate, // string, YYYY-MM-DD HH:mm:ss, local tz
-		_EventStartDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
+		// _EventStartDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
 		_EventEndDate, // string, YYYY-MM-DD HH:mm:ss, local tz
-		_EventEndDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
+		// _EventEndDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
 		_EventDateTimeSeparator, // string
 		_EventTimeRangeSeparator, // string
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
-	let startLabel = _EventAllDay ? dateI18n( 'F j, Y', startDate ) : dateI18n( 'F j, Y H:i', startDate );
+	const startLabel = _EventAllDay
+		? dateI18n( 'F j, Y', startDate )
+		: dateI18n( 'F j, Y H:i', startDate );
 
 	const endDate = getDate( _EventEndDate );
-	let endLabel = _EventAllDay ? dateI18n( 'F j, Y', endDate ) : dateI18n( 'F j, Y H:i', endDate );
+	const endLabel = _EventAllDay
+		? dateI18n( 'F j, Y', endDate )
+		: dateI18n( 'F j, Y H:i', endDate );
 
-	return(
+	return (
 		<PluginDocumentSettingPanel
 			name="dc23-tea-extended-panel"
 			title="The Event Attendee"
