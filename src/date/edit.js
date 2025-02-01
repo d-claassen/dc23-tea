@@ -39,22 +39,17 @@ function isSameDay( startDate, endDate ) {
  *
  * @param {Object} root0
  * @param {Object} root0.context
- * @param {String} root0.context.postType
- * @param {Number} root0.context.postId
+ * @param {string} root0.context.postType
+ * @param {number} root0.context.postId
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
  */
 function Content( { context: { postType, postId } } ) {
 	const [ 
-			meta, 
-			// updateMeta,
-	] = useEntityProp(
-		 'postType',
-		 postType,
-		 'meta',
-		 postId
-	);
+		meta, 
+		// updateMeta,
+	] = useEntityProp( 'postType', postType, 'meta', postId );
 
 	const {
 		_EventAllDay, // boolean
