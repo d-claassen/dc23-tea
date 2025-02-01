@@ -90,11 +90,12 @@ function Content( { context: { postType, postId } } ) {
 					</span>
 				</>
 			) : (
-				isOneDayEvent &&
-				<span className="wp-block-dc23-tea-date__all-day">
-					{ ' ' }
-					all day{ ' ' }
-				</span>
+				isOneDayEvent && (
+					<span className="wp-block-dc23-tea-date__all-day">
+						{ ' ' }
+						all day{ ' ' }
+					</span>
+				)
 			) }
 
 
@@ -128,18 +129,18 @@ function Content( { context: { postType, postId } } ) {
 										{ endLabels.time }{ ' ' }
 									</span>
 								</>
-							)}
+							) }
 						</>
 					) : (
 						! _EventAllDay && (
 							<span className="wp-block-dc23-tea-date__time">
 								{ ' ' }
-								{endLabels.time}{ ' ' }
+								{ endLabels.time }{ ' ' }
 							</span>
-					) )	}
+						)
+					)	}
 
-					{ /* if timezone */ }
-						{ /* timezone */ }
+					{ /* if timezone, show timezone */ }
 				</>
 			) }
 		</div>
