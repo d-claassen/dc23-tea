@@ -64,35 +64,6 @@ const DropdownDateTimePicker = ( {
 	);
 };
 
-const DropdownText = ( {
-	value,
-	onChange,
-	label,
-} ) => {
-	return (
-		<Dropdown
-			popoverProps={ {
-				position: 'bottom left left'
-			} }
-			renderToggle={ ( { isOpen, onToggle } ) => (
-				<Button variant="tertiary" onClick={ onToggle } aria-expanded={ isOpen }>
-					{ value }
-				</Button>
-			) }
-			renderContent={ () => (
-				<TextControl
-					__nextHasNoMarginBottom
-					label={ label }
-					value={ value }
-					onChange={ onChange }
-				/>
-			) }
-		/>
-	);
-};
-
-
-
 const DC23TeaExtendedPanel = () => {
 	const {
 		postId,
