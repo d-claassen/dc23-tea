@@ -43,3 +43,15 @@ jobs:
 
       - name: 'Lint CSS'
         run: 'npm run-script lint:css'
+
+      - name: 'Build the plugin'
+        run: 'npm run-script build'
+
+      - name: 'Zip it'
+        run: 'npm run-script plugin-zip'
+
+      - name: 'Archive plugin zip'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'the-events-attendee'
+          path: 'the-events-attendee.zip'
