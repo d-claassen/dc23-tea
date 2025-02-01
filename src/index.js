@@ -117,7 +117,13 @@ const DC23TeaExtendedPanel = () => {
 		>
 			<VStack spacing={ 1 }>
 				<PostPanelRow label="Is all day event" className="">
-					<Button variant="tertiary" onClick={ () => updateMeta({ ...meta, _EventAllDay: !_EventAllDay })}>
+					<Button
+						variant="tertiary"
+						onClick={ () => updateMeta( {
+							...meta,
+							_EventAllDay: !_EventAllDay,
+						} ) }
+					>
 						<FormToggle
 							checked={ _EventAllDay }
 							// Disable tab focus and mouse events to make the button the interaction point.
@@ -133,7 +139,7 @@ const DC23TeaExtendedPanel = () => {
 							updateMeta( { ...meta, _EventStartDate: newDate } )
 						}
 						buttonLabel={ startLabel }
-						hasTimePicker={ !_EventAllDay }
+						hasTimePicker={ ! _EventAllDay }
 					/>
 				</PostPanelRow>
 
@@ -144,7 +150,7 @@ const DC23TeaExtendedPanel = () => {
 							updateMeta( { ...meta, _EventEndDate: newDate } )
 						}
 						buttonLabel={ endLabel }
-						hasTimePicker={ !_EventAllDay }
+						hasTimePicker={ ! _EventAllDay }
 					/>
 				</PostPanelRow>
 			</VStack>
