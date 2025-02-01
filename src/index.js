@@ -157,12 +157,16 @@ const DC23TeaExtendedPanel = () => {
 				</PostPanelRow>
 			</VStack>
 
-			<ToolsPanel label="Advanced date" resetAll={ () => {
-				updateMeta( {
-					...meta,
-					_EventDateTimeSeparator: oldMeta._EventDateTimeSeparator,
-					_EventTimeRangeSeparator: oldMeta._EventTimeRangeSeparator } );
-				} }>
+			<ToolsPanel
+				label="Advanced date"
+				resetAll={ () =>
+					updateMeta( {
+						...meta,
+						_EventDateTimeSeparator: oldMeta._EventDateTimeSeparator,
+						_EventTimeRangeSeparator: oldMeta._EventTimeRangeSeparator
+					} )
+				}
+			>
 				<ToolsPanelItem
 					label="Date time separator"
 					hasValue={ () => oldMeta._EventDateTimeSeparator !== _EventDateTimeSeparator }
