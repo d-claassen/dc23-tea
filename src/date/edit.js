@@ -93,7 +93,12 @@ function Content( { context: { postType, postId } } ) {
 					</span>
 				</>
 			) : (
-				isOneDayEvent && <span className="wp-block-dc23-tea-date__all-day"> all day </span>
+				isOneDayEvent &&
+				<span className="wp-block-dc23-tea-date__all-day">
+					{ ' ' }
+					all day
+					{ ' ' }
+				</span>
 			) }
 
 
