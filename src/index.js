@@ -1,19 +1,22 @@
 import {
-	Button, DateTimePicker, DatePicker, Dropdown,
-	CheckboxControl, FormToggle,
+	Button,
+	DateTimePicker,
+	DatePicker,
+	Dropdown,
+	FormToggle,
 	TextControl,
-	PanelBody, PanelRow,
+	PanelBody,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
+import { dateI18n, getDate } from '@wordpress/date';
 import { useMemo } from "@wordpress/element";
 const { useSelect } = require( '@wordpress/data' );
-const { PluginDocumentSettingPanel, PostPanelRow: Brrr } = require( '@wordpress/editor' );
+const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
-import { dateI18n, getDate } from '@wordpress/date';
 
 const PostPanelRow = ( ( { className, label, children } ) => {
 	return (
