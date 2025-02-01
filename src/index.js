@@ -65,7 +65,7 @@ const DropdownDateTimePicker = ( {
 };
 
 const DC23TeaExtendedPanel = () => {
-	const { postId, postType } = useSelect( select => {
+	const { postId, postType } = useSelect( ( select ) => {
 		const store = select( 'core/editor' );
 
 		return {
