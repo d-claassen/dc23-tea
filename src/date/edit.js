@@ -46,8 +46,8 @@ function isSameDay( startDate, endDate ) {
  * @return {Element} Element to render.
  */
 function Content( { context: { postType, postId } } ) {
-	const [ 
-		meta, 
+	const [
+		meta,
 		// updateMeta,
 	] = useEntityProp( 'postType', postType, 'meta', postId );
 
