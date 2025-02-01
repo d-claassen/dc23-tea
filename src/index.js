@@ -171,9 +171,9 @@ const DC23TeaExtendedPanel = () => {
 			>
 				<ToolsPanelItem
 					label="Date time separator"
-					hasValue={ () => 
+					hasValue={ () =>
 						oldMeta._EventDateTimeSeparator !==
-							_EventDateTimeSeparator
+						_EventDateTimeSeparator
 					}
 				>
 					<TextControl
@@ -181,16 +181,19 @@ const DC23TeaExtendedPanel = () => {
 						label="Date time separator"
 						value={ _EventDateTimeSeparator }
 						onChange={ ( separator ) =>
-							updateMeta( { ...meta, _EventDateTimeSeparator: separator } )
+							updateMeta( {
+								...meta,
+								_EventDateTimeSeparator: separator,
+							} )
 						}
 					/>
 				</ToolsPanelItem>
 
 				<ToolsPanelItem
 					label="Date range separator"
-					hasValue={ () => 
+					hasValue={ () =>
 						oldMeta._EventTimeRangeSeparator !==
-							_EventTimeRangeSeparator
+						_EventTimeRangeSeparator
 					}
 				>
 					<TextControl
