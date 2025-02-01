@@ -17,9 +17,9 @@ function formatDate( date ) {
 	const hideYearFromDate = now.getFullYear() === date.getFullYear();
 
 	return {
-		date: hideYearFromDate ? 
-			dateI18n( 'F j', date ) : 
-			dateI18n( 'F j, Y', date ),
+		date: hideYearFromDate
+			? dateI18n( 'F j', date )
+			: dateI18n( 'F j, Y', date ),
 		time: dateI18n( 'H:i', date ),
 	};
 }
