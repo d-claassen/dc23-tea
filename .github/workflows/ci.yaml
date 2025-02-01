@@ -1,0 +1,50 @@
+name: 'CI'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: null
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: 'Quality Control'
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node and node_modules cache'
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: 'NPM install'
+        run: npm install
+
+      - name: 'Lint JS'
+        continue-on-error: true
+        run: 'npm run-script lint:js'
+
+      - name: 'Lint CSS'
+        continue-on-error: true
+        run: 'npm run-script lint:css'
+
+      - name: 'Build the plugin'
+        run: 'npm run-script build'
+
+      - name: 'Zip it'
+        run: 'npm run-script plugin-zip'
+
+      - name: 'Archive plugin zip'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'the-events-attendee'
+          path: 'the-events-attendee.zip'
