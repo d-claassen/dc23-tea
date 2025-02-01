@@ -74,8 +74,7 @@ function Content( { context: { postType, postId } } ) {
 		<div { ...useBlockProps() }>
 			<span className="wp-block-dc23-tea-date__date">
 				{ ' ' }
-				{ startLabels.date }
-				{ ' ' }
+				{ startLabels.date }{ ' ' }
 			</span>
 
 			{ /* ! all day? */ }
@@ -83,21 +82,18 @@ function Content( { context: { postType, postId } } ) {
 				<>
 					<span className="wp-block-dc23-tea-date__date-time-separator">
 						{ ' ' }
-						{ _EventDateTimeSeparator }
-						{ ' ' }
+						{ _EventDateTimeSeparator }{ ' ' }
 					</span>
 					<span className="wp-block-dc23-tea-date__time">
 						{ ' ' }
-						{ startLabels.time }
-						{ ' ' }
+						{ startLabels.time }{ ' ' }
 					</span>
 				</>
 			) : (
 				isOneDayEvent &&
 				<span className="wp-block-dc23-tea-date__all-day">
 					{ ' ' }
-					all day
-					{ ' ' }
+					all day{ ' ' }
 				</span>
 			) }
 
@@ -109,41 +105,41 @@ function Content( { context: { postType, postId } } ) {
 					{ ( ! _EventAllDay || ! isOneDayEvent ) && (
 						<span className="wp-block-dc23-tea-date__range-separator">
 							{ ' ' }
-							{ _EventTimeRangeSeparator }
-							{ ' ' }
+							{ _EventTimeRangeSeparator }{ ' ' }
 						</span>
 					) }
 
-					{/*// if end date <> start date*/}
+					{ /* if end date <> start date */ }
 					{ ! isOneDayEvent ? (
 						<>
 							<span className="wp-block-dc23-tea-date__date">
 								{ ' ' }
-								{ endLabels.date }
-								{ ' ' }
+								{ endLabels.date }{ ' ' }
 							</span>
 
 							{ ! _EventAllDay && (
 								<>
 									<span className="wp-block-dc23-tea-date__date-time-separator">
 										{ ' ' }
-										{ _EventDateTimeSeparator }
-										{ ' ' }
+										{ _EventDateTimeSeparator }{ ' ' }
 									</span>
 									<span className="wp-block-dc23-tea-date__time">
 										{ ' ' }
-										{ endLabels.time }
-										{ ' ' }
+										{ endLabels.time }{ ' ' }
 									</span>
 								</>
 							)}
 						</>
 					) : (
-						! _EventAllDay && (<span className="wp-block-dc23-tea-date__time"> {endLabels.time}</span>)
-					)	}
+						! _EventAllDay && (
+							<span className="wp-block-dc23-tea-date__time">
+								{ ' ' }
+								{endLabels.time}{ ' ' }
+							</span>
+					) )	}
 
-					{/*// if timezone*/}
-						{/*// timezone*/}
+					{ /* if timezone */ }
+						{ /* timezone */ }
 				</>
 			) }
 		</div>
