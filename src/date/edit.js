@@ -46,19 +46,22 @@ function isSameDay( startDate, endDate ) {
  * @return {Element} Element to render.
  */
 function Content( { context: { postType, postId } } ) {
-	const [ meta, updateMeta ] = useEntityProp(
-		'postType',
-		postType,
-		'meta',
-		postId
+	const [ 
+			meta, 
+			// updateMeta,
+	] = useEntityProp(
+		 'postType',
+		 postType,
+		 'meta',
+		 postId
 	);
 
 	const {
 		_EventAllDay, // boolean
 		_EventStartDate, // string, YYYY-MM-DD HH:mm:ss, local tz
-		_EventStartDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
+		// _EventStartDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
 		_EventEndDate, // string, YYYY-MM-DD HH:mm:ss, local tz
-		_EventEndDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
+		// _EventEndDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
 		_EventDateTimeSeparator, // string
 		_EventTimeRangeSeparator, // string
 	} = meta;
