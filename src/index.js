@@ -40,10 +40,14 @@ const DropdownDateTimePicker = ( {
 	return (
 		<Dropdown
 			popoverProps={ {
-				position: 'bottom left left'
-		} }
+				position: 'bottom left left',
+			} }
 			renderToggle={ ( { isOpen, onToggle } ) => (
-				<Button variant="tertiary" onClick={ onToggle } aria-expanded={ isOpen }>
+				<Button
+					variant="tertiary"
+					onClick={ onToggle }
+					aria-expanded={ isOpen }
+				>
 					{ buttonLabel }
 				</Button>
 			) }
