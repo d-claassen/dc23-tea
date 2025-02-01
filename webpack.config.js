@@ -1,12 +1,13 @@
 const baseConfig = require( '@wordpress/scripts/config/webpack.config' );
-const { getWebpackEntryPoints } = require('@wordpress/scripts/utils');
+const { getWebpackEntryPoints } = require( '@wordpress/scripts/utils' );
 
-let scriptConfig = {
+const scriptConfig = {
 	...baseConfig,
 
-	entry: () => ({
+	entry: () => ( {
 		index: './src/index.js',
-		...(getWebpackEntryPoints('script')()),
-	}),
+		...(getWebpackEntryPoints( 'script' )()),
+	} ),
 };
+
 module.exports = scriptConfig;
