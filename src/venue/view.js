@@ -21,5 +21,5 @@
  */
 
 /* eslint-disable no-console */
-console.log("Hello World! (from dc23-tea-venue block)");
+console.log( 'Hello World! (from dc23-tea-venue block)' );
 /* eslint-enable no-console */
