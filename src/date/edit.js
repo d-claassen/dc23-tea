@@ -98,7 +98,6 @@ function Content( { context: { postType, postId } } ) {
 				)
 			) }
 
-
 			{ /* if start date time <> end date time */ }
 			{ ! isOneMoment && (
 				<>
@@ -138,7 +137,7 @@ function Content( { context: { postType, postId } } ) {
 								{ endLabels.time }{ ' ' }
 							</span>
 						)
-					)	}
+					) }
 
 					{ /* if timezone, show timezone */ }
 				</>
