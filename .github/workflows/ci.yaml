@@ -34,7 +34,6 @@ jobs:
         run: 'npm run-script lint:js'
 
       - name: 'Lint CSS'
-        continue-on-error: true
         run: 'npm run-script lint:css'
 
       - name: 'Build the plugin'
