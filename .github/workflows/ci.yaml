@@ -17,15 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     name: 'Quality Control'
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: false
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
-
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
