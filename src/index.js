@@ -162,14 +162,19 @@ const DC23TeaExtendedPanel = () => {
 				resetAll={ () =>
 					updateMeta( {
 						...meta,
-						_EventDateTimeSeparator: oldMeta._EventDateTimeSeparator,
-						_EventTimeRangeSeparator: oldMeta._EventTimeRangeSeparator,
+						_EventDateTimeSeparator:
+							oldMeta._EventDateTimeSeparator,
+						_EventTimeRangeSeparator:
+							oldMeta._EventTimeRangeSeparator,
 					} )
 				}
 			>
 				<ToolsPanelItem
 					label="Date time separator"
-					hasValue={ () => oldMeta._EventDateTimeSeparator !== _EventDateTimeSeparator }
+					hasValue={ () => 
+						oldMeta._EventDateTimeSeparator !==
+							_EventDateTimeSeparator
+					}
 				>
 					<TextControl
 						__nextHasNoMarginBottom
@@ -183,7 +188,10 @@ const DC23TeaExtendedPanel = () => {
 
 				<ToolsPanelItem
 					label="Date range separator"
-					hasValue={ () => oldMeta._EventTimeRangeSeparator !== _EventTimeRangeSeparator }
+					hasValue={ () => 
+						oldMeta._EventTimeRangeSeparator !==
+							_EventTimeRangeSeparator
+					}
 				>
 					<TextControl
 						__nextHasNoMarginBottom
