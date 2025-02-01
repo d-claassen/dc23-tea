@@ -6,7 +6,7 @@ const scriptConfig = {
 
 	entry: () => ( {
 		index: './src/index.js',
-		...(getWebpackEntryPoints( 'script' )()),
+		...getWebpackEntryPoints( 'script' )(),
 	} ),
 };
 
