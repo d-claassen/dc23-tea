@@ -65,10 +65,7 @@ const DropdownDateTimePicker = ( {
 };
 
 const DC23TeaExtendedPanel = () => {
-	const {
-		postId,
-		postType,
-	} = useSelect( select => {
+	const { postId, postType } = useSelect( select => {
 		const store = select( 'core/editor' );
 
 		return {
@@ -85,7 +82,7 @@ const DC23TeaExtendedPanel = () => {
 	);
 
 	const oldMeta = useMemo( () => {
-		console.log( 'memoize meta' );
+		// console.log( 'memoize meta' );
 		return meta;
 	}, [ postType, postId ] );
 
