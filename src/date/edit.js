@@ -21,10 +21,8 @@ function formatDate( date ) {
 			dateI18n( 'F j', date ) : 
 			dateI18n( 'F j, Y', date ),
 		time: dateI18n( 'H:i', date ),
-	}
+	};
 }
-
-
 
 function isSameMoment( startDate, endDate ) {
 	return startDate.toISOString() === endDate.toISOString();
