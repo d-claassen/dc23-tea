@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies.
+	*/
 import {
 	Button,
 	DateTimePicker,
@@ -18,6 +21,11 @@ const { useSelect } = require( '@wordpress/data' );
 const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
 
+/**
+ * Internal dependencies.
+	*/
+import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-picker';
+
 const PostPanelRow = ( { className, label, children } ) => {
 	return (
 		<HStack className={ 'editor-post-panel__row ' + className }>
@@ -29,7 +37,7 @@ const PostPanelRow = ( { className, label, children } ) => {
 	);
 };
 
-const DropdownDateTimePicker = ( {
+const _DropdownDateTimePicker = ( {
 	date,
 	setDate,
 	buttonLabel = 'Select date',
