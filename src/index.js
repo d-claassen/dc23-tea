@@ -1,8 +1,8 @@
+/**
+ * WordPress dependencies.
+ */
 import {
 	Button,
-	DateTimePicker,
-	DatePicker,
-	Dropdown,
 	FormToggle,
 	TextControl,
 	PanelBody,
@@ -18,6 +18,11 @@ const { useSelect } = require( '@wordpress/data' );
 const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
 
+/**
+ * Internal dependencies.
+ */
+import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-picker';
+
 const PostPanelRow = ( { className, label, children } ) => {
 	return (
 		<HStack className={ 'editor-post-panel__row ' + className }>
@@ -26,41 +31,6 @@ const PostPanelRow = ( { className, label, children } ) => {
 			) }
 			<div className="editor-post-panel__row-control">{ children }</div>
 		</HStack>
-	);
-};
-
-const DropdownDateTimePicker = ( {
-	date,
-	setDate,
-	buttonLabel = 'Select date',
-	hasTimePicker = true,
-} ) => {
-	const PickerComponent = hasTimePicker ? DateTimePicker : DatePicker;
-
-	return (
-		<Dropdown
-			popoverProps={ {
-				position: 'bottom left left',
-			} }
-			renderToggle={ ( { isOpen, onToggle } ) => (
-				<Button
-					variant="tertiary"
-					onClick={ onToggle }
-					aria-expanded={ isOpen }
-				>
-					{ buttonLabel }
-				</Button>
-			) }
-			renderContent={ ( { onClose } ) => (
-				<PickerComponent
-					currentDate={ date }
-					onChange={ ( newDate ) => {
-						setDate( newDate );
-						onClose();
-					} }
-				/>
-			) }
-		/>
 	);
 };
 
