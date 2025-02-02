@@ -3,9 +3,6 @@
  */
 import {
 	Button,
-	DateTimePicker,
-	DatePicker,
-	Dropdown,
 	FormToggle,
 	TextControl,
 	PanelBody,
