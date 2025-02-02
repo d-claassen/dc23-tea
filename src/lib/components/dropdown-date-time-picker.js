@@ -15,7 +15,7 @@ import {
  * @param {string} props.buttonLabel
  * @param {boolean} props.hasTimePicker
  *
- * @return {Element}
+ * @return {Element} Tertiary button with dropdoen date picker.
  */
 export function DropdownDateTimePicker( {
 	date,
