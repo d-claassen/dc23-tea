@@ -5,7 +5,7 @@
 	"version": "0.1.0",
 	"title": "Event venue",
 	"category": "text",
-	"icon": "smiley",
+	"icon": "location-alt",
 	"description": "A block for The Event Calendar venue date from post meta.",
 	"example": {},
 	"supports": {
