@@ -13,9 +13,9 @@ import {
 	* @param {Date} props.date
 	* @param {Function} props.setDate
 	* @param {string} props.buttonLabel
-	* @param {Boolean} props.hasTimePicker
+	* @param {boolean} props.hasTimePicker
 	*
-	* @returns {Element}
+	* @return {Element}
 	*/
 export function DropdownDateTimePicker( {
 	date,
