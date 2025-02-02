@@ -8,7 +8,6 @@ import {
 	PanelBody,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
-	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { useEntityProp } from '@wordpress/core-data';
@@ -22,17 +21,7 @@ const { registerPlugin } = require( '@wordpress/plugins' );
  * Internal dependencies.
  */
 import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-picker';
-
-const PostPanelRow = ( { className, label, children } ) => {
-	return (
-		<HStack className={ 'editor-post-panel__row ' + className }>
-			{ label && (
-				<div className="editor-post-panel__row-label">{ label }</div>
-			) }
-			<div className="editor-post-panel__row-control">{ children }</div>
-		</HStack>
-	);
-};
+import { PostPanelRow } from './lib/components/post-panel-row';
 
 const DC23TeaExtendedPanel = () => {
 	const { postId, postType } = useSelect( ( select ) => {
