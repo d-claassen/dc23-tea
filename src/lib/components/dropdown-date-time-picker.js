@@ -1,3 +1,14 @@
+import {
+	Button,
+	DateTimePicker,
+	DatePicker,
+	Dropdown,
+} from '@wordpress/components';
+
+/**
+ * Tertiary button which triggers a dropdown
+	* with a date (time) picker.
+	*/
 export function DropdownDateTimePicker( {
 	date,
 	setDate,
@@ -31,4 +42,4 @@ export function DropdownDateTimePicker( {
 			) }
 		/>
 	);
-};
+}
