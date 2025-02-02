@@ -12,8 +12,8 @@ import {
 	* @param {Object} props
 	* @param {Date} props.date
 	* @param {Function} props.setDate
-	* @param {string} buttonLabel
-	* @param {Boolean} hasTimePicker
+	* @param {string} props.buttonLabel
+	* @param {Boolean} props.hasTimePicker
 	*
 	* @returns {Element}
 	*/
