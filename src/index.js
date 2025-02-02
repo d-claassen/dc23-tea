@@ -13,6 +13,7 @@ import {
 import { useEntityProp } from '@wordpress/core-data';
 import { dateI18n, getDate } from '@wordpress/date';
 import { useMemo } from '@wordpress/element';
+import { filterURLForDisplay } from '@wordpress/url';
 const { useSelect } = require( '@wordpress/data' );
 const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
@@ -21,6 +22,7 @@ const { registerPlugin } = require( '@wordpress/plugins' );
  * Internal dependencies.
  */
 import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-picker';
+import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
 
 const DC23TeaExtendedPanel = () => {
@@ -57,6 +59,7 @@ const DC23TeaExtendedPanel = () => {
 		// _EventEndDateUTC, // string, YYYY-MM-DD HH:mm:ss, UTC
 		_EventDateTimeSeparator, // string
 		_EventTimeRangeSeparator, // string
+		_EventURL, // string
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
@@ -112,6 +115,17 @@ const DC23TeaExtendedPanel = () => {
 						}
 						buttonLabel={ endLabel }
 						hasTimePicker={ ! _EventAllDay }
+					/>
+				</PostPanelRow>
+
+				<PostPanelRow label="Website" className="">
+					<DropdownUrl
+						url={ _EventURL }
+						onChange={ ( newUrl ) =>
+							updateMeta( { ...meta, _EventURL: newUrl } )
+						}
+						buttonLabel={ filterURLForDisplay( _EventURL ) }
+						inputLabel="Event website"
 					/>
 				</PostPanelRow>
 			</VStack>
@@ -171,7 +185,19 @@ const DC23TeaExtendedPanel = () => {
 
 			<PanelBody title="Location" initialOpen={ false } />
 			<PanelBody title="Organizers" initialOpen={ false } />
-			<PanelBody title="Event website" initialOpen={ false } />
+			<PanelBody title="Event website" initialOpen={ false }>
+				<TextControl
+					__nextHasNoMarginBottom
+					label="Event website"
+					value={ _EventURL }
+					onChange={ ( url ) =>
+						updateMeta( {
+							...meta,
+							_EventURL: url,
+						} )
+					}
+				/>
+			</PanelBody>
 		</PluginDocumentSettingPanel>
 	);
 };
