@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies.
+ */
+import { __experimentalHStack as HStack } from '@wordpress/components';
+
+/**
  * Post panel row for usage in WordPress sidebar.
  *
  * Taken from @wordpress/block-editor, where its not ecposed. Thid does rely
