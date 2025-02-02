@@ -8,6 +8,14 @@ import {
 /**
  * Tertiary button which triggers a dropdown
 	* with a date (time) picker.
+	*
+	* @param {Object} props
+	* @param {Date} props.date
+	* @param {Function} props.setDate
+	* @param {string} buttonLabel
+	* @param {Boolean} hasTimePicker
+	*
+	* @returns {Element}
 	*/
 export function DropdownDateTimePicker( {
 	date,
