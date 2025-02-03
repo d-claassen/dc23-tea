@@ -1,28 +1,18 @@
-import {
-	Button,
-	Dropdown,
-	TextControl,
-	__experimentalVStack as VStack,
-} from '@wordpress/components';
-import { URLPopover } from '@wordpress/block-editor';
+import { Button, Dropdown, TextControl } from '@wordpress/components';
 
 /**
  * Tertiary button which triggers a dropdown
  * with a date (time) picker.
  *
  * @param {Object}   props
- * @param {String}   props.value
+ * @param {string}   props.url
  * @param {Function} props.onChange
  * @param {string}   props.buttonLabel
+ * @param {string}   props.inputLabel
  *
  * @return {Element} Tertiary button with dropdoen date picker.
  */
-export function DropdownUrl( {
-	url,
-	onChange,
-	buttonLabel,
-	inputLabel = '',
-} ) {
+export function DropdownUrl( { url, onChange, buttonLabel, inputLabel = '' } ) {
 	return (
 		<Dropdown
 			contentClassName={ 'dc23-tea-dropdown-url' }
