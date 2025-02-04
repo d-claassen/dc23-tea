@@ -1,4 +1,4 @@
-import { Button, Dropdown, TextControl } from '@wordpress/components';
+import { Button, Dropdown, SelectControl } from '@wordpress/components';
 
 /**
  * Dropdown element to select a wp_post from any post_type.
@@ -7,10 +7,10 @@ import { Button, Dropdown, TextControl } from '@wordpress/components';
  */
 export function DropdownPostSelect( {
 	buttonLabel,
-    inputLabel = '',
-    value,
-    options,
-    onChange,
+	inputLabel = '',
+	value,
+	options,
+	onChange,
 } ) {
 	return (
 		<Dropdown
@@ -28,9 +28,9 @@ export function DropdownPostSelect( {
 				</Button>
 			) }
 			renderContent={ ( { onClose } ) => (
-                <SelectControl
+				<SelectControl
 					label={ inputLabel }
-                    value={ value }
+					value={ value }
 					options={ options }
 					onChange={ onChange }
 				/>
