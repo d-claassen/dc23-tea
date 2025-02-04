@@ -22,6 +22,7 @@ const { registerPlugin } = require( '@wordpress/plugins' );
  * Internal dependencies.
  */
 import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-picker';
+import { DropdownPostSelect } from './lib/components/dropdown-post-select';
 import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
 
@@ -60,6 +61,7 @@ const DC23TeaExtendedPanel = () => {
 		_EventDateTimeSeparator, // string
 		_EventTimeRangeSeparator, // string
 		_EventURL, // string
+		_EventOrganizerID, // number, post ID
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
@@ -129,6 +131,19 @@ const DC23TeaExtendedPanel = () => {
 					/>
 				</PostPanelRow>
 			</VStack>
+			
+			<PostPanelRow label="Organizer">
+					<DropdownPostSelect
+						buttonLabel={ _EventOrganizerID }
+						inputLabel="Select organizer"
+						value={ _EventOrganizerID }
+						options={ [] }
+						onChange={ ( post ) => {
+							console.log( { post } );
+							updateMeta( { ...meta, _EventOrganizerID: post.post_ID } )
+						} }
+					/>
+				</PostPanelRow>
 
 			<ToolsPanel
 				label="Advanced date"
