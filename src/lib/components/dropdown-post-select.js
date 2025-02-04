@@ -5,8 +5,36 @@ import { Button, Dropdown, TextControl } from '@wordpress/components';
  *
  * @return {Element} The dropdown.
  */
-export function DropdownPostSelect() {
-    return (
-        <div/>
-    );
+export function DropdownPostSelect( {
+	buttonLabel,
+    inputLabel = '',
+    value,
+    options,
+    onChange,
+} ) {
+	return (
+		<Dropdown
+			contentClassName={ 'dc23-tea-dropdown-post-select' }
+			popoverProps={ {
+				position: 'bottom left left',
+			} }
+			renderToggle={ ( { isOpen, onToggle } ) => (
+				<Button
+					variant="tertiary"
+					onClick={ onToggle }
+					aria-expanded={ isOpen }
+				>
+					{ buttonLabel }
+				</Button>
+			) }
+			renderContent={ ( { onClose } ) => (
+                <SelectControl
+					label={ inputLabel }
+                    value={ value }
+					options={ options }
+					onChange={ onChange }
+				/>
+			) }
+		/>
+	);
 }
