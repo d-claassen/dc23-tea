@@ -27,12 +27,13 @@ import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
 
 const DC23TeaExtendedPanel = () => {
-	const { postId, postType } = useSelect( ( select ) => {
+	const { postId, postType, organizers } = useSelect( ( select ) => {
 		const store = select( 'core/editor' );
 
 		return {
 			postType: store.getCurrentPostType(),
 			postId: store.getCurrentPostId(),
+			organizers: store.getEntityRecords( 'postType', 'tribe_organizer' ),
 		};
 	}, [] );
 
@@ -137,7 +138,7 @@ const DC23TeaExtendedPanel = () => {
 						buttonLabel={ _EventOrganizerID }
 						inputLabel="Select organizer"
 						value={ _EventOrganizerID }
-						options={ [] }
+						options={ organizers }
 						onChange={ ( post ) => {
 							console.log( { post } );
 							updateMeta( { ...meta, _EventOrganizerID: post.post_ID } )
