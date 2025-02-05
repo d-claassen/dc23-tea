@@ -2,7 +2,6 @@
  * WordPress dependencies.
  */
 import { useBlockProps } from '@wordpress/block-editor';
-import { useEntityProp } from '@wordpress/core-data';
 const { useSelect } = require( '@wordpress/data' );
 
 /**
