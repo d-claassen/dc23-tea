@@ -22,16 +22,19 @@ const { registerPlugin } = require( '@wordpress/plugins' );
  * Internal dependencies.
  */
 import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-picker';
+import { DropdownPostSelect } from './lib/components/dropdown-post-select';
 import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
 
 const DC23TeaExtendedPanel = () => {
-	const { postId, postType } = useSelect( ( select ) => {
-		const store = select( 'core/editor' );
+	const { postId, postType, organizers } = useSelect( ( select ) => {
+		const { getCurrentPostId, getCurrentPostType } = select( 'core/editor' );
+		const { getEntityRecords } = select( 'core' );
 
 		return {
-			postType: store.getCurrentPostType(),
-			postId: store.getCurrentPostId(),
+			postId: getCurrentPostId(),
+			postType: getCurrentPostType(),
+			organizers: getEntityRecords( 'postType', 'tribe_organizer' ),
 		};
 	}, [] );
 
@@ -60,6 +63,7 @@ const DC23TeaExtendedPanel = () => {
 		_EventDateTimeSeparator, // string
 		_EventTimeRangeSeparator, // string
 		_EventURL, // string
+		_EventOrganizerID, // number (array?), post ID
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
@@ -71,6 +75,15 @@ const DC23TeaExtendedPanel = () => {
 	const endLabel = _EventAllDay
 		? dateI18n( 'F j, Y', endDate )
 		: dateI18n( 'F j, Y H:i', endDate );
+
+	let organizerTitle = '';
+	if ( organizers ) {
+		const selectedOrganizer = organizers.find( ( organizer ) => {
+			return _EventOrganizerID.includes( organizer.id );
+		} );
+
+		organizerTitle = selectedOrganizer?.title.rendered;
+	}
 
 	return (
 		<PluginDocumentSettingPanel
@@ -129,6 +142,21 @@ const DC23TeaExtendedPanel = () => {
 					/>
 				</PostPanelRow>
 			</VStack>
+
+			<PostPanelRow label="Organizer">
+				<DropdownPostSelect
+					buttonLabel={ organizerTitle }
+					inputLabel="Select organizer"
+					value={ _EventOrganizerID }
+					options={ organizers }
+					onChange={ ( postID ) => {
+						updateMeta( {
+							...meta,
+							_EventOrganizerID: [ postID ],
+						} );
+					} }
+				/>
+			</PostPanelRow>
 
 			<ToolsPanel
 				label="Advanced date"
