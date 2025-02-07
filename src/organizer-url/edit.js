@@ -24,13 +24,27 @@ import './editor.scss';
 function Content( { context: { postType, postId } } ) {
 	const { url } = useSelect(
 		( select ) => {
-			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
+			const { getEntityRecord, getEditedEntityRecord }
+				= select( 'core' );
 
-			const originalEvent = getEntityRecord( 'postType', 'tribe_events', postId );  // Trigger resolver.
-			const event = getEditedEntityRecord( 'postType', 'tribe_events', postId );
+			// Trigger resolver.
+			const originalEvent = getEntityRecord(
+				'postType',
+				'tribe_events',
+				postId,
+			);
+			const event = getEditedEntityRecord(
+				'postType',
+				'tribe_events',
+				postId,
+			);
 			const { _EventOrganizerID } = event?.meta;
 
-			const organizer = getEntityRecord( 'postType', 'tribe_organizer', _EventOrganizerID );
+			const organizer = getEntityRecord(
+				'postType',
+				'tribe_organizer',
+				_EventOrganizerID,
+			);
 			const { _OrganizerWebsite } = organizer?.meta || {};
 
 			return {
@@ -39,6 +53,10 @@ function Content( { context: { postType, postId } } ) {
 		},
 		[ postId ]
 	);
+
+	if ( postType !== 'tribe_events' ) {
+		return null;
+	}
 
 	return (
 		<div { ...useBlockProps() }>
