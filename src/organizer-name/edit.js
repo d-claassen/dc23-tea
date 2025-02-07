@@ -27,29 +27,33 @@ function Content( { context: { postType, postId } } ) {
 			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
 
 			const originalEvent = getEntityRecord( 'postType', 'tribe_events', postId );
-			const event = getEditedEntityRecord( 'postType', 'tribe_events', postId );
+			const event = getEditedEntityRecord(
+				'postType',
+				'tribe_events',
+				postId,
+			);
 			const { _EventOrganizerID } = event?.meta;
-			const organizer = getEntityRecord( 'postType', 'tribe_organizer', _EventOrganizerID );
+			const organizer = getEntityRecord(
+				'postType',
+				'tribe_organizer',
+				_EventOrganizerID,
+			);
 
 			return {
-				name: organizer?.title.rendered
+				name: organizer?.title.rendered,
 			};
 		},
 		[ postId ]
 	);
 
-	return (
-		<div { ...useBlockProps() }>
-			{ name }
-		</div>
-	);
+	if ( postType !== 'tribe_events' ) {
+		return null;
+	}
+
+	return <div { ...useBlockProps() }>{ name }</div>;
 }
 function Placeholder() {
-	return (
-		<div { ...useBlockProps() }>
-			Organizer
-		</div>
-	);
+	return <div { ...useBlockProps() }>Organizer</div>;
 }
 
 export default function Edit( { context } ) {
