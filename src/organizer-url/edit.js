@@ -23,8 +23,7 @@ import './editor.scss';
 function Content( { context: { postId } } ) {
 	const { url } = useSelect(
 		( select ) => {
-			const { getEntityRecord, getEditedEntityRecord }
-				= select( 'core' );
+			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
 
 			// Trigger resolver.
 			const originalEvent = getEntityRecord(
