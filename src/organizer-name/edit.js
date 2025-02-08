@@ -23,8 +23,7 @@ import './editor.scss';
 function Content( { context: { postId } } ) {
 	const { name } = useSelect(
 		( select ) => {
-			const { getEntityRecord, getEditedEntityRecord } =
-				select( 'core' );
+			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
 
 			const originalEvent = getEntityRecord(
 				'postType',
@@ -52,13 +51,14 @@ function Content( { context: { postId } } ) {
 
 	return <div { ...useBlockProps() }>{ name }</div>;
 }
+
 function Placeholder() {
 	return <div { ...useBlockProps() }>Organizer</div>;
 }
 
 export default function Edit( { context } ) {
 	const { postType, postId } = context;
-	
+
 	if ( postType !== 'tribe_events' ) {
 		return null;
 	}
