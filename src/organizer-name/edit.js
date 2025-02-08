@@ -25,11 +25,14 @@ function Content( { context: { postId } } ) {
 		( select ) => {
 			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
 
+			/*
 			const originalEvent = getEntityRecord(
 				'postType',
 				'tribe_events',
 				postId
 			);
+			*/
+
 			const event = getEditedEntityRecord(
 				'postType',
 				'tribe_events',
