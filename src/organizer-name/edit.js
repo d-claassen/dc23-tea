@@ -15,28 +15,28 @@ import './editor.scss';
  *
  * @param {Object} props
  * @param {Object} props.context
- * @param {string} props.context.postType
  * @param {number} props.context.postId
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
  */
-function Content( { context: { postType, postId } } ) {
+function Content( { context: { postId } } ) {
 	const { name } = useSelect(
 		( select ) => {
-			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
+			const { getEntityRecord, getEditedEntityRecord } =
+				select( 'core' );
 
 			const originalEvent = getEntityRecord( 'postType', 'tribe_events', postId );
 			const event = getEditedEntityRecord(
 				'postType',
 				'tribe_events',
-				postId,
+				postId
 			);
 			const { _EventOrganizerID } = event?.meta;
 			const organizer = getEntityRecord(
 				'postType',
 				'tribe_organizer',
-				_EventOrganizerID,
+				_EventOrganizerID
 			);
 
 			return {
@@ -46,10 +46,6 @@ function Content( { context: { postType, postId } } ) {
 		[ postId ]
 	);
 
-	if ( postType !== 'tribe_events' ) {
-		return null;
-	}
-
 	return <div { ...useBlockProps() }>{ name }</div>;
 }
 function Placeholder() {
@@ -58,6 +54,10 @@ function Placeholder() {
 
 export default function Edit( { context } ) {
 	const { postType, postId } = context;
+	
+	if ( postType !== 'tribe_events' ) {
+		return null;
+	}
 
 	return (
 		<>
