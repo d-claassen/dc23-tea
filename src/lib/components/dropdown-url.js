@@ -1,4 +1,5 @@
 import { Button, Dropdown, TextControl } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 
 /**
  * Tertiary button which triggers a dropdown
@@ -12,7 +13,14 @@ import { Button, Dropdown, TextControl } from '@wordpress/components';
  *
  * @return {Element} Tertiary button with dropdoen date picker.
  */
-export function DropdownUrl( { url, onChange, buttonLabel, inputLabel = '' } ) {
+export function DropdownUrl( {
+	url: originalUrl,
+	onChange,
+	buttonLabel,
+	inputLabel = '',
+} ) {
+	const [ url, setUrl ] = useState( originalUrl );
+
 	return (
 		<Dropdown
 			contentClassName={ 'dc23-tea-dropdown-url' }
@@ -28,13 +36,16 @@ export function DropdownUrl( { url, onChange, buttonLabel, inputLabel = '' } ) {
 					{ buttonLabel }
 				</Button>
 			) }
-			renderContent={ ( { onClose } ) => (
+			renderContent={ () => (
 				<TextControl
 					label={ inputLabel }
 					value={ url }
-					onChange={ onChange }
+					onChange={ setUrl }
 				/>
 			) }
+			onClose={ () => {
+				onChange( url );
+			} }
 		/>
 	);
 }
