@@ -13,7 +13,12 @@ import { useState } from '@wordpress/element';
  *
  * @return {Element} Tertiary button with dropdoen date picker.
  */
-export function DropdownUrl( { url: originalUrl, onChange, buttonLabel, inputLabel = '' } ) {
+export function DropdownUrl( {
+	url: originalUrl,
+	onChange,
+	buttonLabel,
+	inputLabel = '',
+} ) {
 	const [ url, setUrl ] = useState( originalUrl );
 
 	return (
@@ -31,7 +36,7 @@ export function DropdownUrl( { url: originalUrl, onChange, buttonLabel, inputLab
 					{ buttonLabel }
 				</Button>
 			) }
-			renderContent={ ( { onClose } ) => (
+			renderContent={ () => (
 				<TextControl
 					label={ inputLabel }
 					value={ url }
