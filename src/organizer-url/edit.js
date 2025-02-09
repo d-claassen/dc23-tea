@@ -15,22 +15,36 @@ import './editor.scss';
  *
  * @param {Object} props
  * @param {Object} props.context
- * @param {string} props.context.postType
  * @param {number} props.context.postId
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
  */
-function Content( { context: { postType, postId } } ) {
+function Content( { context: { postId } } ) {
 	const { url } = useSelect(
 		( select ) => {
 			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
 
-			const originalEvent = getEntityRecord( 'postType', 'tribe_events', postId );  // Trigger resolver.
-			const event = getEditedEntityRecord( 'postType', 'tribe_events', postId );
+			/* Trigger resolver.
+			const originalEvent = getEntityRecord(
+				'postType',
+				'tribe_events',
+				postId
+			);
+			*/
+
+			const event = getEditedEntityRecord(
+				'postType',
+				'tribe_events',
+				postId
+			);
 			const { _EventOrganizerID } = event?.meta;
 
-			const organizer = getEntityRecord( 'postType', 'tribe_organizer', _EventOrganizerID );
+			const organizer = getEntityRecord(
+				'postType',
+				'tribe_organizer',
+				_EventOrganizerID
+			);
 			const { _OrganizerWebsite } = organizer?.meta || {};
 
 			return {
@@ -56,6 +70,10 @@ function Placeholder() {
 
 export default function Edit( { context } ) {
 	const { postType, postId } = context;
+
+	if ( postType !== 'tribe_events' ) {
+		return null;
+	}
 
 	return (
 		<>

@@ -28,7 +28,8 @@ import { PostPanelRow } from './lib/components/post-panel-row';
 
 const DC23TeaExtendedPanel = () => {
 	const { postId, postType, organizers } = useSelect( ( select ) => {
-		const { getCurrentPostId, getCurrentPostType } = select( 'core/editor' );
+		const { getCurrentPostId, getCurrentPostType } =
+			select( 'core/editor' );
 		const { getEntityRecords } = select( 'core' );
 
 		return {

@@ -15,45 +15,56 @@ import './editor.scss';
  *
  * @param {Object} props
  * @param {Object} props.context
- * @param {string} props.context.postType
  * @param {number} props.context.postId
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
  */
-function Content( { context: { postType, postId } } ) {
+function Content( { context: { postId } } ) {
 	const { name } = useSelect(
 		( select ) => {
 			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
 
-			const originalEvent = getEntityRecord( 'postType', 'tribe_events', postId );
-			const event = getEditedEntityRecord( 'postType', 'tribe_events', postId );
+			/*
+			const originalEvent = getEntityRecord(
+				'postType',
+				'tribe_events',
+				postId
+			);
+			*/
+
+			const event = getEditedEntityRecord(
+				'postType',
+				'tribe_events',
+				postId
+			);
 			const { _EventOrganizerID } = event?.meta;
-			const organizer = getEntityRecord( 'postType', 'tribe_organizer', _EventOrganizerID );
+			const organizer = getEntityRecord(
+				'postType',
+				'tribe_organizer',
+				_EventOrganizerID
+			);
 
 			return {
-				name: organizer?.title.rendered
+				name: organizer?.title.rendered,
 			};
 		},
 		[ postId ]
 	);
 
-	return (
-		<div { ...useBlockProps() }>
-			{ name }
-		</div>
-	);
+	return <div { ...useBlockProps() }>{ name }</div>;
 }
+
 function Placeholder() {
-	return (
-		<div { ...useBlockProps() }>
-			Organizer
-		</div>
-	);
+	return <div { ...useBlockProps() }>Organizer</div>;
 }
 
 export default function Edit( { context } ) {
 	const { postType, postId } = context;
+
+	if ( postType !== 'tribe_events' ) {
+		return null;
+	}
 
 	return (
 		<>
