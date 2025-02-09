@@ -1,4 +1,5 @@
 import { Button, Dropdown, TextControl } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 
 /**
  * Tertiary button which triggers a dropdown
