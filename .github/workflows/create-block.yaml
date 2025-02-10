@@ -41,7 +41,6 @@ jobs:
           cd src
           npx @wordpress/create-block@latest ${{ github.event.inputs.slug }} --title "${{ github.event.inputs.title }}" --namespace "dc23-tea" --category "${{ github.event.inputs.category }}" --no-plugin --variant dynamic
 
-      # Push the new version along with the newly created tag
       - name: Push block
         run: |
           git commit --am "Create block dc23-tea/${{ github.event.inputs.slug }}"
