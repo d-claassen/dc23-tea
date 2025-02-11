@@ -4,16 +4,15 @@
 	"name": "dc23-tea/venue-name",
 	"version": "0.1.0",
 	"title": "Venue name",
-	"icon": "smiley",
-	"description": "Example block scaffolded with Create Block tool.",
+	"icon": "location-alt",
+	"description": "Name of the venue the event takes place at.",
 	"example": {},
 	"supports": {
 		"html": false
 	},
-	"textdomain": "venue-name",
+	"textdomain": "dc23-tea",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
-	"render": "file:./render.php",
-	"viewScript": "file:./view.js"
+	"render": "file:./render.php"
 }
