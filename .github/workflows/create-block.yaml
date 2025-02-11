@@ -37,13 +37,14 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Create block
-        run: |
-          cd src
-          npx @wordpress/create-block@latest ${{ github.event.inputs.slug }} --title "${{ github.event.inputs.title }}" --namespace "dc23-tea" --category "${{ github.event.inputs.category }}" --no-plugin --variant dynamic
+        working-directory: src
+        run: npx @wordpress/create-block@latest ${{ github.event.inputs.slug }} --title "${{ github.event.inputs.title }}" --namespace "dc23-tea" --category "${{ github.event.inputs.category }}" --no-plugin --variant dynamic
 
       - name: Push block
+        working-directory: src
         run: |
-          git commit -am "Create block dc23-tea/${{ github.event.inputs.slug }}"
+          git add ${{ github.event.imputs.slug }}
+          git commit -m "Create block dc23-tea/${{ github.event.inputs.slug }}"
           git push origin
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
