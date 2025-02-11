@@ -25,6 +25,7 @@ on:
 
 jobs:
   version_increase:
+    name: Increase plugin version
     runs-on: ubuntu-latest
     permissions:
       contents: write
