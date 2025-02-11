@@ -42,7 +42,7 @@ function Content( { context: { postId } } ) {
 			const venue = getEntityRecord(
 				'postType',
 				'tribe_venue',
-				EventVenueID
+				_EventVenueID
 			);
 
 			return {
