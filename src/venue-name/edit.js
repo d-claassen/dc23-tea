@@ -41,7 +41,7 @@ function Content( { context: { postId } } ) {
 			const { _EventVenueID } = event?.meta;
 			const venue = getEntityRecord(
 				'postType',
-				tribe_venue',
+				'tribe_venue',
 				EventVenueID
 			);
 
