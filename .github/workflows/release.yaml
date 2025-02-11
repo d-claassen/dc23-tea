@@ -1,0 +1,78 @@
+name: "Release new version"
+
+on:
+  workflow_dispatch:
+    inputs:
+      increment:
+        description: 'Type of release'
+        required: true
+        type: choice
+        options:
+          - 'patch'
+          - 'minor'
+          - 'major'
+          - 'prepatch'
+          - 'preminor'
+          - 'premajor'
+          - 'prerelease'
+        default: 'minor'
+      draft:
+        description: 'Create a draft release'
+        required: false
+        type: boolean
+        default: false
+
+
+jobs:
+  version_increase:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Configure Git user
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Bump version number
+        run: yarn version --${{ github.event.inputs.increment }}
+
+      - name: Push version bump and tag to GitHub
+        run: git push origin --follow-tags
+
+  release:
+    needs: version_increase
+    name: Build and Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm install
+      - run: npm run-script build
+      - run: npm run-script plugin-zip
+
+      - name: Get version from Git
+        id: get_version
+        run: echo "tag_name=$(git describe --exact-match --tags)" >> "$GITHUB_OUTPUT"
+
+      - name: Create Github Release
+        uses: softprops/action-gh-release@v2
+        with:
+          prerelease: ${{ startsWith(github.event.inputs.increment, 'pre') }}
+          draft: ${{ github.event.inputs.draft }}
+          tag_name: ${{ steps.get_version.outputs.tag_name }}
+          generate_release_notes: true
+          files: 'the-events-attendee.zip'
+
