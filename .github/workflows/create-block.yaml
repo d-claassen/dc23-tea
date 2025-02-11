@@ -43,7 +43,7 @@ jobs:
       - name: Push block
         working-directory: src
         run: |
-          git add ${{ github.event.imputs.slug }}
+          git add ${{ github.event.inputs.slug }}
           git commit -m "Create block dc23-tea/${{ github.event.inputs.slug }}"
           git push origin
         env:
