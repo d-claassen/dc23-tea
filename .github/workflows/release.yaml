@@ -64,11 +64,10 @@ jobs:
       contents: write
 
     steps:
-      - name: 'test'
-        run: 'echo ${{ needs.version_increase.outputs.commit_hash }}'
       - uses: actions/checkout@v4
         with:
           ref: ${{ needs.version_increase.outputs.commit_hash }}
+          fetch-tags: true
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -80,6 +79,9 @@ jobs:
         id: git_tag
         run: echo "tag_name=$(git describe --exact-match --tags)" >> "$GITHUB_OUTPUT"
 
+      - name: 'test'
+        run: 'echo ${{ steps.git_tag.outputs.tag_name }}'
+        
       - name: Create Github Release
         uses: softprops/action-gh-release@v2
         with:
