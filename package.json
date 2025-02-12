@@ -4,7 +4,17 @@
 	"description": "A block for The Event Calendar event date from post meta.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"event calendar",
+		"wordpress block"
+	],
+	"homepage": "",
+	"repository": "",
+	"bugs": "",
 	"main": "build/index.js",
+	"devDependencies": {
+		"@wordpress/scripts": "^30.10.0"
+	},
 	"scripts": {
 		"build": "wp-scripts build --webpack-copy-php",
 		"format": "wp-scripts format",
@@ -14,8 +24,5 @@
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start --webpack-copy-php"
-	},
-	"devDependencies": {
-		"@wordpress/scripts": "^30.10.0"
 	}
 }
