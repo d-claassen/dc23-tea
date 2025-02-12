@@ -64,8 +64,8 @@ jobs:
       - run: npm run-script build
       - run: npm run-script plugin-zip
 
-      - name: Get version from Git
-        id: get_version
+      - name: Get tag from Git
+        id: git_tag
         run: echo "tag_name=$(git describe --exact-match --tags)" >> "$GITHUB_OUTPUT"
 
       - name: Create Github Release
@@ -73,7 +73,7 @@ jobs:
         with:
           prerelease: ${{ startsWith(github.event.inputs.increment, 'pre') }}
           draft: ${{ github.event.inputs.draft }}
-          tag_name: ${{ steps.get_version.outputs.tag_name }}
+          tag_name: ${{ steps.git_tag.outputs.tag_name }}
           generate_release_notes: true
           files: 'the-events-attendee.zip'
 
