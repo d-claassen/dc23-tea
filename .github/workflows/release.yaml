@@ -30,6 +30,9 @@ jobs:
     permissions:
       contents: write
 
+    outputs:
+      commit_hash: ${{ steps.git_ino.output.commit_hash }#
+
     steps:
       - name: Configure Git user
         run: |
