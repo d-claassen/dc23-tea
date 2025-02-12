@@ -16,6 +16,16 @@ on:
           - 'premajor'
           - 'prerelease'
         default: 'minor'
+      preid:
+        description: 'Prerelease prefix'
+        required: false
+        type: choice
+        options:
+          - ''
+          - 'rc'
+          - 'beta'
+          - 'alpha'
+        default: ''
       draft:
         description: 'Create a draft release'
         required: false
@@ -48,7 +58,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Bump version number
-        run: yarn version --${{ github.event.inputs.increment }}
+        run: yarn version --${{ github.event.inputs.increment }} --preid ${{ github.event.inputs.preid }}
 
       - name: Push version bump and tag to GitHub
         id: push_git_tag
