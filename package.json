@@ -1,6 +1,6 @@
 {
 	"name": "the-events-attendee",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "A block for The Event Calendar event date from post meta.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
