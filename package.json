@@ -11,6 +11,11 @@
 	"homepage": "",
 	"repository": "",
 	"bugs": "",
+	"files": [
+		"readme.*",
+		"dc23-tea.php",
+		"build/**"
+	],
 	"main": "build/index.js",
 	"devDependencies": {
 		"@wordpress/scripts": "^30.10.0"
