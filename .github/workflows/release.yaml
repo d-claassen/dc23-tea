@@ -60,6 +60,8 @@ jobs:
     needs: version_increase
     name: Build and Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
