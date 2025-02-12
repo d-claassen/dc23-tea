@@ -29,6 +29,9 @@ jobs:
       - name: 'NPM install'
         run: npm install
 
+      - name: 'Lint package.json'
+        run: 'npm run-script lint:pkg-json'
+
       - name: 'Lint JS'
         continue-on-error: true
         run: 'npm run-script lint:js'
