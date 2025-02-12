@@ -77,7 +77,9 @@ jobs:
 
       - name: Get tag from Git
         id: git_tag
-        run: echo "tag_name=$(git describe --exact-match --tags)" >> "$GITHUB_OUTPUT"
+        run: |
+          git fetch --tags
+          echo "tag_name=$(git describe --exact-match --tags)" >> "$GITHUB_OUTPUT"
 
       - name: 'test'
         run: 'echo ${{ steps.git_tag.outputs.tag_name }}'
