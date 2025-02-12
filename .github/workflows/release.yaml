@@ -31,7 +31,7 @@ jobs:
       contents: write
 
     outputs:
-      commit_hash: ${{ steps.git_ino.output.commit_hash }#
+      commit_hash: ${{ steps.git_info.output.commit_hash }#
 
     steps:
       - name: Configure Git user
@@ -51,7 +51,11 @@ jobs:
         run: yarn version --${{ github.event.inputs.increment }}
 
       - name: Push version bump and tag to GitHub
-        run: git push origin --follow-tags
+        id: git
+        run: |
+          echo "commit_hash=$(git show HEAD)" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$(git show HEAD)" >> "$GITHUB_OUTPUT"
+          git push origin --follow-tags
 
   release:
     needs: version_increase
