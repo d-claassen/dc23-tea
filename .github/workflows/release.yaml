@@ -31,7 +31,7 @@ jobs:
       contents: write
 
     outputs:
-      commit_hash: ${{ steps.push_git_tag.output.commit_hash }}
+      commit_hash: ${{ steps.push_git_tag.outputs.commit_hash }}
 
     steps:
       - name: Configure Git user
