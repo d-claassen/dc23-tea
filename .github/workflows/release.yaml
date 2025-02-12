@@ -53,7 +53,7 @@ jobs:
       - name: Push version bump and tag to GitHub
         id: push_git_tag
         run: |
-          echo "commit_hash=$(git rev-parse --verify --short HEAD)" >> "$GITHUB_OUTPUT"
+          echo "commit_hash=$(git rev-parse --verify HEAD)" >> "$GITHUB_OUTPUT"
           git push origin --follow-tags
 
   release:
