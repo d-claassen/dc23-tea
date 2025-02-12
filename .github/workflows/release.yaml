@@ -57,6 +57,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        ref: ${{ jobs.version_increase.outputs.commit_hash }}
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
