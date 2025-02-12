@@ -64,6 +64,8 @@ jobs:
       contents: write
 
     steps:
+      - name: 'test'
+        run: 'echo ${{ needs.version_increase.outputs.commit_hash }}'
       - uses: actions/checkout@v4
         with:
           ref: ${{ needs.version_increase.outputs.commit_hash }}
