@@ -6,7 +6,7 @@ const path = require( 'path' );
 // Get version from command-line argument
 const newVersion = process.argv[ 2 ];
 
-if ( !newVersion ) {
+if ( ! newVersion ) {
 	console.error( 'Please provide a version as an argument.' );
 	process.exit( 1 );
 }
