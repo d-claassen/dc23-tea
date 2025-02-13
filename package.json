@@ -29,6 +29,6 @@
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start --webpack-copy-php",
-		"version": "sed -i \\"s/^(Version: )[0-9].*$/\1$npm_package_version/\\" dc23-tea.php"
+		"version": "node update-version.js $npm_package_version"
 	}
 }
