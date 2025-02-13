@@ -19,11 +19,11 @@ const pluginFile = `${ path.basename( parentDir ) }.php`;
 const files = [
 	{
 		path: path.join( parentDir, pluginFile ),
-		pattern: /^(Version:\s*)(\d+\..+)$/,
+		pattern: /^(Version:\s*)(\d+\..+)$/m,
 	},
 	{
 		path: path.join( parentDir, 'readme.txt' ),
-		pattern: /^(Stable tag:\s*)(\d+\..+)$/,
+		pattern: /^(Stable tag:\s*)(\d+\..+)$/m,
 	},
 ];
 
