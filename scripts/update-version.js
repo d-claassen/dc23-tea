@@ -22,7 +22,7 @@ pattern: /(Version:\s*)(\d+\.\d+\.\d+)/,
 {
 path: path.join( parentDir, 'readme.txt' ),
 pattern: /(Stable tag:\s*)(\d+\.\d+\.\d+)/,
-}
+},
 ];
 
 let hasError = false;
@@ -44,5 +44,5 @@ hasError = true;
 
 // Exit with error if any file update failed
 if ( hasError ) {
-  process.exit( 1 );
+process.exit( 1 );
 }
