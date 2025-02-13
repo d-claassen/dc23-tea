@@ -58,7 +58,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Bump version number
-        run: yarn version --${{ github.event.inputs.increment }} --preid ${{ github.event.inputs.preid }}
+        run: npm version ${{ github.event.inputs.increment }} --preid ${{ github.event.inputs.preid }}
 
       - name: Push version bump and tag to GitHub
         id: push_git_tag
