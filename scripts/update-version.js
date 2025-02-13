@@ -9,7 +9,7 @@ if (!newVersion) {
 }
 
 // Path to your main WordPress plugin file (update as needed)
-const pluginFile = "dc23-tea.php";
+const pluginFile = "../dc23-tea.php";
 
 try {
   let content = fs.readFileSync(pluginFile, "utf8");
