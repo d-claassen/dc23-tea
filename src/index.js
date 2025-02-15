@@ -214,19 +214,6 @@ const DC23TeaExtendedPanel = () => {
 
 			<PanelBody title="Location" initialOpen={ false } />
 			<PanelBody title="Organizers" initialOpen={ false } />
-			<PanelBody title="Event website" initialOpen={ false }>
-				<TextControl
-					__nextHasNoMarginBottom
-					label="Event website"
-					value={ _EventURL }
-					onChange={ ( url ) =>
-						updateMeta( {
-							...meta,
-							_EventURL: url,
-						} )
-					}
-				/>
-			</PanelBody>
 		</PluginDocumentSettingPanel>
 	);
 };
