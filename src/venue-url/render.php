@@ -1,8 +1,10 @@
-<?php
-/**
- * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
- */
+?php
+$eventVenueId = (int) get_post_meta( $block->context['postId'], '_EventVenueID', true );
+$venueUrl = get_post_meta( $eventVenueId, '_VenueURL', true );
 ?>
-<p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Venue URL – hello from a dynamic block!', 'venue-url' ); ?>
-</p>
+<div <?php echo get_block_wrapper_attributes(); ?>>
+    	<a href="<?php echo esc_url( $venueUrl ) ?>" class="wp-block-dc23-tea-venue__url">
+        
+		<?php echo esc_html( $venueUrl ) ?>
+	</a>
+</div>
