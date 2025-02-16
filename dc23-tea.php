@@ -31,7 +31,7 @@ function dc23_tea_block_init() {
 	register_block_type( __DIR__ . '/build/organizer-url' );
 	register_block_type( __DIR__ . '/build/url' );
 	register_block_type( __DIR__ . '/build/venue-name' );
-	
+	register_block_type( __DIR__ . '/build/venue-url' );
 }
 add_action( 'init', 'dc23_tea_block_init' );
 
