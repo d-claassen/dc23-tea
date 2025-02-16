@@ -90,10 +90,10 @@ const DC23TeaExtendedPanel = () => {
 
 	let venueTitle = '';
 	if ( venues ) {
-		const selectedVenu = venues.find( ( venue ) => {
+		const selectedVenue = venues.find( ( venue ) => {
 			return _EventVenueID.includes( venue.id );
 		} );
-		
+
 		venueTitle = selectedVenue?.title.rendered;
 	}
 
@@ -173,13 +173,13 @@ const DC23TeaExtendedPanel = () => {
 			<PostPanelRow label="Venue">
 				<DropdownPostSelect
 					buttonLabel={ venueTitle }
-					inputLabel={ "Select venue" }
+					inputLabel="Select venue"
 					value={ _EventVenueID }
 					options={ venues }
-					onChange={ ( postId ) => {
+					onChange={ ( postID ) => {
 						updateMeta( {
 							...meta,
-							_EventVenueID: [ postId ],
+							_EventVenueID: [ postID ],
 						} );
 					} }
 				/>
