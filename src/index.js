@@ -89,6 +89,13 @@ const DC23TeaExtendedPanel = () => {
 	}
 
 	let venueTitle = '';
+	if ( venues ) {
+		const selectedVenu = venues.find( ( venue ) => {
+			return _EventVenueID.includes( venue.id );
+		} );
+		
+		venueTitle = selectedVenue?.title.rendered;
+	}
 
 	return (
 		<PluginDocumentSettingPanel
@@ -158,6 +165,21 @@ const DC23TeaExtendedPanel = () => {
 						updateMeta( {
 							...meta,
 							_EventOrganizerID: [ postID ],
+						} );
+					} }
+				/>
+			</PostPanelRow>
+
+			<PostPanelRow label="Venue">
+				<DropdownPostSelect
+					buttonLabel={ venueTitle }
+					inputLabel={ "Select venue" }
+					value={ _EventVenueID }
+					options={ venues }
+					onChange={ ( postId ) => {
+						updateMeta( {
+							...meta,
+							_EventVenueID: [ postId ],
 						} );
 					} }
 				/>
