@@ -27,7 +27,7 @@ import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
 
 const DC23TeaExtendedPanel = () => {
-	const { postId, postType, organizers } = useSelect( ( select ) => {
+	const { postId, postType, organizers, venues } = useSelect( ( select ) => {
 		const { getCurrentPostId, getCurrentPostType } =
 			select( 'core/editor' );
 		const { getEntityRecords } = select( 'core' );
@@ -36,6 +36,7 @@ const DC23TeaExtendedPanel = () => {
 			postId: getCurrentPostId(),
 			postType: getCurrentPostType(),
 			organizers: getEntityRecords( 'postType', 'tribe_organizer' ),
+			venues: getEntityRecords( 'postType', 'tribe_venue' ),
 		};
 	}, [] );
 
@@ -65,6 +66,7 @@ const DC23TeaExtendedPanel = () => {
 		_EventTimeRangeSeparator, // string
 		_EventURL, // string
 		_EventOrganizerID, // number (array?), post ID
+		_EventVenueID, // number (array), post ID
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
@@ -84,6 +86,15 @@ const DC23TeaExtendedPanel = () => {
 		} );
 
 		organizerTitle = selectedOrganizer?.title.rendered;
+	}
+
+	let venueTitle = '';
+	if ( venues ) {
+		const selectedVenue = venues.find( ( venue ) => {
+			return _EventVenueID.includes( venue.id );
+		} );
+
+		venueTitle = selectedVenue?.title.rendered;
 	}
 
 	return (
@@ -154,6 +165,21 @@ const DC23TeaExtendedPanel = () => {
 						updateMeta( {
 							...meta,
 							_EventOrganizerID: [ postID ],
+						} );
+					} }
+				/>
+			</PostPanelRow>
+
+			<PostPanelRow label="Venue">
+				<DropdownPostSelect
+					buttonLabel={ venueTitle }
+					inputLabel="Select venue"
+					value={ _EventVenueID }
+					options={ venues }
+					onChange={ ( postID ) => {
+						updateMeta( {
+							...meta,
+							_EventVenueID: [ postID ],
 						} );
 					} }
 				/>
