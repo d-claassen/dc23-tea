@@ -237,8 +237,6 @@ const DC23TeaExtendedPanel = () => {
 					/>
 				</ToolsPanelItem>
 			</ToolsPanel>
-
-			<PanelBody title="Location" initialOpen={ false } />
 		</PluginDocumentSettingPanel>
 	);
 };
