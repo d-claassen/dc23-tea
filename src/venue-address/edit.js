@@ -37,7 +37,8 @@ function Content( { context: { postId } } ) {
 				'tribe_venue',
 				_EventVenueID
 			);
-			const { _VenueAddress, _VenueCity, _VenueCountry } = venue?.meta || {};
+			const { _VenueAddress, _VenueCity, _VenueCountry } =
+				venue?.meta || {};
 
 			return {
 				adress: _VenueAddress,
@@ -57,11 +58,7 @@ function Content( { context: { postId } } ) {
 				</>
 			) }
 
-			{ city && (
-				<>
-					{ city },
-				</>
-			) }
+			{ city && ( <>{ city },</> ) }
 
 			{ country && (
 				<>
@@ -75,8 +72,10 @@ function Content( { context: { postId } } ) {
 function Placeholder() {
 	return (
 		<address { ...useBlockProps() }>
-			Address<br/>
-			City, country<br/>
+			Address
+			<br/>
+			City, country
+			<br/>
 		</address>
 	);
 }
