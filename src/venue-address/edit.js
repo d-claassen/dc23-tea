@@ -54,16 +54,16 @@ function Content( { context: { postId } } ) {
 			{ address && (
 				<>
 					{ address }
-					<br/>
+					<br />
 				</>
 			) }
 
-			{ city && ( <>{ city },</> ) }
+			{ city && <>{ city },</> }
 
 			{ country && (
 				<>
 					{ country }
-					<br/>
+					<br />
 				</>
 			) }
 		</address>
@@ -73,9 +73,9 @@ function Placeholder() {
 	return (
 		<address { ...useBlockProps() }>
 			Address
-			<br/>
+			<br />
 			City, country
-			<br/>
+			<br />
 		</address>
 	);
 }
