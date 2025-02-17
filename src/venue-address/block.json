@@ -10,7 +10,8 @@
 	"supports": {
 		"html": false
 	},
-	"textdomain": "venue-address",
+	"usesContext": [ "postId", "postType" ],
+	"textdomain": "dc23-tea",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
