@@ -1,4 +1,4 @@
-?php
+<?php
 $eventVenueId = (int) get_post_meta( $block->context['postId'], '_EventVenueID', true );
 $venueUrl = get_post_meta( $eventVenueId, '_VenueURL', true );
 ?>
