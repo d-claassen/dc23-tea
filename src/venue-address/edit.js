@@ -1,23 +1,11 @@
 /**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
+ * WordPress dependencies.
  */
 import { useBlockProps } from '@wordpress/block-editor';
+const { useSelect } = require( '@wordpress/data' );
 
 /**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ * Internal dependencies.
  */
 import './editor.scss';
 
@@ -25,14 +13,88 @@ import './editor.scss';
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
+ * @param {Object} props
+ * @param {Object} props.context
+ * @param {number} props.context.postId
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+function Content( { context: { postId } } ) {
+	const { address, city, country } = useSelect(
+		( select ) => {
+			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
+
+			const event = getEditedEntityRecord(
+				'postType',
+				'tribe_events',
+				postId
+			);
+			const { _EventVenueID } = event?.meta;
+
+			const venue = getEntityRecord(
+				'postType',
+				'tribe_venue',
+				_EventVenueID
+			);
+			const { _VenueAddress, _VenueCity, _VenueCountry } = venue?.meta || {};
+
+			return {
+				adress: _VenueAddress,
+				city: _VenueCity,
+				country: _VenueCountry,
+			};
+		},
+		[ postId ]
+	);
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Venue address – hello from the editor!', 'venue-address' ) }
-		</p>
+		<address { ...useBlockProps() }>
+			{ address && (
+				<>
+					{ address }
+					<br/>
+				</>
+			) }
+
+			{ city && (
+				<>
+					{ city },
+				</>
+			) }
+
+			{ country && (
+				<>
+					{ country }
+					<br/>
+				</>
+			) }
+		</address>
+	);
+}
+function Placeholder() {
+	return (
+		<address { ...useBlockProps() }>
+			Address<br/>
+			City, country<br/>
+		</address>
+	);
+}
+
+export default function Edit( { context } ) {
+	const { postType, postId } = context;
+
+	if ( postType !== 'tribe_events' ) {
+		return null;
+	}
+
+	return (
+		<>
+			{ postId && postType ? (
+				<Content context={ context } />
+			) : (
+				<Placeholder />
+			) }
+		</>
 	);
 }
