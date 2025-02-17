@@ -5,7 +5,6 @@ import {
 	Button,
 	FormToggle,
 	TextControl,
-	PanelBody,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
 	__experimentalVStack as VStack,
