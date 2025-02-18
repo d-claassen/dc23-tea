@@ -167,7 +167,7 @@ const DC23TeaExtendedPanel = () => {
 						} }
 					/>
 				</PostPanelRow>
-	
+
 				<PostPanelRow label="Venue">
 					<DropdownPostSelect
 						buttonLabel={ venueTitle }
