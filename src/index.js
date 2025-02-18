@@ -152,37 +152,37 @@ const DC23TeaExtendedPanel = () => {
 						inputLabel="Event website"
 					/>
 				</PostPanelRow>
+
+				<PostPanelRow label="Organizer">
+					<DropdownPostSelect
+						buttonLabel={ organizerTitle }
+						inputLabel="Select organizer"
+						value={ _EventOrganizerID }
+						options={ organizers }
+						onChange={ ( postID ) => {
+							updateMeta( {
+								...meta,
+								_EventOrganizerID: [ postID ],
+							} );
+						} }
+					/>
+				</PostPanelRow>
+	
+				<PostPanelRow label="Venue">
+					<DropdownPostSelect
+						buttonLabel={ venueTitle }
+						inputLabel="Select venue"
+						value={ _EventVenueID }
+						options={ venues }
+						onChange={ ( postID ) => {
+							updateMeta( {
+								...meta,
+								_EventVenueID: [ postID ],
+							} );
+						} }
+					/>
+				</PostPanelRow>
 			</VStack>
-
-			<PostPanelRow label="Organizer">
-				<DropdownPostSelect
-					buttonLabel={ organizerTitle }
-					inputLabel="Select organizer"
-					value={ _EventOrganizerID }
-					options={ organizers }
-					onChange={ ( postID ) => {
-						updateMeta( {
-							...meta,
-							_EventOrganizerID: [ postID ],
-						} );
-					} }
-				/>
-			</PostPanelRow>
-
-			<PostPanelRow label="Venue">
-				<DropdownPostSelect
-					buttonLabel={ venueTitle }
-					inputLabel="Select venue"
-					value={ _EventVenueID }
-					options={ venues }
-					onChange={ ( postID ) => {
-						updateMeta( {
-							...meta,
-							_EventVenueID: [ postID ],
-						} );
-					} }
-				/>
-			</PostPanelRow>
 
 			<ToolsPanel
 				label="Advanced date"
