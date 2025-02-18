@@ -10,6 +10,7 @@
 	"supports": {
 		"html": false
 	},
+	"usesContext": [ "postId", "postType" ],
 	"textdomain": "venue-url",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
