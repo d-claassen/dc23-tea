@@ -32,6 +32,8 @@ function Content( { context: { postId } } ) {
 			);
 			const { _EventVenueID } = event?.meta;
 
+			console.log( 'venue-address', { event: event?.meta } );
+
 			if ( ! event ) return {};
 
 			const venue = getEntityRecord(
@@ -40,12 +42,12 @@ function Content( { context: { postId } } ) {
 				_EventVenueID
 			);
 
+			console.log( 'venue-address', { venue: venue?.meta } );
+
 			if ( ! venue ) return {};
 
 			const { _VenueAddress, _VenueCity, _VenueCountry, _VenueStateProvince, _VenueZip } =
 				venue?.meta || {};
-
-			console.log( { meta: venue.meta } );
 
 			return {
 				address: _VenueAddress,
@@ -87,8 +89,9 @@ function Placeholder() {
 		<address { ...useBlockProps() }>
 			Address
 			<br />
-			City, country
+			City, region zip
 			<br />
+			Country
 		</address>
 	);
 }
@@ -96,13 +99,9 @@ function Placeholder() {
 export default function Edit( { context } ) {
 	const { postType, postId } = context;
 
-	if ( postType !== 'tribe_events' ) {
-		return null;
-	}
-
 	return (
 		<>
-			{ postId && postType ? (
+			{ postId && postType === 'tribe_events' ? (
 				<Content context={ context } />
 			) : (
 				<Placeholder />
