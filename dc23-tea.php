@@ -10,6 +10,9 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       dc23-tea
+ * GitHub Plugin URI: https://github.com/d-claassen/dc23-tea
+ * Primary Branch:    main
+ * Release Asset:     true
  *
  * @package Dc23
  */
