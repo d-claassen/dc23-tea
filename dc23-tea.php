@@ -30,7 +30,7 @@ function dc23_tea_block_init() {
 	register_block_type( __DIR__ . '/build/organizer-name' );
 	register_block_type( __DIR__ . '/build/organizer-url' );
 	register_block_type( __DIR__ . '/build/url' );
-	
+	register_block_type( __DIR__ . '/build/venue-address' );
 	register_block_type( __DIR__ . '/build/venue-name' );
 	register_block_type( __DIR__ . '/build/venue-url' );
 }
