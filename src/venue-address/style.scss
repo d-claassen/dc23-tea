@@ -4,3 +4,7 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
+
+:where(address.wp-block-dc23-tea-venue-address) {
+	font-style: unset;
+}
