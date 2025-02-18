@@ -63,13 +63,9 @@ function Placeholder() {
 export default function Edit( { context } ) {
 	const { postType, postId } = context;
 
-	if ( postType !== 'tribe_events' ) {
-		return null;
-	}
-
 	return (
 		<>
-			{ postId && postType ? (
+			{ postId && postType === 'tribe_events' ? (
 				<Content context={ context } />
 			) : (
 				<Placeholder />
