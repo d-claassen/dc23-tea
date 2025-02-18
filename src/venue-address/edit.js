@@ -21,7 +21,7 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 function Content( { context: { postId } } ) {
-	const { address, city, country } = useSelect(
+	const { address, city, country, region, zip } = useSelect(
 		( select ) => {
 			const { getEntityRecord, getEditedEntityRecord } = select( 'core' );
 
@@ -32,18 +32,27 @@ function Content( { context: { postId } } ) {
 			);
 			const { _EventVenueID } = event?.meta;
 
+			if ( ! event ) return {};
+
 			const venue = getEntityRecord(
 				'postType',
 				'tribe_venue',
 				_EventVenueID
 			);
-			const { _VenueAddress, _VenueCity, _VenueCountry } =
+
+			if ( ! venue ) return {};
+
+			const { _VenueAddress, _VenueCity, _VenueCountry, _VenueStateProvince, _VenueZip } =
 				venue?.meta || {};
 
+			console.log( { meta: venue.meta } );
+
 			return {
-				adress: _VenueAddress,
+				address: _VenueAddress,
 				city: _VenueCity,
 				country: _VenueCountry,
+				region: _VenueStateProvince,
+				zip: _VenueZip,
 			};
 		},
 		[ postId ]
@@ -58,12 +67,16 @@ function Content( { context: { postId } } ) {
 				</>
 			) }
 
-			{ city && <>{ city },</> }
+			{ city && <>{ city }, </> }
+
+			{ region && <>{ region } </> }
+
+			{ zip && <>{ zip } </> }
 
 			{ country && (
 				<>
-					{ country }
 					<br />
+					{ country }
 				</>
 			) }
 		</address>
