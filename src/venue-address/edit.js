@@ -32,22 +32,18 @@ function Content( { context: { postId } } ) {
 			);
 			const { _EventVenueID } = event?.meta;
 
-			console.log( 'venue-address', { event: event?.meta } );
-
-			if ( ! event ) return {};
-
 			const venue = getEntityRecord(
 				'postType',
 				'tribe_venue',
 				_EventVenueID
 			);
-
-			console.log( 'venue-address', { venue: venue?.meta } );
-
-			if ( ! venue ) return {};
-
-			const { _VenueAddress, _VenueCity, _VenueCountry, _VenueStateProvince, _VenueZip } =
-				venue?.meta || {};
+			const {
+				_VenueAddress,
+				_VenueCity,
+				_VenueCountry,
+				_VenueStateProvince,
+				_VenueZip,
+			} = venue?.meta || {};
 
 			return {
 				address: _VenueAddress,
