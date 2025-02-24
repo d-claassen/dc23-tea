@@ -4,6 +4,7 @@
 import {
 	Button,
 	FormToggle,
+	FormTokenField,
 	TextControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -13,7 +14,7 @@ import { useEntityProp } from '@wordpress/core-data';
 import { dateI18n, getDate } from '@wordpress/date';
 import { useMemo } from '@wordpress/element';
 import { filterURLForDisplay } from '@wordpress/url';
-const { useSelect } = require( '@wordpress/data' );
+const { useSelect, useState } = require( '@wordpress/data' );
 const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
 
@@ -24,6 +25,13 @@ import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-pick
 import { DropdownPostSelect } from './lib/components/dropdown-post-select';
 import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
+
+const SUPPORTED_EVENT_ROLES = [
+	'Attending',
+	'Organizing',
+	'Sponsoring',
+	'Performing'
+];
 
 const DC23TeaExtendedPanel = () => {
 	const { postId, postType, organizers, venues } = useSelect( ( select ) => {
@@ -50,6 +58,8 @@ const DC23TeaExtendedPanel = () => {
 		// console.log( 'memoize meta' );
 		return meta;
 	}, [ postType, postId ] );
+
+	const [ representedRoles, setRepresentedRoles ] = useState( [], [] );
 
 	if ( 'tribe_events' !== postType ) {
 		return null;
@@ -186,14 +196,15 @@ const DC23TeaExtendedPanel = () => {
 
 			<ToolsPanel
 				label="Advanced date"
-				resetAll={ () =>
+				resetAll={ () => {
+					setRepresentedRoles( [] );
 					updateMeta( {
 						...meta,
 						_EventDateTimeSeparator:
 							oldMeta._EventDateTimeSeparator,
 						_EventTimeRangeSeparator:
 							oldMeta._EventTimeRangeSeparator,
-					} )
+					} } )
 				}
 			>
 				<ToolsPanelItem
@@ -233,6 +244,22 @@ const DC23TeaExtendedPanel = () => {
 								_EventTimeRangeSeparator: separator,
 							} )
 						}
+					/>
+				</ToolsPanelItem>
+				
+				<ToolsPanelItem
+					label="Role at event"
+					hasValue={ () =>
+						representedRoles.length > 0
+					}
+				>
+					<FormTokenField
+						__nextHasNoMarginBottom
+						__experimentalExpandOnFocus
+						label="Role at event"
+						onChange={ setRepresentedRoles }
+						suggestions={ SUPPORTED_EVENT_ROLES  }
+						value={ representedRoles }
 					/>
 				</ToolsPanelItem>
 			</ToolsPanel>
