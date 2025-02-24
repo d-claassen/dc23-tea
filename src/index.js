@@ -30,7 +30,7 @@ const SUPPORTED_EVENT_ROLES = [
 	'Attending',
 	'Organizing',
 	'Sponsoring',
-	'Performing'
+	'Performing',
 ];
 
 const DC23TeaExtendedPanel = () => {
@@ -204,7 +204,7 @@ const DC23TeaExtendedPanel = () => {
 							oldMeta._EventDateTimeSeparator,
 						_EventTimeRangeSeparator:
 							oldMeta._EventTimeRangeSeparator,
-					} )
+					} );
 				} }
 			>
 				<ToolsPanelItem
@@ -246,19 +246,17 @@ const DC23TeaExtendedPanel = () => {
 						}
 					/>
 				</ToolsPanelItem>
-				
+
 				<ToolsPanelItem
 					label="Role at event"
-					hasValue={ () =>
-						representedRoles.length > 0
-					}
+					hasValue={ () => representedRoles.length > 0 }
 				>
 					<FormTokenField
 						__nextHasNoMarginBottom
 						__experimentalExpandOnFocus
 						label="Role at event"
 						onChange={ setRepresentedRoles }
-						suggestions={ SUPPORTED_EVENT_ROLES  }
+						suggestions={ SUPPORTED_EVENT_ROLES }
 						value={ representedRoles }
 					/>
 				</ToolsPanelItem>
