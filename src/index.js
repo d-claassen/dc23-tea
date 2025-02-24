@@ -1,4 +1,4 @@
-/**
+(/**
  * WordPress dependencies.
  */
 import {
@@ -204,8 +204,8 @@ const DC23TeaExtendedPanel = () => {
 							oldMeta._EventDateTimeSeparator,
 						_EventTimeRangeSeparator:
 							oldMeta._EventTimeRangeSeparator,
-					} } )
-				}
+					} )
+				} }
 			>
 				<ToolsPanelItem
 					label="Date time separator"
