@@ -79,13 +79,19 @@ function load_custom_wp_admin_scripts( $hook ) {
 add_action( 'enqueue_block_editor_assets', 'load_custom_wp_admin_scripts' );
 
 function register_custom_event_meta() {
-	register_meta( 
-		'post', 
-		'_EventRole', 
+	register_meta(
+		'post',
+		'_EventRole',
 		array(
-			'object_subtype' => 'tribe_event',
+			'object_subtype' => 'tribe_events',
 			'type' => 'array',
 			'single' => true,
+			'auth_callback' => function( $allowed, $meta_key, $post_id, $user_id, $cap, $caps ) {
+				$post             = get_post( $post_id );
+				$post_type_obj    = get_post_type_object( $post->post_type );
+
+				return current_user_can( $post_type_obj->cap->edit_post, $post_id );
+			},
 			'label' => 'Role at event',
 			'show_in_rest' => array(
 				'schema' => array(
@@ -95,6 +101,6 @@ function register_custom_event_meta() {
 				),
 		),
 	);
-} );
+};
 
 add_action( 'rest_api_init', 'register_custom_event_meta' );
