@@ -77,3 +77,24 @@ function load_custom_wp_admin_scripts( $hook ) {
 }
 
 add_action( 'enqueue_block_editor_assets', 'load_custom_wp_admin_scripts' );
+
+function register_custom_event_meta() {
+	register_meta( 
+		'post', 
+		'_EventRole', 
+		array(
+			'object_subtype' => 'tribe_event',
+			'type' => 'array',
+			'single' => true,
+			'label' => 'Role at event',
+			'show_in_rest' => array(
+				'schema' => array(
+					'type' => 'array',
+					'items' => array(),
+					),
+				),
+		),
+	);
+} );
+
+add_action( 'rest_api_init', 'register_custom_event_meta' );
