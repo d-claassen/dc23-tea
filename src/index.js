@@ -4,6 +4,7 @@
 import {
 	Button,
 	FormToggle,
+	FormTokenField,
 	TextControl,
 	__experimentalToolsPanel as ToolsPanel,
 	__experimentalToolsPanelItem as ToolsPanelItem,
@@ -24,6 +25,22 @@ import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-pick
 import { DropdownPostSelect } from './lib/components/dropdown-post-select';
 import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
+
+/**
+ * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+ * All files containing `style` keyword are bundled together. The code used
+ * gets applied both to the front of your site and to the editor.
+ *
+ * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ */
+import './style.scss';
+
+const SUPPORTED_EVENT_ROLES = [
+	'Attending',
+	'Organizing',
+	'Sponsoring',
+	'Performing',
+];
 
 const DC23TeaExtendedPanel = () => {
 	const { postId, postType, organizers, venues } = useSelect( ( select ) => {
@@ -66,6 +83,7 @@ const DC23TeaExtendedPanel = () => {
 		_EventURL, // string
 		_EventOrganizerID, // number (array?), post ID
 		_EventVenueID, // number (array), post ID
+		_EventRole, // string array
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
@@ -193,6 +211,7 @@ const DC23TeaExtendedPanel = () => {
 							oldMeta._EventDateTimeSeparator,
 						_EventTimeRangeSeparator:
 							oldMeta._EventTimeRangeSeparator,
+						_EventRole: oldMeta._EventRole,
 					} )
 				}
 			>
@@ -233,6 +252,29 @@ const DC23TeaExtendedPanel = () => {
 								_EventTimeRangeSeparator: separator,
 							} )
 						}
+					/>
+				</ToolsPanelItem>
+
+				<ToolsPanelItem
+					label="Role at event"
+					hasValue={ () => oldMeta._EventRole.length > 0 }
+				>
+					<FormTokenField
+						__nextHasNoMarginBottom
+						__experimentalExpandOnFocus
+						__experimentalValidateInput={ ( token ) =>
+							SUPPORTED_EVENT_ROLES.includes( token )
+						}
+						tokenizeOnBlur
+						label="Role at event"
+						onChange={ ( roles ) =>
+							updateMeta( {
+								...meta,
+								_EventRole: roles,
+							} )
+						}
+						suggestions={ SUPPORTED_EVENT_ROLES }
+						value={ _EventRole }
 					/>
 				</ToolsPanelItem>
 			</ToolsPanel>
