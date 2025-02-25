@@ -14,7 +14,7 @@ import { useEntityProp } from '@wordpress/core-data';
 import { dateI18n, getDate } from '@wordpress/date';
 import { useMemo } from '@wordpress/element';
 import { filterURLForDisplay } from '@wordpress/url';
-const { useSelect, useState } = require( '@wordpress/data' );
+const { useSelect } = require( '@wordpress/data' );
 const { PluginDocumentSettingPanel } = require( '@wordpress/editor' );
 const { registerPlugin } = require( '@wordpress/plugins' );
 
@@ -25,6 +25,15 @@ import { DropdownDateTimePicker } from './lib/components/dropdown-date-time-pick
 import { DropdownPostSelect } from './lib/components/dropdown-post-select';
 import { DropdownUrl } from './lib/components/dropdown-url';
 import { PostPanelRow } from './lib/components/post-panel-row';
+
+/**
+ * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
+ * All files containing `style` keyword are bundled together. The code used
+ * gets applied both to the front of your site and to the editor.
+ *
+ * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ */
+import './style.scss';
 
 const SUPPORTED_EVENT_ROLES = [
 	'Attending',
@@ -59,8 +68,6 @@ const DC23TeaExtendedPanel = () => {
 		return meta;
 	}, [ postType, postId ] );
 
-	const [ representedRoles, setRepresentedRoles ] = useState( [], [] );
-
 	if ( 'tribe_events' !== postType ) {
 		return null;
 	}
@@ -76,6 +83,7 @@ const DC23TeaExtendedPanel = () => {
 		_EventURL, // string
 		_EventOrganizerID, // number (array?), post ID
 		_EventVenueID, // number (array), post ID
+		_EventRole, // string array
 	} = meta;
 
 	const startDate = getDate( _EventStartDate );
@@ -196,16 +204,17 @@ const DC23TeaExtendedPanel = () => {
 
 			<ToolsPanel
 				label="Advanced date"
-				resetAll={ () => {
-					setRepresentedRoles( [] );
+				resetAll={ () =>
 					updateMeta( {
 						...meta,
 						_EventDateTimeSeparator:
 							oldMeta._EventDateTimeSeparator,
 						_EventTimeRangeSeparator:
 							oldMeta._EventTimeRangeSeparator,
-					} );
-				} }
+						_EventRole:
+							oldMeta._EventRole,
+					} )
+				}
 			>
 				<ToolsPanelItem
 					label="Date time separator"
@@ -249,15 +258,22 @@ const DC23TeaExtendedPanel = () => {
 
 				<ToolsPanelItem
 					label="Role at event"
-					hasValue={ () => representedRoles.length > 0 }
+					hasValue={ () => oldMeta._EventRole.length > 0 }
 				>
 					<FormTokenField
 						__nextHasNoMarginBottom
 						__experimentalExpandOnFocus
+						__experimentalValidateInput={ ( token ) => SUPPORTED_EVENT_ROLES.includes( token ) }
+						tokenizeOnBlur
 						label="Role at event"
-						onChange={ setRepresentedRoles }
+						onChange={  ( roles ) =>
+							updateMeta( {
+								...meta,
+								_EventRole: roles,
+							} )
+						}
 						suggestions={ SUPPORTED_EVENT_ROLES }
-						value={ representedRoles }
+						value={ _EventRole }
 					/>
 				</ToolsPanelItem>
 			</ToolsPanel>
