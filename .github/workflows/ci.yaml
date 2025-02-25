@@ -26,8 +26,19 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
+      - name: 'Setup PHP'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: 'Validate composer.json and composer.lock'
+        run: 'composer validate --no-check-publish'
+
       - name: 'NPM install'
         run: npm install
+
+      - name: 'Composer install'
+        run: 'composer install --prefer-dist --no-progress --optimize-autoloader'
 
       - name: 'Lint package.json'
         run: 'npm run-script lint:pkg-json'
@@ -38,6 +49,13 @@ jobs:
 
       - name: 'Lint CSS'
         run: 'npm run-script lint:css'
+
+      - name: 'Lint PHP'
+        run: 'composer phplint'
+
+      - name: 'PHP code style'
+        continue-on-error: true
+        run: 'composer phpcs'
 
       - name: 'Build the plugin'
         run: 'npm run-script build'
