@@ -50,6 +50,13 @@ jobs:
       - name: 'Lint CSS'
         run: 'npm run-script lint:css'
 
+      - name: 'Lint PHP'
+        run: 'composer phplint'
+
+      - name: 'PHP code style'
+        continue-on-error: true
+        run: 'composer phpcs'
+
       - name: 'Build the plugin'
         run: 'npm run-script build'
 
