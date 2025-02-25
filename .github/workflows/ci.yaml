@@ -38,7 +38,7 @@ jobs:
         run: npm install
 
       - name: 'Composer install'
-        run: 'composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader'
+        run: 'composer install --prefer-dist --no-progress --optimize-autoloader'
 
       - name: 'Lint package.json'
         run: 'npm run-script lint:pkg-json'
