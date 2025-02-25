@@ -211,8 +211,7 @@ const DC23TeaExtendedPanel = () => {
 							oldMeta._EventDateTimeSeparator,
 						_EventTimeRangeSeparator:
 							oldMeta._EventTimeRangeSeparator,
-						_EventRole:
-							oldMeta._EventRole,
+						_EventRole: oldMeta._EventRole,
 					} )
 				}
 			>
@@ -263,10 +262,12 @@ const DC23TeaExtendedPanel = () => {
 					<FormTokenField
 						__nextHasNoMarginBottom
 						__experimentalExpandOnFocus
-						__experimentalValidateInput={ ( token ) => SUPPORTED_EVENT_ROLES.includes( token ) }
+						__experimentalValidateInput={ ( token ) =>
+							SUPPORTED_EVENT_ROLES.includes( token )
+						}
 						tokenizeOnBlur
 						label="Role at event"
-						onChange={  ( roles ) =>
+						onChange={ ( roles ) =>
 							updateMeta( {
 								...meta,
 								_EventRole: roles,
