@@ -46,7 +46,14 @@ function dc23_tea_schema_init() {
 }
 add_action( 'init', 'dc23_tea_schema_init' );
 
-
+/**
+ * Enhance schema.org data describing an Event with the role of the entity represented by the website.
+	*
+	* @param array $event_data
+	* @param Meta_Tags_Context $context
+	*
+	* @return array
+	*/
 function enhance_event_with_role( $event_data, $context ) {
 	assert( $context instanceof Meta_Tags_Context );
 
