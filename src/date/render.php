@@ -9,9 +9,9 @@ $now = new DateTimeImmutable();
 
 $hide_year_from_start_date = $now->format( 'Y' ) === $start_date->format( 'Y' );
 $hide_year_from_end_date   = $now->format( 'Y' ) === $end_date->format( 'Y' );
-$start_date_formatted      = date_i18n( ( $hide_year_from_start_date ? 'F j' : 'F j, Y' ), $start_date->getTimestamp() );
+$start_date_formatted      = date_i18n( ( ( $hide_year_from_start_date ) ? 'F j' : 'F j, Y' ), $start_date->getTimestamp() );
 $start_time_formatted      = date_i18n( 'H:i', $start_date->getTimestamp() );
-$end_date_formatted        = date_i18n( ( $hide_year_from_end_date ? 'F j' : 'F j, Y' ), $end_date->getTimestamp() );
+$end_date_formatted        = date_i18n( ( ( $hide_year_from_end_date ) ? 'F j' : 'F j, Y' ), $end_date->getTimestamp() );
 $end_time_formatted        = date_i18n( 'H:i', $end_date->getTimestamp() );
 
 $is_one_moment    = $start_date->getTimestamp() === $end_date->getTimestamp();
