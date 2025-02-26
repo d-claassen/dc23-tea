@@ -137,7 +137,7 @@ add_action( 'enqueue_block_editor_assets', 'load_custom_wp_admin_scripts' );
 	*
 	* @return bool
 	*/
-function register_custom_event_meta_auth_callback( $allowed, $meta_key, $post_id, $user_id, $cap, $caps ) {
+function register_custom_event_meta_auth_callback( $allowed, $meta_key, $post_id ) {
 	$post          = get_post( $post_id );
 	$post_type_obj = get_post_type_object( $post->post_type );
 
