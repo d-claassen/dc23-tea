@@ -45,6 +45,7 @@
 			</property>
 		</properties>
 
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals"/>
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
 		<exclude name="Yoast.Files.FileName"/>
 		<exclude name="Yoast.NamingConventions.NamespaceName"/>
