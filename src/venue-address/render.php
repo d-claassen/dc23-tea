@@ -1,32 +1,32 @@
 <?php
-$eventVenueId = (int) get_post_meta( $block->context['postId'], '_EventVenueID', true );
-$venueAddress = get_post_meta( $eventVenueId, '_VenueAddress', true );
-$venueCity = get_post_meta( $eventVenueId, '_VenueCity', true );
-$venueCountry = get_post_meta( $eventVenueId, '_VenueCountry', true );
-$venueRegion = get_post_meta( $eventVenueId, '_VenueStateProvince', true );
-$venueZip = get_post_meta( $eventVenueId, '_VenueZip', true );
+$event_venue_id = (int) get_post_meta( $block->context['postId'], '_EventVenueID', true );
+$venue_address  = get_post_meta( $event_venue_id, '_VenueAddress', true );
+$venue_city     = get_post_meta( $event_venue_id, '_VenueCity', true );
+$venue_country  = get_post_meta( $event_venue_id, '_VenueCountry', true );
+$venue_region   = get_post_meta( $event_venue_id, '_VenueStateProvince', true );
+$venue_zip      = get_post_meta( $event_venue_id, '_VenueZip', true );
 ?>
 
 <address <?php echo get_block_wrapper_attributes(); ?>>
-	<?php if ( ! empty( $venueAddress ) ): ?>
-		<?php echo esc_html( $venueAddress ) ?>
+	<?php if ( ! empty( $venue_address ) ) : ?>
+		<?php echo esc_html( $venue_address ); ?>
 		<br />
 	<?php endif; ?>
 
-	<?php if ( ! empty( $venueCity ) ): ?>
-		<?php echo esc_html( $venueCity ) ?>,
+	<?php if ( ! empty( $venue_city ) ) : ?>
+		<?php echo esc_html( $venue_city ); ?>,
 	<?php endif; ?>
 
-	<?php if ( ! empty( $venueRegion ) ): ?>
-		<?php echo esc_html( $venueRegion ) ?>
+	<?php if ( ! empty( $venue_region ) ) : ?>
+		<?php echo esc_html( $venue_region ); ?>
 	<?php endif; ?>
 
-	<?php if ( ! empty( $venueZip ) ): ?>
-		<?php echo esc_html( $venueZip ) ?>
+	<?php if ( ! empty( $venue_zip ) ) : ?>
+		<?php echo esc_html( $venue_zip ); ?>
 	<?php endif; ?>
 
-	<?php if ( ! empty( $venueCountry ) ): ?>
+	<?php if ( ! empty( $venue_country ) ) : ?>
 		<br/>
-		<?php echo esc_html( $venueCountry ) ?>
+		<?php echo esc_html( $venue_country ); ?>
 	<?php endif; ?>
 </address>

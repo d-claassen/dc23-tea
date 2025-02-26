@@ -42,19 +42,28 @@ function dc23_tea_block_init() {
 add_action( 'init', 'dc23_tea_block_init' );
 
 function dc23_tea_schema_init() {
-	\add_filter( 'wpseo_schema_event', 'enhance_event_with_role', 11, 2 );
+	add_filter( 'wpseo_schema_event', 'enhance_event_with_role', 11, 2 );
 }
 add_action( 'init', 'dc23_tea_schema_init' );
 
-
+/**
+ * Enhance schema.org data describing an Event with the role of the entity represented by the website.
+ *
+ * @template T
+ *
+ * @param T $event_data
+ * @param Meta_Tags_Context $context
+ *
+ * @return T|array{attendee:array, organizer:array, sponsor:array, performer:array}
+ */
 function enhance_event_with_role( $event_data, $context ) {
-	\assert( $context instanceof Meta_Tags_Context );
+	assert( $context instanceof Meta_Tags_Context );
 
-	if ( ! ( \is_single() && \get_post_type() === 'tribe_events' ) ) {
+	if ( ! ( is_single() && get_post_type() === 'tribe_events' ) ) {
 		return $event_data;
 	}
 
-	$event_id = \get_the_ID();
+	$event_id = get_the_ID();
 
 	$roles = get_post_meta( $event_id, '_EventRole', true );
 	if ( empty( $roles ) ) {
@@ -66,19 +75,19 @@ function enhance_event_with_role( $event_data, $context ) {
 	}
 
 	$person_reference = [
-		'@id'  => \YoastSEO()->helpers->schema->id->get_user_schema_id( $context->site_user_id, $context ),
+		'@id'  => YoastSEO()->helpers->schema->id->get_user_schema_id( $context->site_user_id, $context ),
 	];
 
-	if ( in_array( 'Attending', $roles, true ) && empty( $event_data[ 'attendee' ] ) ) {
+	if ( in_array( 'Attending', $roles, true ) && empty( $event_data['attendee'] ) ) {
 		$event_data['attendee'] = $person_reference;
 	}
-	if ( in_array( 'Organizing', $roles, true ) && empty( $event_data[ 'organizer' ] ) ) {
+	if ( in_array( 'Organizing', $roles, true ) && empty( $event_data['organizer'] ) ) {
 		$event_data['organizer'] = $person_reference;
 	}
-	if ( in_array( 'Sponsoring', $roles, true ) && empty( $event_data[ 'sponsor' ] ) ) {
+	if ( in_array( 'Sponsoring', $roles, true ) && empty( $event_data['sponsor'] ) ) {
 		$event_data['sponsor'] = $person_reference;
 	}
-	if ( in_array( 'Performing', $roles, true ) && empty( $event_data[ 'performer' ] ) ) {
+	if ( in_array( 'Performing', $roles, true ) && empty( $event_data['performer'] ) ) {
 		$event_data['performer'] = $person_reference;
 	}
 
@@ -88,10 +97,8 @@ function enhance_event_with_role( $event_data, $context ) {
 
 /**
  * Load the admin script.
- *
- * @param string $hook The hook name of the page.
  */
-function load_custom_wp_admin_scripts( $hook ) {
+function load_custom_wp_admin_scripts() {
 
 	// Automatically load imported dependencies and assets version.
 	$asset_file = include plugin_dir_path( __FILE__ ) . '/build/index.asset.php';
@@ -115,7 +122,7 @@ function load_custom_wp_admin_scripts( $hook ) {
 	wp_register_style(
 		'dc23-tea-extended',
 		plugins_url( 'build/style-index.css', __FILE__ ),
-		array(),
+		[],
 		$asset_file['version']
 	);
 	wp_enqueue_style( 'dc23-tea-extended' );
@@ -123,29 +130,40 @@ function load_custom_wp_admin_scripts( $hook ) {
 
 add_action( 'enqueue_block_editor_assets', 'load_custom_wp_admin_scripts' );
 
+/**
+ * Custom auth_callback for register_meta extending tribe_events.
+ *
+ * @param bool $allowed
+ * @param string $meta_key
+ * @param int $post_id
+ *
+ * @return bool
+ */
+function register_custom_event_meta_auth_callback( $allowed, $meta_key, $post_id ) {
+	$post          = get_post( $post_id );
+	$post_type_obj = get_post_type_object( $post->post_type );
+
+	return current_user_can( $post_type_obj->cap->edit_post, $post_id );
+}
+
 function register_custom_event_meta() {
 	register_meta(
 		'post',
 		'_EventRole',
-		array(
+		[
 			'object_subtype' => 'tribe_events',
-			'type' => 'array',
-			'single' => true,
-			'auth_callback' => function( $allowed, $meta_key, $post_id, $user_id, $cap, $caps ) {
-				$post             = get_post( $post_id );
-				$post_type_obj    = get_post_type_object( $post->post_type );
-
-				return current_user_can( $post_type_obj->cap->edit_post, $post_id );
-			},
-			'label' => 'Role at event',
-			'show_in_rest' => array(
-				'schema' => array(
-					'type' => 'array',
-					'items' => array(),
-					),
-				),
-		),
+			'type'           => 'array',
+			'single'         => true,
+			'auth_callback'  => 'register_custom_event_meta_auth_callback',
+			'label'          => 'Role at event',
+			'show_in_rest'   => [
+				'schema' => [
+					'type'  => 'array',
+					'items' => [],
+				],
+			],
+		],
 	);
-};
+}
 
 add_action( 'rest_api_init', 'register_custom_event_meta' );

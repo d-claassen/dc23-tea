@@ -1,47 +1,47 @@
 <?php
-$eventAllDay = (bool) get_post_meta( $block->context['postId'], '_EventAllDay', true );
-$startDate = new DateTimeImmutable( get_post_meta( $block->context['postId'], '_EventStartDate', true ) );
-$endDate = new DateTimeImmutable( get_post_meta( $block->context['postId'], '_EventEndDate', true ) );
-$dateTimeSeparator = get_post_meta( $block->context['postId'], '_EventDateTimeSeparator', true );
-$timeRangeSeparator = get_post_meta( $block->context['postId'], '_EventTimeRangeSeparator', true );
+$event_all_day        = (bool) get_post_meta( $block->context['postId'], '_EventAllDay', true );
+$start_date           = new DateTimeImmutable( get_post_meta( $block->context['postId'], '_EventStartDate', true ) );
+$end_date             = new DateTimeImmutable( get_post_meta( $block->context['postId'], '_EventEndDate', true ) );
+$date_time_separator  = get_post_meta( $block->context['postId'], '_EventDateTimeSeparator', true );
+$time_range_separator = get_post_meta( $block->context['postId'], '_EventTimeRangeSeparator', true );
 
 $now = new DateTimeImmutable();
 
-$hideYearFromStartDate = $now->format('Y')===$startDate->format('Y');
-$hideYearFromEndDate = $now->format('Y')===$endDate->format('Y');
-$startDateFormatted = date_i18n( ($hideYearFromStartDate ? 'F j' : 'F j, Y'), $startDate->getTimestamp() );
-$startTimeFormatted = date_i18n( 'H:i', $startDate->getTimestamp() );
-$endDateFormatted = date_i18n( ( $hideYearFromEndDate ? 'F j' : 'F j, Y' ), $endDate->getTimestamp() );
-$endTimeFormatted = date_i18n( 'H:i', $endDate->getTimestamp() );
+$hide_year_from_start_date = $now->format( 'Y' ) === $start_date->format( 'Y' );
+$hide_year_from_end_date   = $now->format( 'Y' ) === $end_date->format( 'Y' );
+$start_date_formatted      = date_i18n( ( ( $hide_year_from_start_date ) ? 'F j' : 'F j, Y' ), $start_date->getTimestamp() );
+$start_time_formatted      = date_i18n( 'H:i', $start_date->getTimestamp() );
+$end_date_formatted        = date_i18n( ( ( $hide_year_from_end_date ) ? 'F j' : 'F j, Y' ), $end_date->getTimestamp() );
+$end_time_formatted        = date_i18n( 'H:i', $end_date->getTimestamp() );
 
-$isOneMoment = $startDate->getTimestamp() === $endDate->getTimestamp();
-$isOneDayEvent = $startDate->format('Y-m-d') === $endDate->format('Y-m-d');
+$is_one_moment    = $start_date->getTimestamp() === $end_date->getTimestamp();
+$is_one_day_event = $start_date->format( 'Y-m-d' ) === $end_date->format( 'Y-m-d' );
 
 ?>
 <div <?php echo get_block_wrapper_attributes(); ?>>
-	<span class="wp-block-dc23-tea-date__date"><?php echo esc_html( $startDateFormatted ) ?></span>
+	<span class="wp-block-dc23-tea-date__date"><?php echo esc_html( $start_date_formatted ); ?></span>
 
-	<?php if ( ! $eventAllDay ) : ?>
-		<span class="wp-block-dc23-tea-date__date-time-separator"><?php echo esc_html( $dateTimeSeparator ) ?></span>
-		<span class="wp-block-dc23-tea-date__time"><?php echo esc_html( $startTimeFormatted ) ?></span>
-	<?php elseif ( $isOneDayEvent ) : ?>
+	<?php if ( ! $event_all_day ) : ?>
+		<span class="wp-block-dc23-tea-date__date-time-separator"><?php echo esc_html( $date_time_separator ); ?></span>
+		<span class="wp-block-dc23-tea-date__time"><?php echo esc_html( $start_time_formatted ); ?></span>
+	<?php elseif ( $is_one_day_event ) : ?>
 		<span class="wp-block-dc23-tea-date__all-day">all day</span>
 	<?php endif; ?>
 
-	<?php if ( ! $isOneMoment ) : ?>
-		<?php if ( ! $eventAllDay || ! $isOneDayEvent ) : ?>
-			<span class="wp-block-dc23-tea-date__range-separator"><?php echo esc_html( $timeRangeSeparator ) ?></span>
+	<?php if ( ! $is_one_moment ) : ?>
+		<?php if ( ! $event_all_day || ! $is_one_day_event ) : ?>
+			<span class="wp-block-dc23-tea-date__range-separator"><?php echo esc_html( $time_range_separator ); ?></span>
 		<?php endif; ?>
 
-		<?php if ( ! $isOneDayEvent ) : ?>
-			<span class="wp-block-dc23-tea-date__date"><?php echo esc_html( $endDateFormatted ) ?></span>
+		<?php if ( ! $is_one_day_event ) : ?>
+			<span class="wp-block-dc23-tea-date__date"><?php echo esc_html( $end_date_formatted ); ?></span>
 
-			<?php if ( ! $eventAllDay ) : ?>
-				<span class="wp-block-dc23-tea-date__date-time-separator"><?php echo esc_html( $dateTimeSeparator ) ?></span>
-				<span class="wp-block-dc23-tea-date__time"><?php echo esc_html( $endTimeFormatted ) ?></span>
+			<?php if ( ! $event_all_day ) : ?>
+				<span class="wp-block-dc23-tea-date__date-time-separator"><?php echo esc_html( $date_time_separator ); ?></span>
+				<span class="wp-block-dc23-tea-date__time"><?php echo esc_html( $end_time_formatted ); ?></span>
 			<?php endif; ?>
-		<?php elseif ( ! $eventAllDay ) : ?>
-			<span class="wp-block-dc23-tea-date__time"><?php echo esc_html( $endTimeFormatted ) ?></span>
+		<?php elseif ( ! $event_all_day ) : ?>
+			<span class="wp-block-dc23-tea-date__time"><?php echo esc_html( $end_time_formatted ); ?></span>
 		<?php endif; ?>
 	<?php endif; ?>
 </div>
