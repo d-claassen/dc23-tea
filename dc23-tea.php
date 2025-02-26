@@ -95,10 +95,8 @@ function enhance_event_with_role( $event_data, $context ) {
 
 /**
  * Load the admin script.
- *
- * @param string $hook The hook name of the page.
  */
-function load_custom_wp_admin_scripts( $hook ) {
+function load_custom_wp_admin_scripts() {
 
 	// Automatically load imported dependencies and assets version.
 	$asset_file = include plugin_dir_path( __FILE__ ) . '/build/index.asset.php';
@@ -130,6 +128,22 @@ function load_custom_wp_admin_scripts( $hook ) {
 
 add_action( 'enqueue_block_editor_assets', 'load_custom_wp_admin_scripts' );
 
+/**
+ * Custom auth_callback for register_meta extending tribe_events.
+	*
+	* @param bool $allowed
+	* @param string $meta_key
+	* @param int post_id
+	*
+	* @return bool
+	*/
+function register_custom_event_meta_auth_callback( $allowed, $meta_key, $post_id, $user_id, $cap, $caps ) {
+	$post          = get_post( $post_id );
+	$post_type_obj = get_post_type_object( $post->post_type );
+
+	return current_user_can( $post_type_obj->cap->edit_post, $post_id );
+}
+
 function register_custom_event_meta() {
 	register_meta(
 		'post',
@@ -138,12 +152,7 @@ function register_custom_event_meta() {
 			'object_subtype' => 'tribe_events',
 			'type'           => 'array',
 			'single'         => true,
-			'auth_callback'  => static function ( $allowed, $meta_key, $post_id, $user_id, $cap, $caps ) {
-				$post          = get_post( $post_id );
-				$post_type_obj = get_post_type_object( $post->post_type );
-
-				return current_user_can( $post_type_obj->cap->edit_post, $post_id );
-			},
+			'auth_callback'  => 'register_custom_event_meta_auth_callback',
 			'label'          => 'Role at event',
 			'show_in_rest'   => [
 				'schema' => [
