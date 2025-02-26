@@ -48,12 +48,14 @@ add_action( 'init', 'dc23_tea_schema_init' );
 
 /**
  * Enhance schema.org data describing an Event with the role of the entity represented by the website.
-	*
-	* @param array $event_data
-	* @param Meta_Tags_Context $context
-	*
-	* @return array
-	*/
+ *
+ * @template T
+ *
+ * @param T $event_data
+ * @param Meta_Tags_Context $context
+ *
+ * @return T|array{attendee:array, organizer:array, sponsor:array, performer:array}
+ */
 function enhance_event_with_role( $event_data, $context ) {
 	assert( $context instanceof Meta_Tags_Context );
 
@@ -130,13 +132,13 @@ add_action( 'enqueue_block_editor_assets', 'load_custom_wp_admin_scripts' );
 
 /**
  * Custom auth_callback for register_meta extending tribe_events.
-	*
-	* @param bool $allowed
-	* @param string $meta_key
-	* @param int post_id
-	*
-	* @return bool
-	*/
+ *
+ * @param bool $allowed
+ * @param string $meta_key
+ * @param int $post_id
+ *
+ * @return bool
+ */
 function register_custom_event_meta_auth_callback( $allowed, $meta_key, $post_id ) {
 	$post          = get_post( $post_id );
 	$post_type_obj = get_post_type_object( $post->post_type );
