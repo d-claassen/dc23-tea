@@ -35,7 +35,7 @@ jobs:
         run: 'composer validate --no-check-publish'
 
       - name: 'NPM install'
-        run: npm install
+        run: npm clean-install
 
       - name: 'Composer install'
         run: 'composer install --prefer-dist --no-progress --optimize-autoloader'
