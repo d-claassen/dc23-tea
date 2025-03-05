@@ -3,6 +3,7 @@
  */
 import { useBlockProps } from '@wordpress/block-editor';
 import { useEntityProp } from '@wordpress/core-data';
+import { filterURLForDisplay } from '@wordpress/url';
 
 /**
  * Internal dependencies.
@@ -25,10 +26,11 @@ function Content( { context: { postType, postId } } ) {
 	const [ meta ] = useEntityProp( 'postType', postType, 'meta', postId );
 
 	const url = meta?._EventURL;
+	const filteredUrl = filterURLForDisplay( url, false );
 
 	return (
 		<div { ...useBlockProps() }>
-			<a href={ url }>{ url }</a>
+			<a href={ url }>{ filteredUrl }</a>
 		</div>
 	);
 }
@@ -36,7 +38,7 @@ function Content( { context: { postType, postId } } ) {
 function Placeholder() {
 	return (
 		<div { ...useBlockProps() }>
-			<a href="https://example.org">https://example.org</a>
+			<a href="https://example.org">example.org</a>
 		</div>
 	);
 }
