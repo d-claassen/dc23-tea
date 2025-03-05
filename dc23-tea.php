@@ -17,11 +17,15 @@
  * @package Dc23
  */
 
+declare( strict_types=1 );
+
 use Yoast\WP\SEO\Context\Meta_Tags_Context;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+require_once 'vendor/autoload.php';
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
