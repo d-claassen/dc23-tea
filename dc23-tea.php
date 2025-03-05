@@ -16,6 +16,8 @@
  *
  * @package Dc23
  */
+	
+declare( strict_types=1 );
 
 use Yoast\WP\SEO\Context\Meta_Tags_Context;
 
