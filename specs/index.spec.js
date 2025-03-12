@@ -44,7 +44,7 @@ test.describe( 'Template resolution', () => {
 			await page.reload();
 			await expect(
 				page.getByRole( 'button', { name: 'Template options' } )
-			).toHaveText( 'Blog home' );
+			).toHaveText( 'Blog Home' );
 		} );
 
 		test( 'Site editor proper template resolution', async ( {
@@ -66,7 +66,7 @@ test.describe( 'Template resolution', () => {
 			await editor.openDocumentSettingsSidebar();
 			await expect(
 				page.getByRole( 'button', { name: 'Template options' } )
-			).toHaveText( 'Blog home' );
+			).toHaveText( 'Blog Home' );
 		} );
 	} );
 } );
