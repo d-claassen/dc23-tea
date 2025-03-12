@@ -12,10 +12,6 @@ async function updateSiteSettings( { pageId, requestUtils } ) {
 }
 
 test.describe( 'Template resolution', () => {
-	test.beforeAll( async ( { requestUtils } ) => {
-		await requestUtils.activateTheme( 'emptytheme' );
-	} );
-
 	test.afterEach( async ( { requestUtils } ) => {
 		await Promise.all( [
 			requestUtils.deleteAllPages(),
@@ -27,9 +23,6 @@ test.describe( 'Template resolution', () => {
 		] );
 	} );
 
-	test.afterAll( async ( { requestUtils } ) => {
-		await requestUtils.activateTheme( 'twentytwentyone' );
-	} );
 
 	test.describe( '`page_for_posts` setting', () => {
 		test( 'Post editor proper template resolution', async ( {
