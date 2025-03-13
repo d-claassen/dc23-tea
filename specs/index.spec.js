@@ -3,51 +3,48 @@
  */
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
-async function updateSiteSettings( { pageId, requestUtils } ) {
-	return requestUtils.updateSiteSettings( {
-		show_on_front: 'page',
-		page_on_front: 0,
-		page_for_posts: pageId,
-	} );
-}
-
-test.describe( 'Template resolution', () => {
+test.describe( 'Sidebar panel', () => {
 	test.afterEach( async ( { requestUtils } ) => {
-		await Promise.all( [
-			requestUtils.deleteAllPages(),
-			requestUtils.updateSiteSettings( {
-				show_on_front: 'posts',
-				page_on_front: 0,
-				page_for_posts: 0,
-			} ),
-		] );
+		await requestUtils.deleteAllPages();
 	} );
 
-
-	test.describe( '`page_for_posts` setting', () => {
-		test( 'Post editor proper template resolution', async ( {
+	test.describe( 'panel per post type', () => {
+		test( 'it shows for `tribe_events`', async ( {
 			page,
 			admin,
 			editor,
 			requestUtils,
 		} ) => {
-			const newPage = await requestUtils.createPage( {
+			const newPage = await requestUtils.createPost( {
 				title: 'Posts Page',
+				post_type: 'tribe_events',
 				status: 'publish',
 			} );
 			await admin.editPost( newPage.id );
 			await editor.openDocumentSettingsSidebar();
 			await expect(
-				page.getByRole( 'button', { name: 'Template options' } )
-			).toHaveText( 'Single Entries' );
-			await updateSiteSettings( { requestUtils, pageId: newPage.id } );
-			await page.reload();
+				page.getByRole( 'button', { name: 'The Event Attendee' } )
+			).toHaveText( "The Event Attendee" );
+		} );
+		
+		test( 'invisible for regular posts', async ( {
+			page,
+			admin,
+			editor,
+			requestUtils,
+		} ) => {
+			const newPage = await requestUtils.createPost( {
+				title: 'Post',
+				status: 'publish',
+			} );
+			await admin.editPost( newPage.id );
+			await editor.openDocumentSettingsSidebar();
 			await expect(
-				page.getByRole( 'button', { name: 'Template options' } )
-			).toHaveText( 'Blog Home' );
+				page.getByRole( 'button', { name: 'The Event Attendee' } )
+			).toBeUndefined()
 		} );
 
-		test( 'Site editor proper template resolution', async ( {
+		test( 'invisible in site editor', async ( {
 			page,
 			editor,
 			admin,
@@ -57,7 +54,6 @@ test.describe( 'Template resolution', () => {
 				title: 'Posts Page',
 				status: 'publish',
 			} );
-			await updateSiteSettings( { requestUtils, pageId: newPage.id } );
 			await admin.visitSiteEditor( {
 				postId: newPage.id,
 				postType: 'page',
@@ -65,8 +61,8 @@ test.describe( 'Template resolution', () => {
 			} );
 			await editor.openDocumentSettingsSidebar();
 			await expect(
-				page.getByRole( 'button', { name: 'Template options' } )
-			).toHaveText( 'Blog Home' );
+				page.getByRole( 'button', { name: 'The Event Attendee' } )
+			).toBeUndefined();
 		} );
 	} );
 } );
