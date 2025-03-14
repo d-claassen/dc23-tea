@@ -17,7 +17,7 @@ test.describe( 'Sidebar panel', () => {
 		} ) => {
 			const newPage = await requestUtils.createPost( {
 				title: 'Posts Page',
-				post_type: 'tribe_events',
+				postType: 'tribe_events',
 				status: 'publish',
 			} );
 			await admin.editPost( newPage.id );
