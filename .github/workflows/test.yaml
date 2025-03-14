@@ -61,6 +61,20 @@ jobs:
       - name: Install WordPress and start the server
         run: npm run wp-env start || npm run wp-env start
 
+      - name: 'Debug wp-env'
+        run: |
+          docker ps -a
+          # npm run wp-env run -- tests-mysql mysql -- --version
+          npm run wp-env run -- tests-wordpress php -- --version
+          # npm run wp-env run -- tests-wordpress php -m
+          # npm run wp-env run -- tests-wordpress php -i
+          npm run wp-env run -- --env-cwd='wp-content/themes/dennisclaassen2023' tests-wordpress ./vendor/bin/phpunit -- --version
+          # npm run wp-env run -- tests-wordpress locale -a
+          npm run wp-env run -- tests-cli wp core version
+          # npm run wp-env run -- tests-cli wp user list
+          npm run wp-env run -- tests-cli wp theme list
+          npm run wp-env run -- tests-cli wp plugin list
+
       - name: Run the tests
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
