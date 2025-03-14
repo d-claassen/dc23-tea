@@ -68,7 +68,7 @@ jobs:
           npm run wp-env run -- tests-wordpress php -- --version
           # npm run wp-env run -- tests-wordpress php -m
           # npm run wp-env run -- tests-wordpress php -i
-          npm run wp-env run -- --env-cwd='wp-content/themes/dennisclaassen2023' tests-wordpress ./vendor/bin/phpunit -- --version
+          # npm run wp-env run -- --env-cwd='wp-content/themes/dennisclaassen2023' tests-wordpress ./vendor/bin/phpunit -- --version
           # npm run wp-env run -- tests-wordpress locale -a
           npm run wp-env run -- tests-cli wp core version
           # npm run wp-env run -- tests-cli wp user list
