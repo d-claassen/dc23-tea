@@ -50,7 +50,7 @@ test.describe( 'Sidebar panel', () => {
 			await editor.openDocumentSettingsSidebar();
 			await expect(
 				page.getByRole( 'button', { name: 'The Event Attendee' } )
-			).toBeInvisible()
+			).toBeHidden()
 		} );
 
 		test( 'invisible in site editor', async ( {
@@ -71,7 +71,7 @@ test.describe( 'Sidebar panel', () => {
 			await editor.openDocumentSettingsSidebar();
 			await expect(
 				page.getByRole( 'button', { name: 'The Event Attendee' } )
-			).toBeInvisible();
+			).toBeHidden();
 		} );
 	} );
 } );
