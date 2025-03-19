@@ -29,13 +29,12 @@ test.describe( 'Sidebar panel', () => {
 				postType: 'tribe_events',
 				status: 'publish',
 			} );
-			// await admin.editPost( newPage.id );
 			await editor.openDocumentSettingsSidebar();
 			await expect(
 				page.getByRole( 'button', { name: 'The Event Attendee' } )
 			).toBeVisible();
 		} );
-		
+
 		test( 'invisible for regular posts', async ( {
 			page,
 			admin,
