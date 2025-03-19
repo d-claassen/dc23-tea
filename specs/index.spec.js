@@ -4,6 +4,15 @@
 const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Sidebar panel', () => {
+	test.beforeEach( async ( { admin, page } ) => {
+		await admin.visitAdminPage( 'edit.php', 'page=tec-events-settings&tab=general-editing-tab&post_type=tribe_events' );
+		// await page.getByRole( 'button', { name: 'Skip' } ).click();
+		// const checkbox = await page.getByRole( 'checkbox', { name: 'toggle_blocks_editor' } ).check();
+		const checkbox = await page.getByRole( 'checkbox' ).first();
+		await checkbox.check();
+		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
+	} );
+
 	test.afterEach( async ( { requestUtils } ) => {
 		await requestUtils.deleteAllPages();
 	} );
