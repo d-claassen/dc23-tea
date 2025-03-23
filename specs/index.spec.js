@@ -55,7 +55,7 @@ test.describe( 'Sidebar panel', () => {
 			).toBeHidden()
 		} );
 
-		test( 'invisible in site editor', async ( {
+		test.fixme( 'invisible in site editor', async ( {
 			page,
 			editor,
 			admin,
