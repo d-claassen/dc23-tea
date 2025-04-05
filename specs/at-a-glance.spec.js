@@ -33,4 +33,5 @@ test.describe('"At a glance" widget integration', () => {
 
     // Check the count
     await expect(page.locator('.tribe_events-count')).toHaveText('1 Event');
+  });
 });
