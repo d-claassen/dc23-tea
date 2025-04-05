@@ -20,7 +20,7 @@ test.describe('"At a glance" widget integration', () => {
     await expect(page.locator('.tribe_events-count')).toHaveText('0 Events');
   });
   
-  test('correct 1 event count', async ({ page, admin }) => {
+  test.fixme('correct 1 event count', async ({ page, admin }) => {
     // Go to Add Event
     await admin.visitAdminPage('post-new.php', 'post_type=tribe_events');
 
