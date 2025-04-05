@@ -39,7 +39,8 @@ test.describe('"At a glance" widget integration', () => {
       postType: 'tribe_events',
       status: 'publish',
     } );
-    await admin.publishPostWithPrePublishChecksDisabled();
+    await admin.disablePrePublishChecks();
+    await admin.publishPost();
     
     // Navigate to the WordPress admin dashboard
     await admin.visitAdminPage('index.php');
