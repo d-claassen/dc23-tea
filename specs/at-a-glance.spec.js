@@ -19,4 +19,18 @@ test.describe('"At a glance" widget integration', () => {
     // Check the count
     await expect(page.locator('.tribe_events-count')).toHaveText('0 Events');
   });
+  
+  test('correct 1 event count', async ({ page, admin }) => {
+    // Create #1 event
+    await admin.createNewPost( {
+      title: 'Event #1',
+      postType: 'tribe_events',
+      status: 'publish',
+    } );
+    
+    // Navigate to the WordPress admin dashboard
+    await admin.visitAdminPage('index.php');
+
+    // Check the count
+    await expect(page.locator('.tribe_events-count')).toHaveText('1 Event');
 });
