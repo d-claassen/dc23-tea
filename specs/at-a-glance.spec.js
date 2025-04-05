@@ -21,27 +21,20 @@ test.describe('"At a glance" widget integration', () => {
   });
   
   test('correct 1 event count', async ({ page, admin }) => {
-    await admin.visitAdminPage( 'edit.php', 'page=tec-events-settings&tab=general-editing-tab&post_type=tribe_events' );
-		const skipTelemetry = await page.getByRole( 'button', { name: 'Skip' } );
-		if ( await skipTelemetry.count() > 0 ) {
-			await skipTelemetry.click();
-		}
-		// const checkbox = await page.getByRole( 'checkbox', { name: 'toggle_blocks_editor' } ).check();
-		const checkbox = await page.getByRole( 'checkbox' ).first();
-		await checkbox.check();
-		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
+    // Go to Add Event
+    await admin.visitAdminPage('post-new.php', 'post_type=tribe_events');
 
-    
-    
-    // Create #1 event
-    await admin.createNewPost( {
-      title: 'Event #1',
-      postType: 'tribe_events',
-      status: 'publish',
-    } );
-    await admin.disablePrePublishChecks();
-    await admin.publishPost();
-    
+    // Fill out the event title and content
+    await page.fill('#title', 'My Test Event');
+    await page.fill('#content', 'This is a sample event description.');
+
+    // Publish
+    await page.click('#publish');
+    await page.waitForURL(/edit\.php.*post_type=tribe_events/);
+  
+    // Confirm it's published
+    await expect(page.locator('.notice-success')).toContainText('published');
+
     // Navigate to the WordPress admin dashboard
     await admin.visitAdminPage('index.php');
 
