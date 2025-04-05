@@ -17,6 +17,6 @@ test.describe('"At a glance" widget integration', () => {
     await admin.visitAdminPage('index.php');
 
     // Check the count
-    await expect(page.locator('.tribe-events-count')).toHaveText('0 Events');
+    await expect(page.locator('.tribe_events-count')).toHaveText('0 Events');
   });
 });
