@@ -179,9 +179,14 @@ function custom_glance_items( $items = array() ) {
     }
 
     // just event, but could add other TEC types 
-    $post_types = array( 'tribe_events' );
-     
-    foreach( $post_types as $type ) {
+    $post_types = array(
+					array(
+						'tribe_events',
+						fn ( int $posts ) => _n( '%s Event', '%s Events', $posts ),
+					)
+				);
+
+    foreach( $post_types as list( $type, $label ) ) {
         if( ! post_type_exists( $type ) ) continue;
  
         $num_posts = wp_count_posts( $type );
@@ -191,7 +196,7 @@ function custom_glance_items( $items = array() ) {
             $published = intval( $num_posts->publish );
             $post_type = get_post_type_object( $type );
              
-            $text = _n( '%s ' . $post_type->labels->singular_name, '%s ' . $post_type->labels->name, $published, 'your_textdomain' );
+            $text = $label( $published );
             $text = sprintf( $text, number_format_i18n( $published ) );
              
             if ( current_user_can( $post_type->cap->edit_posts ) ) {
