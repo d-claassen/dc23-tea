@@ -1,3 +1,8 @@
+/**
+ * WordPress dependencies
+ */
+const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
+
 test('Verify "At a Glance" widget presence', async ({ page, admin }) => {
   // Navigate to the WordPress admin dashboard
   await admin.visitAdminPage('index.php');
