@@ -182,7 +182,7 @@ function custom_glance_items( $items = array() ) {
     $post_types = array(
 					array(
 						'tribe_events',
-						fn ( int $posts ) => _n( '%s Event', '%s Events', $posts ),
+						fn ( int $posts ) => _n( '%s Event', '%s Events', $posts, 'dc23-tea' ),
 					)
 				);
 
