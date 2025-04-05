@@ -171,3 +171,38 @@ function register_custom_event_meta() {
 }
 
 add_action( 'rest_api_init', 'register_custom_event_meta' );
+
+function custom_glance_items( $items = array() ) {
+    // type check
+    if ( ! is_array( $items ) ) {
+        return $items;
+    }
+
+    // just event, but could add other TEC types 
+    $post_types = array( 'tribe_events' );
+     
+    foreach( $post_types as $type ) {
+        if( ! post_type_exists( $type ) ) continue;
+ 
+        $num_posts = wp_count_posts( $type );
+         
+        if( $num_posts ) {
+       
+            $published = intval( $num_posts->publish );
+            $post_type = get_post_type_object( $type );
+             
+            $text = _n( '%s ' . $post_type->labels->singular_name, '%s ' . $post_type->labels->name, $published, 'your_textdomain' );
+            $text = sprintf( $text, number_format_i18n( $published ) );
+             
+            if ( current_user_can( $post_type->cap->edit_posts ) ) {
+                $items[] = sprintf( '<a class="%1$s-count" href="edit.php?post_type=%1$s">%2$s</a>', $type, $text ) . "\n";
+            } else {
+                $items[] = sprintf( '<span class="%1$s-count">%2$s</span>', $type, $text ) . "\n";
+            }
+        }
+    }
+     
+    return $items;
+}
+
+add_filter( 'dashboard_glance_items', 'custom_glance_items', 10, 1 );
