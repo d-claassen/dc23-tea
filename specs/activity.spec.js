@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies.
  */
-import { test, expect } from '@wordpress/test-utils-e2e-playwright';
+const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe('Dashboard Activity widget', async () => {
     test('no events initially', async ({ page, admin }) => {
