@@ -6,7 +6,7 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 test.describe('Dashboard Activity widget', async () => {
     test('no events initially', async ({ page, admin }) => {
         // Go to dashboard.
-        await admin.visitPage('sdmin.php');
+        await admin.visitAdminPage('index.php');
 
         // Find the widget
         const activityWidget = page.locator('#dashboard_activity');
