@@ -60,6 +60,9 @@ jobs:
       - name: 'Build the plugin'
         run: 'npm run-script build'
 
+      - name: 'Purge Composer install'
+        run: 'composer install --no-dev --prefer-dist --no-progress --optimize-autoloader'
+
       - name: 'Zip it'
         run: 'npm run-script plugin-zip'
 
