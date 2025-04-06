@@ -83,7 +83,7 @@ jobs:
           node-version-file: .nvmrc
       - run: npm clean-install
       - run: npm run-script build
-      - name: 'Purge Composer install'
+      - name: 'Composer install'
         run: 'composer install --no-dev --prefer-dist --no-progress --optimize-autoloader'
       - run: npm run-script plugin-zip
 
