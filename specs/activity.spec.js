@@ -32,19 +32,19 @@ test.describe('Dashboard Activity widget', async () => {
     });
     
 
-test('Published event appears in the Activity dashboard widget (block editor)', async ({ page, admin, editor }) => {
-
-
+    test('Published event appears in the Activity dashboard widget (block editor)', async ({ page, admin, editor }) => {
         await admin.visitAdminPage('post-new.php', 'post_type=tribe_events');
 
-  // Fill event title
-  await page.locator('textarea.editor-post-title__input').fill('Test Event Title');
+        // Fill event title
+        //await page.locator('textarea.editor-post-title__input').fill('Test Event Title');
+        await page.fill('#title', 'Test Event Title');
 
-  // Type into the editor using Editor.canvas
-  await editor.canvas.type('This is the event content.');
+        // Type into the editor using Editor.canvas
+        await editor.canvas.type('This is the event content.');
 
-  // Publish the post
-    await admin.publishPost();
+        // Publish the post
+        await admin.publishPost();
+
   //await page.click('button:has-text("Publish")');
   //await page.click('button:has-text("Publish")');
   await page.waitForSelector('div:has-text("published")');
