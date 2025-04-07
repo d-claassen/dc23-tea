@@ -17,7 +17,7 @@ test.describe('Dashboard Activity widget', async () => {
     
     test('Published event appears in the Activity dashboard widget', async ({ page, admin }) => {
         // Add a new event (classic editor assumed)
-        await admin.openAdminPage('post-new.php', 'post_type=tribe_events');
+        await admin.visitAdminPage('post-new.php', 'post_type=tribe_events');
         await page.fill('#title', 'Test Event Title');
         await page.fill('#content', 'This is the event content.');
         await page.click('#publish');
