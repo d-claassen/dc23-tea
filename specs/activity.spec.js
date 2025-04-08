@@ -14,13 +14,17 @@ test.describe('Dashboard Activity widget', async () => {
         // Should not contain any events (yet)
         await expect(activityWidget).not.toContainText('Test Event Title');
     });
-    
-    test.skip('Published event appears in the Activity dashboard widget', async ({ page, admin }) => {
-        // Add a new event (classic editor assumed)
-        await admin.visitAdminPage('post-new.php', 'post_type=tribe_events');
-        await page.fill('#title', 'Test Event Title');
-        await page.fill('#content', 'This is the event content.');
-        await page.click('#publish');
+
+    test('Published event appears in the Activity dashboard widget', async ({ page, admin, editor }) => {
+				// Create a new event
+				await admin.createNewPost( {
+					title: 'My Test Event',
+					postType: 'tribe_events',
+					status: 'publish',
+				} );
+
+				// Publish
+				await editor.publishPost();
 
         // Go back to the dashboard
         await admin.visitAdminPage('index.php');
@@ -28,31 +32,6 @@ test.describe('Dashboard Activity widget', async () => {
         const activityWidget = page.locator('#dashboard_activity');
 
         // Check that the event title shows up
-        await expect(activityWidget).toContainText('Test Event Title');
-    });
-    
-
-    test.fixme('Published event appears in the Activity dashboard widget (block editor)', async ({ page, admin, editor }) => {
-        await admin.visitAdminPage('post-new.php', 'post_type=tribe_events');
-
-        // Fill event title
-        //await page.locator('textarea.editor-post-title__input').fill('Test Event Title');
-        await page.fill('#title', 'Test Event Title');
-
-        // Type into the editor using Editor.canvas
-        await editor.canvas.type('This is the event content.');
-
-        // Publish the post
-        await admin.publishPost();
-
-        //await page.click('button:has-text("Publish")');
-        //await page.click('button:has-text("Publish")');
-        await page.waitForSelector('div:has-text("published")');
-
-        // Go to Dashboard
-        await admin.visitAdminPage('index.php');
-        const activityWidget = page.locator('#dashboard_activity');
-
-        await expect(activityWidget).toContainText('Test Event Title');
+        await expect(activityWidget).toContainText('My Test Event');
     });
 });
