@@ -14,7 +14,17 @@ test.describe('"At a glance" widget integration', () => {
 		const checkbox = await page.getByRole( 'checkbox' ).first();
 		await checkbox.check();
 		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
+
+		await admin.visitAdminPage('edit.php', 'post_type=tribe_events');
+		await page.getByLabel('Select All').first().check();
+		const bulkAction = await page.getByLabel('Select bulk action').first();
+		if ( await bulkAction.count() > 0 ) {
+			await bulkAction.selectOption('trash');
+			await page.getByRole('button', {name: 'Apply'}).first().click();
+		}
 	} );
+
+
 
   test('widget presence', async ({ page, admin }) => {
     // Navigate to the WordPress admin dashboard

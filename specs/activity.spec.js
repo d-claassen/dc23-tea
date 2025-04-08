@@ -14,6 +14,14 @@ test.describe('Dashboard Activity widget', async () => {
 		const checkbox = await page.getByRole( 'checkbox' ).first();
 		await checkbox.check();
 		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
+
+		await admin.visitAdminPage('edit.php', 'post_type=tribe_events');
+		await page.getByLabel('Select All').first().check();
+		const bulkAction = page.getByLabel('Select bulk action').first();
+		if ( bulkAction.length > 0 ) {
+			await bulkAction.selectOption('trash');
+			await page.getByRole('button', {name: 'Apply'}).first().click();
+		}
 	} );
 
     test('no events initially', async ({ page, admin }) => {
