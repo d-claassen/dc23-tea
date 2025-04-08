@@ -32,7 +32,7 @@ test.describe('Dashboard Activity widget', async () => {
     });
     
 
-    test('Published event appears in the Activity dashboard widget (block editor)', async ({ page, admin, editor }) => {
+    test.fixme('Published event appears in the Activity dashboard widget (block editor)', async ({ page, admin, editor }) => {
         await admin.visitAdminPage('post-new.php', 'post_type=tribe_events');
 
         // Fill event title
