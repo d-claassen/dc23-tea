@@ -17,8 +17,8 @@ test.describe('Dashboard Activity widget', async () => {
 
 		await admin.visitAdminPage('edit.php', 'post_type=tribe_events');
 		await page.getByLabel('Select All').first().check();
-		const bulkAction = page.getByLabel('Select bulk action').first();
-		if ( bulkAction.length > 0 ) {
+		const bulkAction = await page.getByLabel('Select bulk action').first();
+		if ( await bulkAction.count() > 0 ) {
 			await bulkAction.selectOption('trash');
 			await page.getByRole('button', {name: 'Apply'}).first().click();
 		}
