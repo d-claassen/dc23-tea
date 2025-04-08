@@ -211,3 +211,38 @@ function custom_glance_items( $items = array() ) {
 }
 
 add_filter( 'dashboard_glance_items', 'custom_glance_items', 10, 1 );
+
+function dc23_include_events_in_dashboard_activity( $query_args ) {
+	// Make sure we're working with an array
+	if ( ! is_array( $query_args ) ) {
+		return $query_args;
+	}
+
+	// Bail if 'post_type' is missing
+	if ( ! isset( $query_args['post_type'] ) ) {
+		return $query_args;
+	}
+
+	$post_types = $query_args['post_type'];
+
+	// Normalize to array
+	if ( is_string( $post_types ) ) {
+		$post_types = [ $post_types ];
+	}
+
+	// If it's not an array even after normalization, abort
+	if ( ! is_array( $post_types ) ) {
+		return $query_args;
+	}
+
+	// Add 'tribe_events' if not already in the list
+	if ( ! in_array( 'tribe_events', $post_types, true ) ) {
+		$post_types[] = 'tribe_events';
+	}
+
+	$query_args['post_type'] = $post_types;
+
+	return $query_args;
+}
+
+add_filter( 'dashboard_recent_posts_query_args', 'dc23_include_events_in_dashboard_activity' );
