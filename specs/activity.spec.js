@@ -45,14 +45,14 @@ test.describe('Dashboard Activity widget', async () => {
         // Publish the post
         await admin.publishPost();
 
-  //await page.click('button:has-text("Publish")');
-  //await page.click('button:has-text("Publish")');
-  await page.waitForSelector('div:has-text("published")');
+        //await page.click('button:has-text("Publish")');
+        //await page.click('button:has-text("Publish")');
+        await page.waitForSelector('div:has-text("published")');
 
-  // Go to Dashboard
+        // Go to Dashboard
         await admin.visitAdminPage('index.php');
-  const activityWidget = page.locator('#dashboard_activity');
+        const activityWidget = page.locator('#dashboard_activity');
 
-  await expect(activityWidget).toContainText('Test Event Title');
-});
+        await expect(activityWidget).toContainText('Test Event Title');
+    });
 });
