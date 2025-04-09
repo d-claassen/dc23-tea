@@ -5,6 +5,11 @@ test.describe('Yoast SEO on Events archive', () => {
 		// Set a custom archive title for events in Yoast SEO
 		await admin.visitAdminPage('admin.php', 'page=wpseo_page_settings#/post-type/events');
 		
+		const aiModal = await page.getByText('Optimize your SEO content with Yoast AI' );
+		if ( await aiModal.count() >= 0 ) {
+			await page.getByText( 'Close' ).click();
+		}
+
 		const label = await page.getByText('SEO title');
 		await label.waitFor({ state: 'visible' });
 		await label.click();
