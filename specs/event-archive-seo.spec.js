@@ -6,6 +6,7 @@ test.describe('Yoast SEO on Events archive', () => {
 		await admin.visitAdminPage('admin.php', 'page=wpseo_page_settings#/post-type/events');
 		
 		const input = await page.getByLabel('SEO title');
+		await input.waitFor({ state: 'visible' });
 		await input.fill('Test Event Archive Title %%sep%% %%sitename%%');
 		
 		// await page.locator('#title-tribe_events-ptarchive').fill('Test Event Archive Title %%sep%% %%sitename%%');
