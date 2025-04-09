@@ -7,7 +7,7 @@ test.describe('Yoast SEO on Events archive', () => {
 		
 		const aiModal = await page.getByText('Optimize your SEO content with Yoast AI' );
 		if ( await aiModal.count() >= 0 ) {
-			await page.getByText( 'Close' ).click();
+			await page.getByText( 'Close dialog' ).click();
 		}
 
 		const label = await page.getByText('SEO title');
