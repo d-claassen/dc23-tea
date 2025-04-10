@@ -246,3 +246,29 @@ function dc23_include_events_in_dashboard_activity( $query_args ) {
 }
 
 add_filter( 'dashboard_recent_posts_query_args', 'dc23_include_events_in_dashboard_activity' );
+
+/**
+ * Yoast SEO Fix for Events Archive
+	*
+ * Makes Yoast SEO recognize The Events Calendar archive page as a post type archive, so SEO titles and meta descriptions apply.
+ */
+add_action( 'pre_get_posts', 'dc23_fix_events_archive_context' );
+
+function dc23_fix_events_archive_context( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	// Check if this is the The Events Calendar archive page
+	if (
+		function_exists( 'tribe_is_event_query' )
+		&& tribe_is_event_query()
+		&& ! is_singular()
+	) {
+		$query->is_post_type_archive = true;
+		$query->set( 'post_type', 'tribe_events' );
+	}
+}
+
+
+
