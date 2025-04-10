@@ -19,7 +19,7 @@ test.describe('Yoast SEO on Events archive', () => {
 	});
 
 	test('SEO title does not reflect Yoast SEO setting', async ({ page }) => {
-		await page.goto('/events/');
+		await page.goto('/?post_type=tribe_events');
 		const pageTitle = await page.title();
 
 		expect(pageTitle).toContain('Test Event Archive Title');
