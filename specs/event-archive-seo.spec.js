@@ -17,6 +17,14 @@ test.describe('Yoast SEO on Events archive', () => {
 		await label.click();
 		await page.keyboard.type('Test Event Archive Title %%sep%% %%sitename%%');
 	});
+	
+	test.afterEach({ page } => {
+		const log = await page.evaluate(async () => {
+			const res = await fetch('/wp-content/debug-events.log');
+			return await res.text();
+		});
+		console.log(log);
+	});
 
 	test('SEO title does not reflect Yoast SEO setting', async ({ page }) => {
 		await page.goto('/?post_type=tribe_events');
