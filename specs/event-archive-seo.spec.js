@@ -18,7 +18,7 @@ test.describe('Yoast SEO on Events archive', () => {
 		await page.keyboard.type('Test Event Archive Title %%sep%% %%sitename%%');
 	});
 	
-	test.afterEach({ page } => {
+	test.afterEach(async ({ page }) => {
 		const log = await page.evaluate(async () => {
 			const res = await fetch('/wp-content/debug-events.log');
 			return await res.text();
