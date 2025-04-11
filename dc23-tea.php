@@ -270,5 +270,28 @@ function dc23_fix_events_archive_context( $query ) {
 	}
 }
 
+///// debuging.
 
+add_action( 'wp', function() {
+	if ( tribe_is_event_query() && ! is_singular() ) {
+		global $wp_filter;
+
+		$filters = $wp_filter['document_title_parts']->callbacks[20] ?? [];
+
+		$log_path = WP_CONTENT_DIR . '/debug-events.log';
+		file_put_contents( $log_path, "--- document_title_parts @20 ---\n", FILE_APPEND );
+
+		foreach ( $filters as $cb ) {
+			if ( is_array( $cb['function'] ) ) {
+				$msg = 'Callback: ' . get_class( $cb['function'][0] ) . '::' . $cb['function'][1];
+			} elseif ( is_string( $cb['function'] ) ) {
+				$msg = 'Callback: ' . $cb['function'];
+			} else {
+				$msg = 'Unknown callback type';
+			}
+
+			file_put_contents( $log_path, $msg . "\n", FILE_APPEND );
+		}
+	}
+}, 10 );
 
