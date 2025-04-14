@@ -270,6 +270,18 @@ function dc23_fix_events_archive_context( $query ) {
 	}
 }
 
+///proof the concept
+
+add_action( 'wp', function() {
+	if ( tribe_is_event_query() && ! is_singular() ) {
+		remove_filter(
+			'document_title_parts',
+			[ Tribe\Events\Views\V2\Hooks::class, 'filter_document_title_parts' ],
+			10
+		);
+	}
+}, 9 );
+
 ///// debuging.
 
 add_action( 'wp', function() {
