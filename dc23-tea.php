@@ -272,7 +272,7 @@ function dc23_fix_events_archive_context( $query ) {
 
 ///proof the concept
 
-add_action( 'wp', function() {
+add_action( 'template_redirect', function() {
 	if ( tribe_is_event_query() && ! is_singular() ) {
 		remove_filter(
 			'document_title_parts',
@@ -280,7 +280,7 @@ add_action( 'wp', function() {
 			10
 		);
 	}
-}, 9 );
+}, 1 ); // heel vroeg in template_redirect
 
 ///// debuging.
 
