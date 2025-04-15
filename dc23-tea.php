@@ -292,14 +292,19 @@ add_action( 'wp', function() {
 		global $wp_filter;
 		$log_path = WP_CONTENT_DIR . '/debug-events.log';
 
-		$priorities = [10, 15, 20, 25, 30];
+		$priorities = [10, 10];
 		foreach ( $priorities as $priority ) {
 			$filters = $wp_filter['document_title_parts']->callbacks[ $priority ] ?? [];
 			file_put_contents( $log_path, "--- document_title_parts @$priority ---\n", FILE_APPEND );
 
 			foreach ( $filters as $cb ) {
 				if ( is_array( $cb['function'] ) ) {
-					$msg = 'Callback: ' . get_class( $cb['function'][0] ) . '::' . $cb['function'][1];
+					list( $src, $method ) = $cb['function'];
+					if ( is_string( $src ) ) {
+						$msg = 'Callback: ' . get_class( $cb['function'][0] ) . '::' . $cb['function'][1];
+					} else {
+						$msg = 'Callback: ' . get_class( $cb['function'][0] ) . '()->' . $cb['function'][1];
+					}
 				} elseif ( is_string( $cb['function'] ) ) {
 					$msg = 'Callback: ' . $cb['function'];
 				} else {
@@ -307,6 +312,14 @@ add_action( 'wp', function() {
 				}
 
 				file_put_contents( $log_path, $msg . "\n", FILE_APPEND );
+				
+				
+				remove_filter(
+					'document_title_parts',
+					[ Tribe\Events\Views\V2\Hooks::class, 'filter_document_title_parts' ],
+					10
+				);
+				
 			}
 		}
 	}
