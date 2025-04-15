@@ -313,10 +313,12 @@ add_action( 'wp', function() {
 
 				file_put_contents( $log_path, $msg . "\n", FILE_APPEND );
 				
-				
+				$hooks = tribe( Tribe\Events\Views\V2\Hooks::class );
+
+	
 				remove_filter(
 					'document_title_parts',
-					[ Tribe\Events\Views\V2\Hooks::class, 'filter_document_title_parts' ],
+					[ $hooks, 'filter_document_title_parts' ],
 					10
 				);
 				
