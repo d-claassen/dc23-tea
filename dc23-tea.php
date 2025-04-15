@@ -274,6 +274,9 @@ function dc23_fix_events_archive_context( $query ) {
 
 add_action( 'template_redirect', function() {
 	if ( tribe_is_event_query() && ! is_singular() ) {
+		$log_path = WP_CONTENT_DIR . '/debug-events.log';
+		file_put_contents( $log_path, "--- template_redirect ---\n", FILE_APPEND );
+
 		remove_filter(
 			'document_title_parts',
 			[ Tribe\Events\Views\V2\Hooks::class, 'filter_document_title_parts' ],
