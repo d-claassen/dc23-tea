@@ -10,6 +10,8 @@ test.describe('Yoast SEO on Events archive', () => {
 		if ( await aiModal.count() > 0 ) {
 			await page.getByRole('button', { name: 'Close' }).click();
 		}
+		
+		console.log({ url: await page.getUrl() });
 
 		// Fill the SEO title
 		const label = await page.getByText('SEO title');
