@@ -16,6 +16,9 @@ test.describe('Yoast SEO on Events archive', () => {
 		await label.waitFor({ state: 'visible' });
 		await label.click();
 		await page.keyboard.type('Test Event Archive Title %%sep%% %%sitename%%');
+		
+		// Save the changes.
+		await page.getByRole('button', { name: 'Save changes' }).click();
 	});
 	
 	test.afterEach(async ({ page }) => {
