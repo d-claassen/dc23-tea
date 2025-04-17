@@ -11,7 +11,10 @@ test.describe('Yoast SEO on Events archive', () => {
 			await page.getByRole('button', { name: 'Close' }).click();
 		}
 		
-		console.log({ url: await page.getUrl() });
+		console.log({ url: await page.url() });
+
+		//Navigate to events settings.
+		await page.getByRole('link', { name: 'Events' }).click();
 
 		// Fill the SEO title
 		const label = await page.getByText('SEO title');
