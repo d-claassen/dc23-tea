@@ -19,7 +19,7 @@ test.describe('Yoast SEO on Events archive', () => {
 		//await page.getByRole('link', { name: 'Events' }).click();
 
 		// Fill the SEO title
-		const label = await page.getByText('SEO title');
+		const label = await page.getByText('SEO title').nth(1);
 		await label.waitFor({ state: 'visible' });
 		await label.click();
 		await page.keyboard.type('Test Event Archive Title %%sep%% %%sitename%%');
