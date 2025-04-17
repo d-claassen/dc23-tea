@@ -14,7 +14,9 @@ test.describe('Yoast SEO on Events archive', () => {
 		console.log({ url: await page.url() });
 
 		//Navigate to events settings.
-		await page.getByRole('link', { name: 'Events' }).click();
+		await page.locator('[id="link-post-type\\/event"]').click();
+
+		//await page.getByRole('link', { name: 'Events' }).click();
 
 		// Fill the SEO title
 		const label = await page.getByText('SEO title');
