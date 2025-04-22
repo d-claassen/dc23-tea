@@ -178,7 +178,7 @@ function custom_glance_items( $items = array() ) {
         return $items;
     }
 
-    // just event, but could add other TEC types 
+    // just event, but could add other TEC types
     $post_types = array(
 					array(
 						'tribe_events',
@@ -188,17 +188,17 @@ function custom_glance_items( $items = array() ) {
 
     foreach( $post_types as list( $type, $label ) ) {
         if( ! post_type_exists( $type ) ) continue;
- 
+
         $num_posts = wp_count_posts( $type );
-         
+
         if( $num_posts ) {
-       
+
             $published = intval( $num_posts->publish );
             $post_type = get_post_type_object( $type );
-             
+
             $text = $label( $published );
             $text = sprintf( $text, number_format_i18n( $published ) );
-             
+
             if ( current_user_can( $post_type->cap->edit_posts ) ) {
                 $items[] = sprintf( '<a class="%1$s-count" href="edit.php?post_type=%1$s">%2$s</a>', $type, $text ) . "\n";
             } else {
@@ -206,7 +206,7 @@ function custom_glance_items( $items = array() ) {
             }
         }
     }
-     
+
     return $items;
 }
 
@@ -248,81 +248,19 @@ function dc23_include_events_in_dashboard_activity( $query_args ) {
 add_filter( 'dashboard_recent_posts_query_args', 'dc23_include_events_in_dashboard_activity' );
 
 /**
- * Yoast SEO Fix for Events Archive
-	*
- * Makes Yoast SEO recognize The Events Calendar archive page as a post type archive, so SEO titles and meta descriptions apply.
+ * Yoast SEO fix for The Events Archive.
+ *
+ * Disables the SEO title tweaks made by The Events Calendar plugin.
  */
-add_action( 'pre_get_posts', 'dc23_fix_events_archive_context' );
-
-function dc23_fix_events_archive_context( $query ) {
-	if ( is_admin() || ! $query->is_main_query() ) {
-		return;
-	}
-
-	// Check if this is the The Events Calendar archive page
-	if (
-		function_exists( 'tribe_is_event_query' )
-		&& tribe_is_event_query()
-		&& ! is_singular()
-	) {
-		$query->is_post_type_archive = true;
-		$query->set( 'post_type', 'tribe_events' );
-	}
-}
-
-///proof the concept
-
-add_action( 'template_redirect', function() {
-	if ( tribe_is_event_query() && ! is_singular() ) {
-		$log_path = WP_CONTENT_DIR . '/debug-events.log';
-		file_put_contents( $log_path, "--- template_redirect ---\n", FILE_APPEND );
-
-		remove_filter(
-			'document_title_parts',
-			[ Tribe\Events\Views\V2\Hooks::class, 'filter_document_title_parts' ],
-			10
-		);
-	}
-}, 1 ); // heel vroeg in template_redirect
-
-///// debuging.
-
 add_action( 'wp', function() {
 	if ( tribe_is_event_query() && ! is_singular() ) {
-		global $wp_filter;
-		$log_path = WP_CONTENT_DIR . '/debug-events.log';
-
-		$priorities = [10, 10];
-		foreach ( $priorities as $priority ) {
-			$filters = $wp_filter['document_title_parts']->callbacks[ $priority ] ?? [];
-			file_put_contents( $log_path, "--- document_title_parts @$priority ---\n", FILE_APPEND );
-
-			foreach ( $filters as $cb ) {
-				if ( is_array( $cb['function'] ) ) {
-					list( $src, $method ) = $cb['function'];
-					if ( is_string( $src ) ) {
-						$msg = 'Callback: ' . get_class( $cb['function'][0] ) . '::' . $cb['function'][1];
-					} else {
-						$msg = 'Callback: ' . get_class( $cb['function'][0] ) . '()->' . $cb['function'][1];
-					}
-				} elseif ( is_string( $cb['function'] ) ) {
-					$msg = 'Callback: ' . $cb['function'];
-				} else {
-					$msg = 'Unknown callback type';
-				}
-
-				file_put_contents( $log_path, $msg . "\n", FILE_APPEND );
-				
-				$hooks = tribe( Tribe\Events\Views\V2\Hooks::class );
-
-	
-				remove_filter(
-					'document_title_parts',
-					[ $hooks, 'filter_document_title_parts' ],
-					10
-				);
-				
-			}
+		$hooks = tribe( 'events.views.v2.hooks' );
+		if ( ! ( $hooks instanceof Tribe\Events\Views\V2\Hooks ) ) {
+			return;
 		}
+
+		remove_filter( 'wp_title', [ $hooks, 'filter_wp_title' ], 10 );
+		remove_filter( 'document_title_parts', [ $hooks, 'filter_document_title_parts' ], 10 );
+		remove_filter( 'pre_get_document_title', [ $hooks, 'pre_get_document_title' ], 20 );
 	}
-}, 11 ); // Run just after most theme setup
+}, 9 );
