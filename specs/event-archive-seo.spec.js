@@ -30,6 +30,17 @@ test.describe( 'Yoast SEO on Events archive', () => {
 			'Test Event Archive Title %%sep%% %%sitename%%'
 		);
 
+		// Find the archive meta description.
+		const label = await page.getByText( 'Meta description' ).nth( 1 );
+		await label.waitFor( { state: 'visible' } );
+		await label.click();
+
+		// Clear and fill the SEO title.
+		await page.keyboard.press( 'ControlOrMeta+A+Backspace' );
+		await page.keyboard.type(
+			'Test upcoming events on %%sitename%%'
+		);
+
 		// Save the changes.
 		await page.getByRole( 'button', { name: 'Save changes' } ).click();
 	} );
@@ -41,5 +52,14 @@ test.describe( 'Yoast SEO on Events archive', () => {
 		const pageTitle = await page.title();
 
 		expect( pageTitle ).toContain( 'Test Event Archive Title' );
+	} );
+
+	test( 'Meta description does not reflect Yoast SEO setting', async ( {
+		page,
+	} ) => {
+		await page.goto( '/?post_type=tribe_events' );
+
+		const metaDescription = await page.locator( 'head > meta[name="description"]' ).getAttribute( 'content' );
+		expect( metaDescription ).toContain( 'Test upcoming events' );
 	} );
 } );
