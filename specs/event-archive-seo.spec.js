@@ -20,9 +20,9 @@ test.describe( 'Yoast SEO on Events archive', () => {
 			.click();
 
 		// Find the archive SEO title.
-		const label = await page.getByText( 'SEO title' ).nth( 1 );
-		await label.waitFor( { state: 'visible' } );
-		await label.click();
+		const titleLabel = await page.getByText( 'SEO title' ).nth( 1 );
+		await titleLabel.waitFor( { state: 'visible' } );
+		await titleLabel.click();
 
 		// Clear and fill the SEO title.
 		await page.keyboard.press( 'ControlOrMeta+A+Backspace' );
@@ -31,9 +31,9 @@ test.describe( 'Yoast SEO on Events archive', () => {
 		);
 
 		// Find the archive meta description.
-		const label = await page.getByText( 'Meta description' ).nth( 1 );
-		await label.waitFor( { state: 'visible' } );
-		await label.click();
+		const descriptionLabel = await page.getByText( 'Meta description' ).nth( 1 );
+		await descriptionLabel.waitFor( { state: 'visible' } );
+		await descriptionLabel.click();
 
 		// Clear and fill the SEO title.
 		await page.keyboard.press( 'ControlOrMeta+A+Backspace' );
