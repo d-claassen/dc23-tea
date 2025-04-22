@@ -5,9 +5,14 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 test.describe( 'Sidebar panel', () => {
 	test.beforeEach( async ( { admin, page } ) => {
-		await admin.visitAdminPage( 'edit.php', 'page=tec-events-settings&tab=general-editing-tab&post_type=tribe_events' );
-		const skipTelemetry = await page.getByRole( 'button', { name: 'Skip' } );
-		if ( await skipTelemetry.count() > 0 ) {
+		await admin.visitAdminPage(
+			'edit.php',
+			'page=tec-events-settings&tab=general-editing-tab&post_type=tribe_events'
+		);
+		const skipTelemetry = await page.getByRole( 'button', {
+			name: 'Skip',
+		} );
+		if ( ( await skipTelemetry.count() ) > 0 ) {
 			await skipTelemetry.click();
 		}
 		// const checkbox = await page.getByRole( 'checkbox', { name: 'toggle_blocks_editor' } ).check();
@@ -25,9 +30,8 @@ test.describe( 'Sidebar panel', () => {
 			page,
 			admin,
 			editor,
-			requestUtils,
 		} ) => {
-			const newPage = await admin.createNewPost( {
+			await admin.createNewPost( {
 				title: 'Posts Page',
 				postType: 'tribe_events',
 				status: 'publish',
@@ -52,28 +56,26 @@ test.describe( 'Sidebar panel', () => {
 			await editor.openDocumentSettingsSidebar();
 			await expect(
 				page.getByRole( 'button', { name: 'The Event Attendee' } )
-			).toBeHidden()
-		} );
-
-		test.fixme( 'invisible in site editor', async ( {
-			page,
-			editor,
-			admin,
-			requestUtils,
-		} ) => {
-			const newPage = await requestUtils.createPage( {
-				title: 'Posts Page',
-				status: 'publish',
-			} );
-			await admin.visitSiteEditor( {
-				postId: newPage.id,
-				postType: 'page',
-				canvas: 'edit',
-			} );
-			await editor.openDocumentSettingsSidebar();
-			await expect(
-				page.getByRole( 'button', { name: 'The Event Attendee' } )
 			).toBeHidden();
 		} );
+
+		test.fixme(
+			'invisible in site editor',
+			async ( { page, editor, admin, requestUtils } ) => {
+				const newPage = await requestUtils.createPage( {
+					title: 'Posts Page',
+					status: 'publish',
+				} );
+				await admin.visitSiteEditor( {
+					postId: newPage.id,
+					postType: 'page',
+					canvas: 'edit',
+				} );
+				await editor.openDocumentSettingsSidebar();
+				await expect(
+					page.getByRole( 'button', { name: 'The Event Attendee' } )
+				).toBeHidden();
+			}
+		);
 	} );
 } );
