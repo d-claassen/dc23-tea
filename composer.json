@@ -3,6 +3,15 @@
     "require-dev": {
         "yoast/yoastcs": "^3.1"
     },
+    "repositories": {
+		"wpackagist": {
+			"type": "composer",
+			"url": "https://wpackagist.org",
+			"only": [
+				"wpackagist-plugin/*"
+			]
+        }
+    },
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
