@@ -17,7 +17,9 @@ test.describe('Yoast SEO on Events archive', () => {
 
 		//Navigate to events settings.
 		await page.locator('[id="link-post-type\\/event"]').click();
-
+		
+		console.log({ url: await page.url() });
+		
 		await page.screenshot({ path: 'event-settings.png', fullPage: true });
 		//await page.getByRole('link', { name: 'Events' }).click();
 
