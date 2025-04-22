@@ -178,7 +178,7 @@ function custom_glance_items( $items = array() ) {
         return $items;
     }
 
-    // just event, but could add other TEC types 
+    // just event, but could add other TEC types
     $post_types = array(
 					array(
 						'tribe_events',
@@ -188,17 +188,17 @@ function custom_glance_items( $items = array() ) {
 
     foreach( $post_types as list( $type, $label ) ) {
         if( ! post_type_exists( $type ) ) continue;
- 
+
         $num_posts = wp_count_posts( $type );
-         
+
         if( $num_posts ) {
-       
+
             $published = intval( $num_posts->publish );
             $post_type = get_post_type_object( $type );
-             
+
             $text = $label( $published );
             $text = sprintf( $text, number_format_i18n( $published ) );
-             
+
             if ( current_user_can( $post_type->cap->edit_posts ) ) {
                 $items[] = sprintf( '<a class="%1$s-count" href="edit.php?post_type=%1$s">%2$s</a>', $type, $text ) . "\n";
             } else {
@@ -206,7 +206,7 @@ function custom_glance_items( $items = array() ) {
             }
         }
     }
-     
+
     return $items;
 }
 
@@ -246,3 +246,21 @@ function dc23_include_events_in_dashboard_activity( $query_args ) {
 }
 
 add_filter( 'dashboard_recent_posts_query_args', 'dc23_include_events_in_dashboard_activity' );
+
+/**
+ * Yoast SEO fix for The Events Archive.
+ *
+ * Disables the SEO title tweaks made by The Events Calendar plugin.
+ */
+add_action( 'wp', function() {
+	if ( tribe_is_event_query() && ! is_singular() ) {
+		$hooks = tribe( 'events.views.v2.hooks' );
+		if ( ! ( $hooks instanceof Tribe\Events\Views\V2\Hooks ) ) {
+			return;
+		}
+
+		remove_filter( 'wp_title', [ $hooks, 'filter_wp_title' ], 10 );
+		remove_filter( 'document_title_parts', [ $hooks, 'filter_document_title_parts' ], 10 );
+		remove_filter( 'pre_get_document_title', [ $hooks, 'pre_get_document_title' ], 20 );
+	}
+}, 9 );
