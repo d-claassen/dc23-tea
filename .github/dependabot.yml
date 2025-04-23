@@ -23,3 +23,5 @@ updates:
       day: "monday"
       time: "17:00"
       timezone: Europe/Amsterdam
+    versioning-strategy: widen
+    
