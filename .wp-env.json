@@ -2,8 +2,8 @@
 	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
 	"core": null,
 	"plugins": [
-		"https://downloads.wordpress.org/plugin/wordpress-seo.24.6.zip",
-		"https://downloads.wordpress.org/plugin/the-events-calendar.6.10.2.zip",
+		"./vendor/wpackagist/wordpress-seo",
+		"./vendor/wpackagist/the-events-calendar",
 		"."
 	]
 }
