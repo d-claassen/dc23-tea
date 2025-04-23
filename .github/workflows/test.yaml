@@ -51,7 +51,7 @@ jobs:
       - name: 'Composer install'
         uses: ramsey/composer-install@v3
         with:
-          dependency-version: ${{ matrix.dependencies_version }}
+          dependency-versions: ${{ matrix.dependencies_version }}
           composer-options: '--prefer-dist --no-progress --no-suggest --optimize-autoloader'
 
       - name: NPM build
