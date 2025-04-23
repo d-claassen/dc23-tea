@@ -52,7 +52,7 @@ jobs:
         uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependencies_version }}
-          composer-options: '--prefer-dist --no-progress --optimize-autoloader'
+          composer-options: '--prefer-dist --optimize-autoloader'
 
       - name: NPM build
         run: npm run build
