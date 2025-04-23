@@ -2,8 +2,8 @@
 	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
 	"core": null,
 	"plugins": [
-		"./vendor/wpackagist-plugin/wordpress-seo",
-		"./vendor/wpackagist-plugin/the-events-calendar",
+		"./vendor/wpackagist/wordpress-seo",
+		"./vendor/wpackagist/the-events-calendar",
 		"."
 	]
 }
