@@ -45,7 +45,7 @@ test.describe( 'Yoast SEO on Events archive', () => {
 		await page.getByRole( 'button', { name: 'Save changes' } ).click();
 	} );
 
-	test( 'SEO title does not reflect Yoast SEO setting', async ( {
+	test( 'SEO title matches the Yoast SEO setting', async ( {
 		page,
 	} ) => {
 		await page.goto( '/?post_type=tribe_events' );
@@ -54,7 +54,7 @@ test.describe( 'Yoast SEO on Events archive', () => {
 		expect( pageTitle ).toContain( 'Test Event Archive Title' );
 	} );
 
-	test( 'Meta description does not reflect Yoast SEO setting', async ( {
+	test( 'Meta description matches the Yoast SEO setting', async ( {
 		page,
 	} ) => {
 		await page.goto( '/?post_type=tribe_events' );
