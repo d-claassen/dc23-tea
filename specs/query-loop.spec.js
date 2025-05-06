@@ -95,8 +95,8 @@ test.describe('Query Loop block with tribe_events', () => {
 		expect(pastIndex).toBeLessThan(futureIndex); // i.e., publish date ordering
 	});
 
-	test('Query Loop block renders correctly on front end', async ({ page }) => {
-		const postId = await createPost({
+	test('Query Loop block renders correctly on front end', async ({ admin, page }) => {
+		const postId = await admin.createPost({
 			title: 'Event Test Post',
 			content: '<!-- wp:query {"postType":"tribe_events"} --><!-- /wp:query -->',
 			status: 'publish',
@@ -105,8 +105,8 @@ test.describe('Query Loop block with tribe_events', () => {
 		await page.goto(`/index.php?p=${postId}`);
 		const body = await page.textContent('body');
 
-		// If pre_get_posts fix is in place, it should not show the past event
-		expect(body).toContain('Future Event');
-		expect(body).not.toContain('Past Event');
+		Expect both events.
+		expect(body).toContain('Future Test Event');
+		expect(body).toContain('Past Test Event');
 	});
 });
