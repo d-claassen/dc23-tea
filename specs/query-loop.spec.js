@@ -71,11 +71,11 @@ test.describe('Query Loop block with tribe_events', () => {
 		await editor.publishPost();
 	});
 
-	test('Query Loop block shows incorrect order in editor', async ({ page }) => {
-		await visitAdminPage(page, 'post-new.php');
+	test('Query Loop block shows incorrect order in editor', async ({ admin, editor, page }) => {
+		await admin.visitAdminPage('post-new.php');
 
 		// Insert Query Loop block
-		await insertBlock(page, 'Query Loop');
+		await editor.insertBlock( 'Query Loop');
 		await page.click('text=Start blank');
 
 		// Select tribe_events post type in the block inspector (assuming CPT is public and in REST)
@@ -86,12 +86,12 @@ test.describe('Query Loop block with tribe_events', () => {
 		const preview = page.locator('.block-editor-block-list__block');
 		const content = await preview.textContent();
 
-		expect(content).toContain('Past Event');
-		expect(content).toContain('Future Event');
+		expect(content).toContain('Past Test Event');
+		expect(content).toContain('Future Test Event');
 
 		// Optionally: assert ordering
-		const pastIndex = content.indexOf('Past Event');
-		const futureIndex = content.indexOf('Future Event');
+		const pastIndex = content.indexOf('Past Test Event');
+		const futureIndex = content.indexOf('Future Test Event');
 		expect(pastIndex).toBeLessThan(futureIndex); // i.e., publish date ordering
 	});
 
