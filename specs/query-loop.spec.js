@@ -75,7 +75,7 @@ test.describe('Query Loop block with tribe_events', () => {
 		await admin.visitAdminPage('post-new.php');
 
 		// Insert Query Loop block
-		await editor.insertBlock( { name: 'Query Loop' } );
+		await editor.insertBlock( { name: 'core/query' } );
 		await page.click('text=Start blank');
 
 		// Select tribe_events post type in the block inspector (assuming CPT is public and in REST)
