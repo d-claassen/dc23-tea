@@ -1,5 +1,7 @@
-import { test, expect } from '@playwright/test';
-import { createPost, visitAdminPage, insertBlock, publishPost, setPostContent } from '@wordpress/e2e-test-utils-playwright';
+import { 
+	test, expect,
+	createPost, visitAdminPage, insertBlock, publishPost, setPostContent,
+} from '@wordpress/e2e-test-utils-playwright';
 
 test.describe('Query Loop block with tribe_events', () => {
 	test.beforeEach(async ({ page }) => {
