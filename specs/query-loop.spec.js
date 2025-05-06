@@ -4,7 +4,7 @@ import {
 } from '@wordpress/e2e-test-utils-playwright';
 
 test.describe('Query Loop block with tribe_events', () => {
-	test.beforeEach(async ({ page }) => {
+	test.beforeEach(async ({ admin, editor, page }) => {
 		// Visit TEC settings
 		await admin.visitAdminPage(
 			'edit.php',
@@ -36,28 +36,29 @@ test.describe('Query Loop block with tribe_events', () => {
 			await page.getByRole( 'button', { name: 'Apply' } ).first().click();
 		}
 		
-		// Create some events via REST API or wp.data.dispatch
-		await page.evaluate(async () => {
-			const createEvent = (title, startDate) => {
-				return fetch('/wp-json/wp/v2/tribe_events', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: 'Basic ' + btoa('admin:password'),
-					},
-					body: JSON.stringify({
-						title: title,
-						status: 'publish',
-						meta: {
-							_EventStartDate: startDate,
-						},
-					}),
-				});
-			};
+		// Create a past event via Block editor.
+		await admin.createNewPost( {
+			title: 'Past Test Event',
+			postType: 'tribe_events',
+			status: 'publish',
+		} );
+		
+		// @TODO. Set event date.
 
-			await createEvent('Past Event', '2023-01-01 10:00:00');
-			await createEvent('Future Event', '2099-01-01 10:00:00');
-		});
+		// Publish
+		await editor.publishPost();
+
+		// Create a future event via Block editor.
+		await admin.createNewPost( {
+			title: 'Future Test Event',
+			postType: 'tribe_events',
+			status: 'publish',
+		} );
+
+		// @TODO. Set event date.
+
+		// Publish
+		await editor.publishPost();
 	});
 
 	test('Query Loop block shows incorrect order in editor', async ({ page }) => {
