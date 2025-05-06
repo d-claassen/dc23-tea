@@ -42,8 +42,13 @@ test.describe('Query Loop block with tribe_events', () => {
 			postType: 'tribe_events',
 			status: 'publish',
 		} );
-		
-		// @TODO. Set event date.
+
+		await editor.openDocumentSettingsSidebar();
+		await expect(
+			page.getByRole( 'button', { name: 'The Event Attendee' } )
+		).toBeVisible();
+
+		// @TODO. Set event start date.
 
 		// Publish
 		await editor.publishPost();
@@ -55,7 +60,12 @@ test.describe('Query Loop block with tribe_events', () => {
 			status: 'publish',
 		} );
 
-		// @TODO. Set event date.
+		await editor.openDocumentSettingsSidebar();
+		await expect(
+			page.getByRole( 'button', { name: 'The Event Attendee' } )
+		).toBeVisible();
+
+		// @TODO. Set event start date.
 
 		// Publish
 		await editor.publishPost();
