@@ -5,12 +5,37 @@ import {
 
 test.describe('Query Loop block with tribe_events', () => {
 	test.beforeEach(async ({ page }) => {
-		// Login as admin
-		await page.goto('/wp-login.php');
-		await page.fill('#user_login', 'admin');
-		await page.fill('#user_pass', 'password');
-		await page.click('#wp-submit');
+		// Visit TEC settings
+		await admin.visitAdminPage(
+			'edit.php',
+			'page=tec-events-settings&tab=general-editing-tab&post_type=tribe_events'
+		);
+		
+		// Skip telemetry alert if showing.
+		const skipTelemetry = await page.getByRole( 'button', {
+			name: 'Skip',
+		} );
+		if ( ( await skipTelemetry.count() ) > 0 ) {
+			await skipTelemetry.click();
+		}
 
+		// Enable block editor for events.
+		// const checkbox = await page.getByRole( 'checkbox', { name: 'toggle_blocks_editor' } ).check();
+		const checkbox = await page.getByRole( 'checkbox' ).first();
+		await checkbox.check();
+		await page.getByRole( 'button', { name: 'Save Changes' } ).click();
+
+		// Bulk delete existing events.
+		await admin.visitAdminPage( 'edit.php', 'post_type=tribe_events' );
+		await page.getByLabel( 'Select All' ).first().check();
+		const bulkAction = await page
+			.getByLabel( 'Select bulk action' )
+			.first();
+		if ( ( await bulkAction.count() ) > 0 ) {
+			await bulkAction.selectOption( 'trash' );
+			await page.getByRole( 'button', { name: 'Apply' } ).first().click();
+		}
+		
 		// Create some events via REST API or wp.data.dispatch
 		await page.evaluate(async () => {
 			const createEvent = (title, startDate) => {
