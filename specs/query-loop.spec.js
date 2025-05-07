@@ -72,7 +72,11 @@ test.describe('Query Loop block with tribe_events', () => {
 	});
 
 	test('Query Loop block shows incorrect order in editor', async ({ admin, editor, page }) => {
-		await admin.visitAdminPage('post-new.php');
+		// await admin.visitAdminPage('post-new.php');
+		await admin.createNewPost( {
+			postType: 'page',
+			title: 'Query Page',
+		} );
 
 		// Insert Query Loop block
 		await editor.insertBlock( { name: 'core/query' } );
