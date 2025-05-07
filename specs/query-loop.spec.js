@@ -76,7 +76,7 @@ test.describe('Query Loop block with tribe_events', () => {
 
 		// Insert Query Loop block
 		await editor.insertBlock( { name: 'core/query' } );
-		await editor.clickBlockToolbarButton('Start blank');
+		await editor.canvas.click('Start blank');
 
 		// Select tribe_events post type in the block inspector (assuming CPT is public and in REST)
 		await editor.openBlockSettingsSidebar();
