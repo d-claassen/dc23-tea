@@ -76,16 +76,18 @@ test.describe('Query Loop block with tribe_events', () => {
 
 		// Insert Query Loop block
 		await editor.insertBlock( { name: 'core/query' } );
-		await page.click('text=Start blank');
+		await editor.clickBlockToolbarButton('Start blank');
 
 		// Select tribe_events post type in the block inspector (assuming CPT is public and in REST)
-		await page.click('[aria-label="Display settings"]');
-		await page.selectOption('select[name="postType"]', 'tribe_events');
+		await editor.openBlockSettingsSidebar();
+
+		// Change post type to tribe_events in block settings
+		await editor.selectOptionInBlockSettingsSidebar('Post type', 'tribe_events');
+
+		// Get visible block content
+		const content = await editor.getEditedPostContent();
 
 		// Check editor preview: does it show events in publish date order (not event date)?
-		const preview = page.locator('.block-editor-block-list__block');
-		const content = await preview.textContent();
-
 		expect(content).toContain('Past Test Event');
 		expect(content).toContain('Future Test Event');
 
