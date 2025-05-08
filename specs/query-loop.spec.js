@@ -86,8 +86,13 @@ test.describe('Query Loop block with tribe_events', () => {
 				.getByRole( 'button', { name: 'Start blank' } )
 				.click();
 
-		// Select tribe_events post type in the block inspector (assuming CPT is public and in REST)
-		await editor.openBlockSettingsSidebar();
+		// Open sidebar and expect Block tab to be shown.
+		await editor.openDocumentSettingsSidebar();
+		await expect(
+			page
+				.getByRole( 'region', { name: 'Editor settings' } )
+				.getByRole( 'tab', { selected: true } )
+		).toHaveText( 'Block' );
 
 		// Change post type to tribe_events in block settings
 		await editor.selectOptionInBlockSettingsSidebar('Post type', 'tribe_events');
