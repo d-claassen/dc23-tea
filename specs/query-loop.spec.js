@@ -80,7 +80,7 @@ test.describe('Query Loop block with tribe_events', () => {
 
 		// Insert Query Loop block
 		await editor.insertBlock( { name: 'core/query' } );
-		await editor.canvas
+		await editor//.canvas
 				.getByRole( 'document', { name: 'Block: Query Loop' } )
 				.getByRole( 'button', { name: 'Start blank' } )
 				.click();
