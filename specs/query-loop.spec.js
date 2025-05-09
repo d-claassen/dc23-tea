@@ -95,15 +95,13 @@ test.describe('Query Loop block with tribe_events', () => {
 		).toHaveText( 'Block' );
 
 		// Change post type to tribe_events in block settings
-		await editor.selectOptionInBlockSettingsSidebar('Post type', 'tribe_events');
-
-		// Get visible block content
 		await page
 							.getByRole( 'region', { name: 'Settings' } )
-							.getByRole( 'label', { name: 'Post type' } )
+							.getByLabel( 'Post type' )
 							.selectOption('Event');
 
-		// const content = await editor.getEditedPostContent();
+		// Get visible block content
+		const content = await editor.getEditedPostContent();
 
 		// Check editor preview: does it show events in publish date order (not event date)?
 		expect(content).toContain('Past Test Event');
