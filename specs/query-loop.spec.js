@@ -101,9 +101,9 @@ test.describe('Query Loop block with tribe_events', () => {
 		await page
 							.getByRole( 'region', { name: 'Settings' } )
 							.getByRole( 'label', { name: 'Post type' } )
-							.click();
+							.selectOption('Event');
 
-		const content = await editor.getEditedPostContent();
+		// const content = await editor.getEditedPostContent();
 
 		// Check editor preview: does it show events in publish date order (not event date)?
 		expect(content).toContain('Past Test Event');
@@ -115,8 +115,8 @@ test.describe('Query Loop block with tribe_events', () => {
 		expect(pastIndex).toBeLessThan(futureIndex); // i.e., publish date ordering
 	});
 
-	test('Query Loop block renders correctly on front end', async ({ admin, page }) => {
-		const postId = await admin.createNewPost({
+	test('Query Loop block renders correctly on front end', async ({ admin, page, requestUtils }) => {
+		const postId = await requestUtils.createPost({
 			title: 'Event Test Post',
 			content: '<!-- wp:query {"postType":"tribe_events"} --><!-- /wp:query -->',
 			status: 'publish',
