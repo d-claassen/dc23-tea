@@ -98,6 +98,11 @@ test.describe('Query Loop block with tribe_events', () => {
 		await editor.selectOptionInBlockSettingsSidebar('Post type', 'tribe_events');
 
 		// Get visible block content
+		await page
+							.getByRole( 'region', { name: 'Settings' } )
+							.getByRole( 'label', { name: 'Post type' } )
+							.click();
+
 		const content = await editor.getEditedPostContent();
 
 		// Check editor preview: does it show events in publish date order (not event date)?
@@ -111,7 +116,7 @@ test.describe('Query Loop block with tribe_events', () => {
 	});
 
 	test('Query Loop block renders correctly on front end', async ({ admin, page }) => {
-		const postId = await admin.createPost({
+		const postId = await admin.createNewPost({
 			title: 'Event Test Post',
 			content: '<!-- wp:query {"postType":"tribe_events"} --><!-- /wp:query -->',
 			status: 'publish',
