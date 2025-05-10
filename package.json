@@ -19,6 +19,7 @@
 	],
 	"main": "build/index.js",
 	"devDependencies": {
+		"@wordpress/date": "wp-6.8",
 		"@wordpress/env": "^10.22.0",
 		"@wordpress/scripts": "^30.15.0"
 	},
