@@ -71,7 +71,7 @@ test.describe('Query Loop block with tribe_events', () => {
 		const datepicker = page.getByRole( 'button', {
 			name: labelToday,
 		} );
-		await datepicker.click();
+		await datepicker.first().click();
 
 		// Change the publishing date to a year in the future.
 		await page
