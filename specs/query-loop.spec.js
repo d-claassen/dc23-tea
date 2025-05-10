@@ -1,7 +1,5 @@
-import { 
-	test, expect,
-	createPost, visitAdminPage, insertBlock, publishPost, setPostContent,
-} from '@wordpress/e2e-test-utils-playwright';
+import { test, expect } from '@wordpress/e2e-test-utils-playwright';
+import { dateI18n } from '@wordpress/date';
 
 test.describe('Query Loop block with tribe_events', () => {
 	test.beforeEach(async ({ admin, editor, page }) => {
@@ -36,6 +34,9 @@ test.describe('Query Loop block with tribe_events', () => {
 			await page.getByRole( 'button', { name: 'Apply' } ).first().click();
 		}
 		
+		const startDate = new Date();
+		const labelToday = dateI18n( 'F j, Y', startDate );
+		
 		// Create a past event via Block editor.
 		await admin.createNewPost( {
 			title: 'Past Test Event',
@@ -68,7 +69,7 @@ test.describe('Query Loop block with tribe_events', () => {
 
 		// Set event start date.
 		const datepicker = page.getByRole( 'button', {
-			name: 'Start date',
+			name: labelToday,
 		} );
 		await datepicker.click();
 
