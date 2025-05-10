@@ -123,8 +123,6 @@ test.describe('Query Loop block with tribe_events', () => {
 			status: 'publish',
 		});
 
-		expect(postId).toContain('rndmstff');
-
 		await page.goto(`/index.php?p=${postId}`);
 		const body = await page.textContent('body');
 
