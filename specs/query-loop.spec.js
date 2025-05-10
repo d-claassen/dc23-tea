@@ -82,9 +82,12 @@ test.describe('Query Loop block with tribe_events', () => {
 		await editor.insertBlock( { name: 'core/query' } );
 		// await editor.canvas
 		await page
-				.getByRole( 'document', { name: 'Block: Query Loop' } )
-				.getByRole( 'button', { name: 'Start blank' } )
-				.click();
+			.getByRole( 'document', { name: 'Block: Query Loop' } )
+			.getByRole( 'button', { name: 'Start blank' } )
+			.click();
+		await page
+			.getByLabel('Title & Date')
+			.click();
 
 		// Open sidebar and expect Block tab to be shown.
 		await editor.openDocumentSettingsSidebar();
