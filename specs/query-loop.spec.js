@@ -135,7 +135,7 @@ test.describe('Query Loop block with tribe_events', () => {
 			title: 'Event Test Post',
 			content: '<!-- wp:query {"query":{"postType":"tribe_events"}} -->'
 				+ '<div class="wp-block-query"><!-- wp:post-template -->'
-				+ '<!-- wp:post-title -->'
+				+ '<!-- wp:post-title /-->'
 				+ '<!-- /wp:post-template --></div>'
 				+ '<!-- /wp:query -->',
 			
