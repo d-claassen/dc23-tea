@@ -133,7 +133,10 @@ test.describe('Query Loop block with tribe_events', () => {
 	test('Query Loop block renders correctly on front end', async ({ admin, page, requestUtils }) => {
 		const { id: postId } = await requestUtils.createPost({
 			title: 'Event Test Post',
-			content: '<!-- wp:query {"postType":"tribe_events"} --><!-- /wp:query -->',
+			content: '<!-- wp:query {"query":{"postType":"tribe_events"}} -->'
+				+ '<!-- /wp:query -->',
+			
+			
 			status: 'publish',
 		});
 
