@@ -61,9 +61,10 @@ test.describe('Query Loop block with tribe_events', () => {
 		} );
 
 		await editor.openDocumentSettingsSidebar();
-		await expect(
-			page.getByRole( 'button', { name: 'The Event Attendee' } )
-		).toBeVisible();
+		const sectionButton = page.getByRole( 'button', { name: 'The Event Attendee' } )
+		await expect( sectionButton ).toBeVisible();
+		//consider aria state check?
+		await sectionButton.click();
 
 		// Set event start date.
 		const datepicker = page.getByRole( 'button', {
