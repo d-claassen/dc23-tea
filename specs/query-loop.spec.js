@@ -65,7 +65,19 @@ test.describe('Query Loop block with tribe_events', () => {
 			page.getByRole( 'button', { name: 'The Event Attendee' } )
 		).toBeVisible();
 
-		// @TODO. Set event start date.
+		// Set event start date.
+		const datepicker = page.getByRole( 'button', {
+			name: 'Start date',
+		} );
+		await datepicker.click();
+
+		// Change the publishing date to a year in the future.
+		await page
+			.getByRole( 'group', { name: 'Date' } )
+			.getByRole( 'spinbutton', { name: 'Year' } )
+			.click();
+		await page.keyboard.press( 'ArrowUp' );
+		await page.keyboard.press( 'Escape' );
 
 		// Publish
 		await editor.publishPost();
@@ -99,9 +111,9 @@ test.describe('Query Loop block with tribe_events', () => {
 
 		// Change post type to tribe_events in block settings
 		await page
-							.getByRole( 'region', { name: 'Settings' } )
-							.getByLabel( 'Post type' )
-							.selectOption('Event');
+			.getByRole( 'region', { name: 'Settings' } )
+			.getByLabel( 'Post type' )
+			.selectOption('Event');
 
 		// Get visible block content
 		const content = await editor.getEditedPostContent();
