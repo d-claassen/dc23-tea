@@ -8,7 +8,7 @@ test.describe('Query Loop block with tribe_events', () => {
 			'edit.php',
 			'page=tec-events-settings&tab=general-editing-tab&post_type=tribe_events'
 		);
-		
+
 		// Skip telemetry alert if showing.
 		const skipTelemetry = await page.getByRole( 'button', {
 			name: 'Skip',
@@ -33,10 +33,10 @@ test.describe('Query Loop block with tribe_events', () => {
 			await bulkAction.selectOption( 'trash' );
 			await page.getByRole( 'button', { name: 'Apply' } ).first().click();
 		}
-		
+
 		const startDate = new Date();
 		const labelToday = dateI18n( 'F j, Y', startDate );
-		
+
 		// Create a past event via Block editor.
 		await admin.createNewPost( {
 			title: 'Past Test Event',
@@ -64,14 +64,17 @@ test.describe('Query Loop block with tribe_events', () => {
 		await editor.openDocumentSettingsSidebar();
 		const sectionButton = page.getByRole( 'button', { name: 'The Event Attendee' } )
 		await expect( sectionButton ).toBeVisible();
-		//consider aria state check?
-		await sectionButton.click();
+		// Open section if needed
+		if ( ( await sectionButton.getAttribute( 'aria-expanded' ) ) === 'false' ) {
+			await sectionButton.click();
+		}
+
 
 		// Set event start date.
-		const datepicker = page.getByRole( 'button', {
+		const startDatePicker = page.getByRole( 'button', {
 			name: labelToday,
 		} );
-		await datepicker.first().click();
+		await startDatePicker.first().click();
 
 		// Change the publishing date to a year in the future.
 		await page
@@ -80,6 +83,21 @@ test.describe('Query Loop block with tribe_events', () => {
 			.click();
 		await page.keyboard.press( 'ArrowUp' );
 		await page.keyboard.press( 'Escape' );
+
+		// Set event end date.
+		const endDatePicker = page.getByRole( 'button', {
+			name: labelToday,
+		} );
+		await endDatePicker.first().click();
+
+		// Change the publishing date to a year in the future.
+		await page
+			.getByRole( 'group', { name: 'Date' } )
+			.getByRole( 'spinbutton', { name: 'Year' } )
+			.click();
+		await page.keyboard.press( 'ArrowUp' );
+		await page.keyboard.press( 'Escape' );
+
 
 		// Publish
 		await editor.publishPost();
@@ -112,10 +130,19 @@ test.describe('Query Loop block with tribe_events', () => {
 		).toHaveText( 'Block' );
 
 		// Change post type to tribe_events in block settings
-		await page
+		const postTypeSelector = page
 			.getByRole( 'region', { name: 'Settings' } )
-			.getByLabel( 'Post type' )
-			.selectOption('Event');
+			.getByLabel( 'Post type' );
+		await postTypeSelector.click();
+		await postTypeSelector.selectOption('Event');
+
+		await expect(
+			page.getByRole( 'document', { name: 'Block: Query Loop' } )
+		).toContainText( 'Future Test Event')
+
+		await expect(
+			page.getByRole( 'document', { name: 'Block: Query Loop' } )
+		).toContainText( 'Past Test Event')
 
 		// Get visible block content
 		const content = await editor.getEditedPostContent();
@@ -136,10 +163,9 @@ test.describe('Query Loop block with tribe_events', () => {
 			content: '<!-- wp:query {"query":{"postType":"tribe_events"}} -->'
 				+ '<div class="wp-block-query"><!-- wp:post-template -->'
 				+ '<!-- wp:post-title /-->'
+				+ '<!-- wp:post-date /-->'
 				+ '<!-- /wp:post-template --></div>'
 				+ '<!-- /wp:query -->',
-			
-			
 			status: 'publish',
 		});
 
