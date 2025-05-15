@@ -90,10 +90,9 @@ test.describe('Query Loop block with tribe_events', () => {
 		await editor.openDocumentSettingsSidebar();
 
 		// Set event start date.
-		const startDatePicker = page.getByRole( 'button', {
-			name: labelToday,
-		} );
-		await startDatePicker.first().click();
+		await page
+			.getByRole( 'button', { name: labelToday } )
+			.first().click();
 
 		// Change the publishing date to a year in the future.
 		await page
