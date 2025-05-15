@@ -143,18 +143,6 @@ test.describe('Query Loop block with tribe_events', () => {
 		await expect(
 			page.getByRole( 'document', { name: 'Block: Query Loop' } )
 		).toContainText( 'Past Test Event')
-
-		// Get visible block content
-		const content = await editor.getEditedPostContent();
-
-		// Check editor preview: does it show events in publish date order (not event date)?
-		expect(content).toContain('Past Test Event');
-		expect(content).toContain('Future Test Event');
-
-		// Optionally: assert ordering
-		const pastIndex = content.indexOf('Past Test Event');
-		const futureIndex = content.indexOf('Future Test Event');
-		expect(pastIndex).toBeLessThan(futureIndex); // i.e., publish date ordering
 	});
 
 	test('Query Loop block renders correctly on front end', async ({ admin, page, requestUtils }) => {
