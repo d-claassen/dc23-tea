@@ -264,3 +264,15 @@ add_action( 'wp', function() {
 		remove_filter( 'pre_get_document_title', [ $hooks, 'pre_get_document_title' ], 20 );
 	}
 }, 9 );
+
+
+add_action( 'pre_get_posts', function( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
+		$query->set( 'tribe_suppress_query_filters', true );
+	}
+}, 10 );
+
