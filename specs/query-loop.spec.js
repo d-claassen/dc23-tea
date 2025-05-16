@@ -45,12 +45,38 @@ test.describe('Query Loop block with tribe_events', () => {
 		} );
 
 		await editor.openDocumentSettingsSidebar();
-		await expect(
-			page.getByRole( 'button', { name: 'The Event Attendee' } )
-		).toBeVisible();
+		const sectionButton = await page.getByRole( 'button', { name: 'The Event Attendee' } );
+		await expect( sectionButton ).toBeVisible();
+		// Open section if needed
+		if ( ( await sectionButton.getAttribute( 'aria-expanded' ) ) === 'false' ) {
+			await sectionButton.click();
+		}
 
-		// @TODO. Set event start date.
+		// Set past event start date.
+		await page
+			.getByRole( 'button', { name: labelToday } )
+			.first().click();
 
+		// Change the publishing date to a year in the past.
+		await page
+			.getByRole( 'group', { name: 'Date' } )
+			.getByRole( 'spinbutton', { name: 'Year' } )
+			.click();
+		await page.keyboard.press( 'ArrowDown' );
+		await page.keyboard.press( 'Escape' );
+
+		// Set past event end date.
+		await page
+			.getByRole( 'button', { name: labelToday } )
+			.first().click();
+			
+		// Change the publishing date to a year in the past.
+		await page
+			.getByRole( 'group', { name: 'Date' } )
+			.getByRole( 'spinbutton', { name: 'Year' } )
+			.click();
+		await page.keyboard.press( 'ArrowDown' );
+		await page.keyboard.press( 'Escape' );
 		// Publish
 		await editor.publishPost();
 
@@ -62,19 +88,11 @@ test.describe('Query Loop block with tribe_events', () => {
 		} );
 
 		await editor.openDocumentSettingsSidebar();
-		const sectionButton = page.getByRole( 'button', { name: 'The Event Attendee' } )
-		await expect( sectionButton ).toBeVisible();
-		// Open section if needed
-		if ( ( await sectionButton.getAttribute( 'aria-expanded' ) ) === 'false' ) {
-			await sectionButton.click();
-		}
-
 
 		// Set event start date.
-		const startDatePicker = page.getByRole( 'button', {
-			name: labelToday,
-		} );
-		await startDatePicker.first().click();
+		await page
+			.getByRole( 'button', { name: labelToday } )
+			.first().click();
 
 		// Change the publishing date to a year in the future.
 		await page
@@ -98,12 +116,11 @@ test.describe('Query Loop block with tribe_events', () => {
 		await page.keyboard.press( 'ArrowUp' );
 		await page.keyboard.press( 'Escape' );
 
-
 		// Publish
 		await editor.publishPost();
 	});
 
-	test.fixme('Query Loop block shows incorrect order in editor', async ({ admin, editor, page }) => {
+	test('Query Loop block shows incorrect order in editor', async ({ admin, editor, page }) => {
 		// await admin.visitAdminPage('post-new.php');
 		await admin.createNewPost( {
 			postType: 'page',
@@ -145,7 +162,7 @@ test.describe('Query Loop block with tribe_events', () => {
 		).toContainText( 'Past Test Event')
 	});
 
-	test.fixme('Query Loop block renders correctly on front end', async ({ admin, page, requestUtils }) => {
+	test('Query Loop block renders correctly on front end', async ({ admin, page, requestUtils }) => {
 		const { id: postId } = await requestUtils.createPost({
 			title: 'Event Test Post',
 			content: '<!-- wp:query {"query":{"postType":"tribe_events"}} -->'
