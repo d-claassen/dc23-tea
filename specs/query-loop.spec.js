@@ -57,7 +57,7 @@ test.describe('Query Loop block with tribe_events', () => {
 			.getByRole( 'button', { name: labelToday } )
 			.first().click();
 
-		// Change the publishing date to a year in the future.
+		// Change the publishing date to a year in the past.
 		await page
 			.getByRole( 'group', { name: 'Date' } )
 			.getByRole( 'spinbutton', { name: 'Year' } )
@@ -70,7 +70,7 @@ test.describe('Query Loop block with tribe_events', () => {
 			.getByRole( 'button', { name: labelToday } )
 			.first().click();
 			
-		// Change the publishing date to a year in the future.
+		// Change the publishing date to a year in the past.
 		await page
 			.getByRole( 'group', { name: 'Date' } )
 			.getByRole( 'spinbutton', { name: 'Year' } )
