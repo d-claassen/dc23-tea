@@ -91,6 +91,7 @@ jobs:
           path: 'artifacts'
 
       - name: 'File!'
+        if: ${{ failure() }}
         run: |
           npm run wp-env run -- tests-wordpress cat /tmp/tec-debug.log
           # docker exec <container> cat /tmp/tec-debug.log
