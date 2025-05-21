@@ -281,9 +281,33 @@ add_action( 'pre_get_posts', function ( $query ) {
 		return;
 	}
 
-	var_dump([
-		'is_main_query' => $query->is_main_query(),
-		'is_admin' => is_admin(),
-		'query_vars' => $query->query_vars,
-	]);
+	file_put_contents(
+		'/tmp/tec-debug.log',
+		print_r([
+			'is_main_query' => $query->is_main_query(),
+			'is_admin' => is_admin(),
+			'query_vars' => $query->query_vars,
+		], true),
+		FILE_APPEND
+	);
 }, 1 );
+
+add_action( 'pre_get_posts', function ( $query ) {
+	if ( $query->get( 'post_type' ) !== 'tribe_events' ) {
+		return;
+	}
+
+	// Track filter order
+	file_put_contents(
+		'/tmp/tec-debug.log',
+		"FILTER RAN at priority " . current_filter() . "\n",
+		FILE_APPEND
+	);
+}, PHP_INT_MAX );
+
+add_filter( 'posts_request', function ( $sql, $query ) {
+	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
+		file_put_contents( '/tmp/tec-debug.log', "SQL:\n$sql\n\n", FILE_APPEND );
+	}
+	return $sql;
+}, 100, 2 );
