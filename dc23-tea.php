@@ -265,16 +265,13 @@ add_action( 'wp', function() {
 	}
 }, 9 );
 
-
 add_action( 'pre_get_posts', function( $query ) {
-	if ( is_admin() || ! $query->is_main_query() ) {
+	if ( is_admin() ) {
 		return;
 	}
 
 	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
 		$query->set( 'tribe_suppress_query_filters', true );
-		
 		$query->set( 'eventDisplay', 'custom' );
 	}
-}, 10 );
-
+}, 9 );
