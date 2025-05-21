@@ -273,6 +273,8 @@ add_action( 'pre_get_posts', function( $query ) {
 
 	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
 		$query->set( 'tribe_suppress_query_filters', true );
+		
+		$query->set( 'eventDisplay', 'custom' );
 	}
 }, 10 );
 
