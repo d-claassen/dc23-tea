@@ -265,9 +265,8 @@ add_action( 'wp', function() {
 	}
 }, 9 );
 
-
-add_action( 'pre_get_posts', function( $query ) {
-	if ( is_admin() || ! $query->is_main_query() ) {
+add_action( 'parse_query', function( $query ) {
+	if ( is_admin() || ! ( $query instanceof WP_Query ) ) {
 		return;
 	}
 
@@ -275,4 +274,3 @@ add_action( 'pre_get_posts', function( $query ) {
 		$query->set( 'tribe_suppress_query_filters', true );
 	}
 }, 10 );
-
