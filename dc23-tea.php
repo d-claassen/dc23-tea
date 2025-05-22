@@ -272,7 +272,7 @@ function dc23_disable_date_filter( $query ) {
 
 	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
 		$query->set( 'tribe_suppress_query_filters', true );
-		$query->set( 'eventDisplay', 'custom' );
+		// $query->set( 'eventDisplay', 'custom' );
 	}
 
 	file_put_contents(
