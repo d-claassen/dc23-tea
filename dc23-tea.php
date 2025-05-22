@@ -285,7 +285,7 @@ function dc23_disable_date_filter( $query ) {
 }
 
 // add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1 );
-add_action( 'pre_get_posts', 'dc23_disable_date_filter', 10 );
+// add_action( 'pre_get_posts', 'dc23_disable_date_filter', 10 );
 // add_action( 'pre_get_posts', 'dc23_disable_date_filter', 100 );
 // add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1000 );
 add_action( 'parse_query', 'dc23_disable_date_filter', 10 );
