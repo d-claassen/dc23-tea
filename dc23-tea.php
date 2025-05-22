@@ -265,7 +265,7 @@ add_action( 'wp', function() {
 	}
 }, 9 );
 
-add_action( 'pre_get_posts', function( $query ) {
+function dc23_disable_date_filter( $query ) {
 	if ( is_admin() ) {
 		return;
 	}
@@ -273,8 +273,21 @@ add_action( 'pre_get_posts', function( $query ) {
 	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
 		$query->set( 'tribe_suppress_query_filters', true );
 		$query->set( 'eventDisplay', 'custom' );
+		
+		file_put_contents(
+			'/tmp/tec-debug.log',
+			print_r([
+			'tribe_suppress_query_filters' => $query->get( 'tribe_suppress_query_filters', false ),
+		], true),
+		FILE_APPEND
+	);
 	}
-}, 9 );
+}
+
+add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1 );
+add_action( 'pre_get_posts', 'dc23_disable_date_filter', 10 );
+add_action( 'pre_get_posts', 'dc23_disable_date_filter', 100 );
+add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1000 );
 
 add_action( 'pre_get_posts', function ( $query ) {
 	if ( $query->get( 'post_type' ) !== 'tribe_events' ) {
