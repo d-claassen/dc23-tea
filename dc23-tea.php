@@ -284,41 +284,14 @@ function dc23_disable_date_filter( $query ) {
 	);
 }
 
-add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1 );
+// add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1 );
 add_action( 'pre_get_posts', 'dc23_disable_date_filter', 10 );
-add_action( 'pre_get_posts', 'dc23_disable_date_filter', 100 );
-add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1000 );
-add_action( 'parse_query', 'dc23_disable_date_filter', 49 );
-add_action( 'parse_query', 'dc23_disable_date_filter', 51 );
+// add_action( 'pre_get_posts', 'dc23_disable_date_filter', 100 );
+// add_action( 'pre_get_posts', 'dc23_disable_date_filter', 1000 );
+add_action( 'parse_query', 'dc23_disable_date_filter', 10 );
+// add_action( 'parse_query', 'dc23_disable_date_filter', 49 );
+// add_action( 'parse_query', 'dc23_disable_date_filter', 51 );
 
-add_action( 'pre_get_posts', function ( $query ) {
-	if ( $query->get( 'post_type' ) !== 'tribe_events' ) {
-		return;
-	}
-
-	file_put_contents(
-		'/tmp/tec-debug.log',
-		print_r([
-			'is_main_query' => $query->is_main_query(),
-			'is_admin' => is_admin(),
-			'query_vars' => $query->query_vars,
-		], true),
-		FILE_APPEND
-	);
-}, 1 );
-
-add_action( 'pre_get_posts', function ( $query ) {
-	if ( $query->get( 'post_type' ) !== 'tribe_events' ) {
-		return;
-	}
-
-	// Track filter order
-	file_put_contents(
-		'/tmp/tec-debug.log',
-		"FILTER RAN at priority " . current_filter() . "\n",
-		FILE_APPEND
-	);
-}, PHP_INT_MAX );
 
 add_filter( 'posts_request', function ( $sql, $query ) {
 	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
