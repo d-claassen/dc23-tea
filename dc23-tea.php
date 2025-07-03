@@ -270,7 +270,7 @@ add_action( 'parse_query', function( $query ) {
 		return;
 	}
 
-	if ( $query->get( 'post_type' ) === 'tribe_events' ) {
+	if ( $query->get( 'post_type' ) === 'tribe_events' && $query->is_archive() ) {
 		$query->set( 'tribe_suppress_query_filters', true );
 	}
 }, 10 );
