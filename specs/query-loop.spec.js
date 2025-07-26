@@ -146,11 +146,13 @@ test.describe('Query Loop block with tribe_events', () => {
 				.getByRole( 'tab', { selected: true } )
 		).toHaveText( 'Block' );
 
-		// change to custom query type
+		// change to custom query type, needed since WP 6.8.2.
 		const queryTypeSelector = page
 			.getByRole( 'region', { name: 'Settings' } )
 			.getByLabel( 'Custom' );
-		await queryTypeSelector.click();
+		if ( queryTypeSelector.length >= 0 ) {
+			await queryTypeSelector.click();
+		}
 
 		// Change post type to tribe_events in block settings
 		const postTypeSelector = page
