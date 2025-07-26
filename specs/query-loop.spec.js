@@ -150,7 +150,7 @@ test.describe('Query Loop block with tribe_events', () => {
 		const queryTypeSelector = page
 			.getByRole( 'region', { name: 'Settings' } )
 			.getByLabel( 'Custom' );
-		if ( queryTypeSelector.length >= 0 ) {
+		if ( ( await queryTypeSelector.count() ) > 0 ) {
 			await queryTypeSelector.click();
 		}
 
