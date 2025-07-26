@@ -146,6 +146,12 @@ test.describe('Query Loop block with tribe_events', () => {
 				.getByRole( 'tab', { selected: true } )
 		).toHaveText( 'Block' );
 
+		// change to custom query type
+		const queryTypeSelector = page
+			.getByRole( 'region', { name: 'Settings' } )
+			.getByLabel( 'Custom' );
+		await queryTypeSelector.click();
+
 		// Change post type to tribe_events in block settings
 		const postTypeSelector = page
 			.getByRole( 'region', { name: 'Settings' } )
