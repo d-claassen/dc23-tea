@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         php_version: ["8.3", "8.4"]
-        wp_version: ["6.7", "6.8", "6.8.2", "master"]
+        wp_version: ["6.7", "6.8.3", "master"]
         dependencies_version: ["highest"]
         include:
           - php_version: "8.3"
