@@ -8,7 +8,10 @@ test.describe( 'Yoast SEO on Events archive', () => {
 		// Close modal.
 		const ystModal = await page.locator( '.yst-modal__overlay' );
 		if ( ( await ystModal.count() ) > 0 ) {
-			await page.getByRole( 'button', { name: 'Close' } ).click();
+			await page
+				.getByRole( 'button', { name: 'Close' } )
+				.first()
+				.click();
 		}
 
 		// Navigate to events settings.
