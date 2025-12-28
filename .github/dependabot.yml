@@ -7,6 +7,8 @@ updates:
       day: "monday"
       time: "17:00"
       timezone: Europe/Amsterdam
+    assignees:
+      - d-claassen
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -15,6 +17,8 @@ updates:
       day: "monday"
       time: "17:00"
       timezone: Europe/Amsterdam
+    assignees:
+      - d-claassen
 
   - package-ecosystem: "composer"
     directory: "/"
@@ -23,5 +27,7 @@ updates:
       day: "monday"
       time: "17:00"
       timezone: Europe/Amsterdam
+    assignees:
+      - d-claassen
     versioning-strategy: widen
     
