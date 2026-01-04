@@ -67,7 +67,7 @@ jobs:
 
       - name: 'NPM WordPress dependency versions'
         if: ${{ matrix.wp_version != 'master' }}
-        run: npm run-script packages-update -- --dist-tag wp-${{ matrix.wp_version }}
+        run: npm run-script packages-update -- --dist-tag=wp-${{ matrix.wp_version }}
 
       - name: NPM build
         run: npm run build
