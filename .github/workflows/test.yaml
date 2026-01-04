@@ -59,6 +59,12 @@ jobs:
           dependency-versions: ${{ matrix.dependencies_version }}
           composer-options: '--prefer-dist --optimize-autoloader'
 
+      - name: 'NPM WordPress dependency versions'
+        if: ${{ matrix.wp_version != 'master' }}
+        run: |
+          npm run-script update-packages --dist-tag wp-${{ matrix.wp_version }}
+          npm install
+
       - name: NPM build
         run: npm run build
 
