@@ -18,13 +18,19 @@ jobs:
 
     strategy:
       matrix:
-        php_version: ["8.3"]
-        wp_version: ["6.7", "6.8.3", "master"]
-        dependencies_version: ["highest"]
+        # Stable PHP, WP, and deps
+        php_version: ["8.3","8.4","8.5"]
+        wp_version: ["6.9"]
+        dependencies_version: ["locked"]
         include:
-          - php_version: "8.3"
+          # Lowest PHP, WP, and deps
+          - php_version: "8.2"
             wp_version: "6.7"
             dependencies_version: "lowest"
+          # Unstable latest PHP and WP
+          - php_version: "8.6"
+            wp_version: "master"
+            dependencies_version: "highest"
 
     name: "E2E Test: WP ${{ matrix.wp_version }} / PHP ${{ matrix.php_version }} / Composer ${{ matrix.dependencies_version }}"
 
@@ -58,6 +64,10 @@ jobs:
         with:
           dependency-versions: ${{ matrix.dependencies_version }}
           composer-options: '--prefer-dist --optimize-autoloader'
+
+      - name: 'NPM WordPress dependency versions'
+        if: ${{ matrix.wp_version != 'master' }}
+        run: npm run-script packages-update -- --dist-tag=wp-${{ matrix.wp_version }}
 
       - name: NPM build
         run: npm run build
