@@ -18,17 +18,17 @@ jobs:
 
     strategy:
       matrix:
+        # Stable PHP, WP, and deps
+        php_version: ["8.3","8.4","8.5"]
+        wp_version: "6.9"
+        dependencies_version: "locked"
         include:
           # Lowest PHP, WP, and deps
           - php_version: "8.2"
             wp_version: "6.7"
             dependencies_version: "lowest"
-          # Stable latest PHP, WP, and deps
-          - php_version: "8.3"
-            wp_version: "6.9"
-            dependencies_version: "locked"
           # Unstable latest PHP and WP
-          - php_version: "8.4"
+          - php_version: "8.6"
             wp_version: "master"
             dependencies_version: "highest"
 
