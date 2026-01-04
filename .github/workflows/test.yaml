@@ -20,8 +20,8 @@ jobs:
       matrix:
         # Stable PHP, WP, and deps
         php_version: ["8.3","8.4","8.5"]
-        wp_version: "6.9"
-        dependencies_version: "locked"
+        wp_version: ["6.9"]
+        dependencies_version: ["locked"]
         include:
           # Lowest PHP, WP, and deps
           - php_version: "8.2"
