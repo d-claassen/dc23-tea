@@ -2,7 +2,7 @@
 Contributors:      Dennis Claassen
 Tags:              block
 Tested up to:      6.9
-Stable tag:        0.7.3
+Stable tag:        0.7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
