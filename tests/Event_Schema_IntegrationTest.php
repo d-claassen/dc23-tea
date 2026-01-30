@@ -56,9 +56,13 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 		);
 		
 		$event = tribe_events()
-			->set_args( [ 
-				'title'   => 'Programmatically Created Event',
-				'all_day' => 'true'
+			->set_args( [
+				'title'           => 'BBQ',
+				'start_date'      => '+2 weeks 10:00:00',
+				'end_date'        => '+2 weeks 12:00:00',
+				'cost'            => 14.99,
+				'currency_symbol' => '$',
+				'status'          => 'publish',
 			])
 			->create();
 
