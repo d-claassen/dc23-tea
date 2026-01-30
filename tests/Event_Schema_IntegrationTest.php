@@ -54,6 +54,15 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 				'post_type'    => 'post',
 			)
 		);
+		
+		$result = tribe_events()
+			->set_args( [ 
+				'title'   => 'Programmatically Created Event',
+				'all_day' => 'true'
+			])
+			->create();
+
+		var_dump(compact('result'));
 
 		\update_post_meta( $post_id, '_EventRole', 'Attending' );
 
