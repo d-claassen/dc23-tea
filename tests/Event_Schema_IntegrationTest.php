@@ -62,7 +62,7 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 
 		var_dump(compact('post_id', 'event'));
 
-		\update_post_meta( $post_id, '_EventRole', 'Attending' );
+		\update_post_meta( $post_id, '_EventRole', ['Attending'] );
 
 		// Update object to persist meta value to indexable.
 		self::factory()->post->update_object( $post_id, [] );
