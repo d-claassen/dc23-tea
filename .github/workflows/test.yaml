@@ -98,9 +98,12 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: npm run test:e2e
 
+      - name: Run PHPUnit tests
+        run: npm run wp-env run -- --env-cwd='wp-content/plugins/dc23-tea' tests-wordpress composer test -- -- --coverage-text --display-errors --display-warnings
+
       - name: 'Archive test artifacts'
         uses: actions/upload-artifact@v6
         if: ${{ failure() && steps.tests.conclusion == 'failure' }}
         with:
-          name: 'tests'
+          name: 'tests-wp${{ matrix.wp_version }}-php${{ matrix.php_version }}-${{ matrix.dependencies_version }}'
           path: 'artifacts'
