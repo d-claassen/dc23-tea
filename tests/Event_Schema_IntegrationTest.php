@@ -55,21 +55,21 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 			)
 		);
 		
-		$result = tribe_events()
+		$event = tribe_events()
 			->set_args( [ 
 				'title'   => 'Programmatically Created Event',
 				'all_day' => 'true'
 			])
 			->create();
 
-		var_dump(compact('result'));
+		var_dump(compact('event'));
 
-		\update_post_meta( $post_id, '_EventRole', 'Attending' );
+//		\update_post_meta( $post_id, '_EventRole', 'Attending' );
 
 		// Update object to persist meta value to indexable.
 		self::factory()->post->update_object( $post_id, [] );
 
-		$permalink = \get_permalink( $post_id );
+		$permalink = \get_permalink( $event->ID );
 		var_dump( $permalink );
 		$this->go_to( $permalink );
 
