@@ -18,7 +18,7 @@ class Event_Schema_Integration {
      * @param T $event_data
      * @param Meta_Tags_Context $context
      *
-     * @return T|array{organizer:array{@id: string}}
+     * @return T|array{organizer:object{@id: string}}
      */
     function enhance_event_organizer( $event_data, $context ) {
     	assert( $context instanceof Meta_Tags_Context );
@@ -32,9 +32,9 @@ class Event_Schema_Integration {
         if ( tribe_has_organizer( $event_id ) && isset( $event_data['organizer'] ) ) {
             $organizer_id   = tribe_get_organizer_id( $event_id );
             $organizer_slug = get_post_field( 'post_name', $organizer_id );
-
-            $event_data['organizer']['@type'] = 'Organization';
-            $event_data['organizer']['@id']   = $context->main_schema_id . '/#/schema/Organization/' . $organizer_slug;
+            
+            $event_data['organizer']->{'@type'} = 'Organization';
+            $event_data['organizer']->{'@id'}   = $context->main_schema_id . '/#/schema/Organization/' . $organizer_slug;
 		}
 
     	return $event_data;
