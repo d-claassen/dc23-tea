@@ -2,6 +2,9 @@
 
 namespace DC23\TheEventAttendee;
 
+use Yoast\WP\SEO\Config\Schema_IDs;
+use Yoast\WP\SEO\Context\Meta_Tags_Context;
+
 class Event_Schema_Integration {
     public function register(): void {
     	add_filter( 'wpseo_schema_event', [ $this, 'enhance_event_organizer' ], 11, 2 );
@@ -31,7 +34,7 @@ class Event_Schema_Integration {
             $organizer_slug = get_the_slug( $organizer_id );
 
             $event_data['organizer']['@type'] = 'Organization';
-            // $event_data['organizer']['@id']   = 
+            $event_data['organizer']['@id']   = $context->main_schema_id . Schema_IDs::ORGANIZATION_HASH
 		}
 
     	return $event_data;
