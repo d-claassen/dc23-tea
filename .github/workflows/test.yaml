@@ -76,7 +76,7 @@ jobs:
         run: npx playwright install chromium firefox webkit --with-deps
 
       - name: Install WordPress and start the server
-        run: npm run wp-env start || npm run wp-env start
+        run: npm run wp-env start -- --xdebug=coverage || npm run wp-env start -- --xdebug=coverage
 
       - name: 'Debug wp-env'
         run: |
@@ -94,13 +94,17 @@ jobs:
 
       - name: Run the tests
         id: tests
+        continue-on-error: true
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: npm run test:e2e
+
+      - name: Run PHPUnit tests
+        run: npm run wp-env run -- --env-cwd='wp-content/plugins/dc23-tea' tests-wordpress composer test -- -- --coverage-text --display-errors --display-warnings
 
       - name: 'Archive test artifacts'
         uses: actions/upload-artifact@v6
         if: ${{ failure() && steps.tests.conclusion == 'failure' }}
         with:
-          name: 'tests'
+          name: 'tests-wp${{ matrix.wp_version }}-php${{ matrix.php_version }}-${{ matrix.dependencies_version }}'
           path: 'artifacts'

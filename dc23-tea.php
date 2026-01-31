@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once 'vendor/autoload.php';
-
+require_once 'src/Event_Schema_Integration.php';
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets so they can be enqueued
@@ -42,6 +42,8 @@ function dc23_tea_block_init() {
 	register_block_type( __DIR__ . '/build/venue-address' );
 	register_block_type( __DIR__ . '/build/venue-name' );
 	register_block_type( __DIR__ . '/build/venue-url' );
+
+	( new \DC23\TheEventAttendee\Event_Schema_Integration() )->register();
 }
 add_action( 'init', 'dc23_tea_block_init' );
 
