@@ -60,6 +60,41 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 			
 		$post_id = $event->ID;
 
+		\update_post_meta( $post_id, '_EventRole', ['Attending'] );
+
+		// Update object to persist meta value to indexable.
+		self::factory()->post->update_object( $post_id, [] );
+
+		$this->go_to( \get_permalink( $post_id ) );
+
+		$yoast_schema = $this->get_yoast_schema_output( true );
+		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
+		$yoast_schema_data = \json_decode( $yoast_schema, JSON_OBJECT_AS_ARRAY );
+
+		$person_piece = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Person' );
+		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
+
+		$this->assertSame(
+			$person_piece['@id'],
+			$event_piece['attendee']['@id'],
+			'Event piece should ref person as attendee'
+		);
+	}
+
+public function test_should_enrich_event_organizer(): void {
+		$event = tribe_events()
+			->set_args( [
+				'title'           => 'BBQ',
+				'start_date'      => '+2 weeks 10:00:00',
+				'end_date'        => '+2 weeks 12:00:00',
+				'cost'            => 14.99,
+				'currency_symbol' => '$',
+				'status'          => 'publish',
+			])
+			->create();
+			
+		$post_id = $event->ID;
+
 		var_dump(compact('post_id', 'event'));
 
 		\update_post_meta( $post_id, '_EventRole', ['Attending'] );
@@ -67,9 +102,7 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 		// Update object to persist meta value to indexable.
 		self::factory()->post->update_object( $post_id, [] );
 
-		$permalink = \get_permalink( $post_id );
-		var_dump( $permalink );
-		$this->go_to( $permalink );
+		$this->go_to( \get_permalink( $post_id ) );
 
 		$yoast_schema = $this->get_yoast_schema_output( true );
 		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
