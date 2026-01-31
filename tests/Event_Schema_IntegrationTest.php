@@ -67,7 +67,7 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 
 		$this->go_to( \get_permalink( $post_id ) );
 
-		$yoast_schema = $this->get_yoast_schema_output( true );
+		$yoast_schema = $this->get_yoast_schema_output();
 		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
 		$yoast_schema_data = \json_decode( $yoast_schema, JSON_OBJECT_AS_ARRAY );
 
@@ -106,18 +106,15 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 			
 		$post_id = $event->ID;
 
-		var_dump(compact('post_id', 'event'));
-
 		// Update object to persist meta value to indexable.
 		self::factory()->post->update_object( $post_id, [] );
 
 		$this->go_to( \get_permalink( $post_id ) );
 
-		$yoast_schema = $this->get_yoast_schema_output( true );
+		$yoast_schema = $this->get_yoast_schema_output();
 		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
 		$yoast_schema_data = \json_decode( $yoast_schema, JSON_OBJECT_AS_ARRAY );
 
-		//$person_piece = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Person' );
 		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
 
 		$this->assertSame(
