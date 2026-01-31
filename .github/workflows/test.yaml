@@ -25,7 +25,7 @@ jobs:
         include:
           # Lowest PHP, WP, and deps
           - php_version: "8.2"
-            wp_version: "6.7"
+            wp_version: "6.8"
             dependencies_version: "lowest"
           # Unstable latest PHP and WP
           - php_version: "8.6"
