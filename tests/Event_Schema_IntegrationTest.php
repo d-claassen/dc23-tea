@@ -126,7 +126,7 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 			'Event piece should type organizer'
 		);
 		$this->assertSame(
-			'https://localhost:8889/#/schema/Organization/the-event-hosters',
+			'http://localhost:8889/#/schema/Organization/the-event-hosters',
 			$event_piece['organizer']['@id'],
 			'Event piece should ref organizer'
 		);
