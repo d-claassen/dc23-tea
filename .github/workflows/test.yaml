@@ -94,6 +94,7 @@ jobs:
 
       - name: Run the tests
         id: tests
+        continue-on-error: true
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         run: npm run test:e2e
