@@ -15,6 +15,7 @@
 		"readme.*",
 		"dc23-tea.php",
 		"vendor/**",
+		"src/**",
 		"build/**"
 	],
 	"main": "build/index.js",
