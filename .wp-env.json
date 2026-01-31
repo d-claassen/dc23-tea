@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
 	"core": null,
 	"plugins": [
-        "./vendor/wpackagist/wordpress-seo",
+		"./vendor/wpackagist/wordpress-seo",
 		"./vendor/wpackagist/the-events-calendar",
 		"."
 	]
