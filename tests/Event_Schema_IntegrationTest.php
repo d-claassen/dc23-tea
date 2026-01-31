@@ -121,7 +121,7 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
 
 		$this->assertSame(
-			'Person',
+			'Organization',
 			$event_piece['organizer']['@type'],
 			'Event piece should type organizer'
 		);
