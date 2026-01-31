@@ -26,6 +26,13 @@ class Event_Schema_Integration {
     
     	$event_id = get_the_ID();
     
+        if ( tribe_has_organizer( $event_id ) && isset( $event_data['organizer'] ) ) {
+            $organizer_id   = tribe_get_organizer_id( $event_id );
+            $organizer_slug = get_the_slug( $organizer_id );
+
+            $event_data['organizer']['@type'] = 'Organization';
+            // $event_data['organizer']['@id']   = 
+		}
 
     	return $event_data;
     }
