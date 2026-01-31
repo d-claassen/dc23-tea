@@ -34,7 +34,7 @@ class Event_Schema_Integration {
             $organizer_slug = get_post_field( 'post_name', $organizer_id );
             
             $event_data['organizer']->{'@type'} = 'Organization';
-            $event_data['organizer']->{'@id'}   = $context->site_url . '/#/schema/Organization/' . $organizer_slug;
+            $event_data['organizer']->{'@id'}   = $context->site_url . '#/schema/Organization/' . $organizer_slug;
 		}
 
     	return $event_data;
