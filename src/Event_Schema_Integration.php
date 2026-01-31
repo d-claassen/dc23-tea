@@ -31,10 +31,10 @@ class Event_Schema_Integration {
     
         if ( tribe_has_organizer( $event_id ) && isset( $event_data['organizer'] ) ) {
             $organizer_id   = tribe_get_organizer_id( $event_id );
-            $organizer_slug = get_the_slug( $organizer_id );
+            $organizer_slug = get_post_field( 'post_name', $organizer_id );
 
             $event_data['organizer']['@type'] = 'Organization';
-            $event_data['organizer']['@id']   = $context->main_schema_id . Schema_IDs::ORGANIZATION_HASH;
+            $event_data['organizer']['@id']   = $context->main_schema_id . '/#/schema/Organization/' . $organizer_slug;
 		}
 
     	return $event_data;
