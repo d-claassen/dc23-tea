@@ -46,7 +46,7 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 				EOL;
 	}
 
-	public function test_should_somehow_impact_event_webpage(): void {
+	public function test_should_connect_event_attendee(): void {
 		$event = tribe_events()
 			->set_args( [
 				'title'           => 'BBQ',
