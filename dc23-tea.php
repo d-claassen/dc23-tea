@@ -27,6 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once 'vendor/autoload.php';
 require_once 'lib/Event_Schema_Integration.php';
+require_once 'lib/Location_Schema_Integration.php';
 require_once 'lib/Organizer_Schema_Integration.php';
 
 /**
@@ -46,6 +47,7 @@ function dc23_tea_block_init() {
 	register_block_type( __DIR__ . '/build/venue-url' );
 
 	( new \DC23\TheEventAttendee\Event_Schema_Integration() )->register();
+	( new \DC23\TheEventAttendee\Location_Schema_Integration() )->register();
 	( new \DC23\TheEventAttendee\Organizer_Schema_Integration() )->register();
 }
 add_action( 'init', 'dc23_tea_block_init' );
