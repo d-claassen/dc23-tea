@@ -82,11 +82,11 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 
 		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
 
-		/*$this->assertSame(
+		$this->assertSame(
 			'Location',
 			$event_piece['location']['@type'],
 			'Event piece should type location'
-		);*/
+		);
 		$this->assertSame(
 			'http://localhost:8889/#/schema/Location/the-event-venue',
 			$event_piece['location']['@id'],
