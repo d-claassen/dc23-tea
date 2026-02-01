@@ -89,7 +89,7 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 		);*/
 		$this->assertSame(
 			'http://localhost:8889/#/schema/Location/the-event-venue',
-			$event_piece['organizer']['@id'],
+			$event_piece['location']['@id'],
 			'Event piece should ref location'
 		);
 	}
