@@ -78,7 +78,7 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 
 		$yoast_schema = $this->get_yoast_schema_output();
 		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
-		$yoast_schema_data = \json_decode( $yoast_schema, JSON_OBJECT_AS_ARRAY );
+		$yoast_schema_data = \json_decode( $yoast_schema, true );
 
 		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
 
