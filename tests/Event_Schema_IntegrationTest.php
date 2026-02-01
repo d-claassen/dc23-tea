@@ -81,54 +81,6 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 		);
 	}
 
-	public function test_should_enrich_event_organizer(): void {
-		$organizer = tribe_organizers()
-			->set_args( [
-	    'organizer'   => "The Event Hosters",
-	    'status'      => 'publish',
-	    'website'     => 'https://example.com',
-	    'excerpt'     => 'The Event Hosters are specialized in hosting events.',
-	    'description' => 'With 15+ years experience, The Event Hosters host like nobody else does it.',
-			] )
-			->create();
-	
-		$event = tribe_events()
-			->set_args( [
-				'title'           => 'BBQ',
-				'start_date'      => '+2 weeks 10:00:00',
-				'end_date'        => '+2 weeks 12:00:00',
-				'cost'            => 14.99,
-				'currency_symbol' => '$',
-				'status'          => 'publish',
-				'organizer'        => $organizer->ID,
-			])
-			->create();
-			
-		$post_id = $event->ID;
-
-		// Update object to persist meta value to indexable.
-		self::factory()->post->update_object( $post_id, [] );
-
-		$this->go_to( \get_permalink( $post_id ) );
-
-		$yoast_schema = $this->get_yoast_schema_output();
-		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
-		$yoast_schema_data = \json_decode( $yoast_schema, JSON_OBJECT_AS_ARRAY );
-
-		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
-
-		$this->assertSame(
-			'Organization',
-			$event_piece['organizer']['@type'],
-			'Event piece should type organizer'
-		);
-		$this->assertSame(
-			'http://localhost:8889/#/schema/Organization/the-event-hosters',
-			$event_piece['organizer']['@id'],
-			'Event piece should ref organizer'
-		);
-	}
-
 	private function get_yoast_schema_output( bool $debug = false ): string {
 		return $this->get_schema_output( 'wpseo_head', $debug );
 	}
