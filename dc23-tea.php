@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once 'vendor/autoload.php';
-require_once 'src/Event_Schema_Integration.php';
-require_once 'src/Organizer_Schema_Integration.php';
+require_once 'lib/Event_Schema_Integration.php';
+require_once 'lib/Organizer_Schema_Integration.php';
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
