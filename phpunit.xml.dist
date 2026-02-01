@@ -25,7 +25,6 @@
 
 	<source>
 		<include>
-			<file>dc23-tea.php</file>
 			<directory suffix=".php">lib</directory>
 			<directory suffix=".php">src</directory>
 		</include>
