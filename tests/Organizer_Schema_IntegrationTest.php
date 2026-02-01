@@ -3,11 +3,11 @@
 namespace DC23\Tests\TheEventAttendee;
 
 /**
- * Class Event_Schema_IntegrationTest.
+ * Class Organizer_Schema_IntegrationTest.
  *
- * @testdox Event Schema for a single post "tribe_events"
+ * @testdox Event Organizer Schema for a single post "tribe_events"
  */
-class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
+class Organizer_Schema_IntegrationTest extends \WP_UnitTestCase {
 
 	private $user_id;
 
@@ -46,7 +46,17 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 				EOL;
 	}
 
-	public function test_should_connect_event_attendee(): void {
+	public function test_should_enrich_event_organizer(): void {
+		$organizer = tribe_organizers()
+			->set_args( [
+	    'organizer'   => "The Event Hosters",
+	    'status'      => 'publish',
+	    'website'     => 'https://example.com',
+	    'excerpt'     => 'The Event Hosters are specialized in hosting events.',
+	    'description' => 'With 15+ years experience, The Event Hosters host like nobody else does it.',
+			] )
+			->create();
+	
 		$event = tribe_events()
 			->set_args( [
 				'title'           => 'BBQ',
@@ -55,12 +65,11 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 				'cost'            => 14.99,
 				'currency_symbol' => '$',
 				'status'          => 'publish',
+				'organizer'        => $organizer->ID,
 			])
 			->create();
 			
 		$post_id = $event->ID;
-
-		\update_post_meta( $post_id, '_EventRole', ['Attending'] );
 
 		// Update object to persist meta value to indexable.
 		self::factory()->post->update_object( $post_id, [] );
@@ -71,13 +80,17 @@ class Event_Schema_IntegrationTest extends \WP_UnitTestCase {
 		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
 		$yoast_schema_data = \json_decode( $yoast_schema, JSON_OBJECT_AS_ARRAY );
 
-		$person_piece = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Person' );
 		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
 
 		$this->assertSame(
-			$person_piece['@id'],
-			$event_piece['attendee']['@id'],
-			'Event piece should ref person as attendee'
+			'Organization',
+			$event_piece['organizer']['@type'],
+			'Event piece should type organizer'
+		);
+		$this->assertSame(
+			'http://localhost:8889/#/schema/Organization/the-event-hosters',
+			$event_piece['organizer']['@id'],
+			'Event piece should ref organizer'
 		);
 	}
 
