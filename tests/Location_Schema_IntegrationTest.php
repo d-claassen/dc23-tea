@@ -47,13 +47,13 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 	}
 
 	public function test_should_enrich_event_location(): void {
-		$location = tribe_location()
+		$venue = tribe_venues()
 			->set_args( [
-                'location'    => "The Event Venue",
-                'status'      => 'publish',
-                'website'     => 'https://example.com',
-                'excerpt'     => 'The Event Venue is a fan favorite for hosting events.',
-                'description' => 'With 15+ years experience, The Event Venue has become the location for any type of event.',
+				'venue'       => "The Event Venue",
+				'status'      => 'publish',
+				'website'     => 'https://example.com',
+				'excerpt'     => 'The Event Venue is a fan favorite for hosting events.',
+				'description' => 'With 15+ years experience, The Event Venue has become the location for any type of event.',
 			] )
 			->create();
 	
@@ -65,7 +65,7 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 				'cost'            => 14.99,
 				'currency_symbol' => '$',
 				'status'          => 'publish',
-				'venue'           => $location->ID,
+				'venue'           => $venue->ID,
 			])
 			->create();
 			
