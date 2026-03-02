@@ -92,6 +92,10 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 			$event_piece['location']['@id'],
 			'Event piece should ref location'
 		);
+		$this->assertArrayNotHasKey(
+			'address',
+			$event_piece['location'],
+			'missing required props for address',
 	}
 
 	private function get_yoast_schema_output( bool $debug = false ): string {
