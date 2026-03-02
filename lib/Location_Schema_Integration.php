@@ -32,7 +32,7 @@ class Location_Schema_Integration {
             $venue_id   = tribe_get_venue_id( $event_id );
             $venue_slug = get_post_field( 'post_name', $venue_id );
 
-            $event_data['location']->{'@id'} = $context->site_url . '#/schema/Location/' . $venue_slug;
+            $event_data['location']->{'@id'} = $context->site_url . '#/schema/location/' . $venue_slug;
 		}
 
     	return $event_data;
