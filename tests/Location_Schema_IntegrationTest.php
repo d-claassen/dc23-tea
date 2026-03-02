@@ -96,6 +96,55 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 			'address',
 			$event_piece['location'],
 			'missing required props for address',
+		);
+	}
+	
+		public function test_should_enrich_event_address(): void {
+		$venue = tribe_venues()
+			->set_args( [
+				'venue'       => "The Event Venue",
+				'status'      => 'publish',
+				'website'     => 'https://example.com',
+				'excerpt'     => 'The Event Venue is a fan favorite for hosting events.',
+				'description' => 'With 15+ years experience, The Event Venue has become the location for any type of event.',
+			] )
+			->create();
+	
+		$event = tribe_events()
+			->set_args( [
+				'title'           => 'BBQ',
+				'start_date'      => '+2 weeks 10:00:00',
+				'end_date'        => '+2 weeks 12:00:00',
+				'cost'            => 14.99,
+				'currency_symbol' => '$',
+				'status'          => 'publish',
+				'venue'           => $venue->ID,
+			])
+			->create();
+			
+		$post_id = $event->ID;
+
+		// Update object to persist meta value to indexable.
+		self::factory()->post->update_object( $post_id, [] );
+
+		$this->go_to( \get_permalink( $post_id ) );
+
+		$yoast_schema = $this->get_yoast_schema_output();
+		$this->assertJson( $yoast_schema, 'Yoast schema should be valid JSON' );
+		$yoast_schema_data = \json_decode( $yoast_schema, true );
+
+		$event_piece  = $this->get_piece_by_type( $yoast_schema_data['@graph'], 'Event' );
+
+		$this->assertSame(
+			'PostalAddress',
+			$event_piece['location']['address']['@type'],
+			'Event piece should type address'
+		);
+		$this->assertSame(
+			'http://localhost:8889/#/schema/address/the-event-venue',
+			$event_piece['location']['address']['@id'],
+			'Event piece should ref address'
+		);
 	}
 
 	private function get_yoast_schema_output( bool $debug = false ): string {
