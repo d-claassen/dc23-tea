@@ -107,6 +107,9 @@ class Location_Schema_IntegrationTest extends \WP_UnitTestCase {
 				'website'     => 'https://example.com',
 				'excerpt'     => 'The Event Venue is a fan favorite for hosting events.',
 				'description' => 'With 15+ years experience, The Event Venue has become the location for any type of event.',
+				'address'     => '123 Fake Street',
+				'zip'         => 'ABC 123',
+				'country'     => 'US',
 			] )
 			->create();
 	
