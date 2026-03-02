@@ -33,6 +33,16 @@ class Location_Schema_Integration {
             $venue_slug = get_post_field( 'post_name', $venue_id );
 
             $event_data['location']->{'@id'} = $context->site_url . '#/schema/location/' . $venue_slug;
+
+            if ( isset( $event_data['location']->address ) ) {
+                $address = $event_data['location']->address;
+                // Address requires street, postal code, and country.
+                if ( isset( $address->streetAddress, $address->postalCode, $address->addressCountry ) ) {
+                    $address->{'@id'} =  $context->site_url . '#/schema/address/' . $venue_slug;
+                } else {
+                    unset( $event_data['location']->address );
+                }
+            }
 		}
 
     	return $event_data;
