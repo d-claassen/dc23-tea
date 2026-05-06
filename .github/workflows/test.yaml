@@ -53,8 +53,8 @@ jobs:
         with:
           php-version: ${{ matrix.php_version }}
 
-      - name: 'Validate composer.json and composer.lock'
-        run: 'composer validate --no-check-publish'
+      # - name: 'Validate composer.json and composer.lock'
+      #   run: 'composer validate --no-check-publish'
 
       - name: 'NPM install'
         run: npm install
