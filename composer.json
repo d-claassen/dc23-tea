@@ -6,7 +6,6 @@
         }
     },
     "require-dev": {
-        "d-claassen/dc23-excessive-schema": ">=0.4,<0.5",
         "wpackagist-plugin/the-events-calendar": ">=6.8,<7",
         "wpackagist-plugin/wordpress-seo": ">=24.0,<=27.6",
         "yoast/yoastcs": "^3.1",
