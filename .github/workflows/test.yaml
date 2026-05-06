@@ -54,7 +54,7 @@ jobs:
           php-version: ${{ matrix.php_version }}
 
       - name: 'Add plugin'
-        run: 'composer require d-claassen/dc23-excessive-schema'
+        run: 'composer require "d-claassen/dc23-excessive-schema:dev-main"'
 
       - name: 'Validate composer.json and composer.lock'
         run: 'composer validate --no-check-publish'
