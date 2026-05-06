@@ -27,7 +27,7 @@ use Yoast\WP\SEO\Models\Indexable;
  * Tribe__Events__JSON_LD__Event::instance(), so we stay consistent with
  * what TEC actually emits.
  */
-final class TEC_Main_Entity implements Main_Entity {
+final class Event_Main_Entity implements Main_Entity {
 
 	public function get_root_type(): string {
 		if ( ! class_exists( Tribe__Events__JSON_LD__Event::class ) ) {
