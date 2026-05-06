@@ -53,8 +53,11 @@ jobs:
         with:
           php-version: ${{ matrix.php_version }}
 
-      # - name: 'Validate composer.json and composer.lock'
-      #   run: 'composer validate --no-check-publish'
+      - name: 'Add plugin'
+        run: 'composer require d-claassen/dc23-excessive-schema'
+
+      - name: 'Validate composer.json and composer.lock'
+        run: 'composer validate --no-check-publish'
 
       - name: 'NPM install'
         run: npm install
