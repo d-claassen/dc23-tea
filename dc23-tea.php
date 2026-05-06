@@ -46,6 +46,7 @@ function dc23_tea_block_init() {
 	register_block_type( __DIR__ . '/build/venue-name' );
 	register_block_type( __DIR__ . '/build/venue-url' );
 
+	( new \DC23\TheEventAttendee\Integrations\Event_Schema_Adapter() )->register();
 	( new \DC23\TheEventAttendee\Event_Schema_Integration() )->register();
 	( new \DC23\TheEventAttendee\Location_Schema_Integration() )->register();
 	( new \DC23\TheEventAttendee\Organizer_Schema_Integration() )->register();
