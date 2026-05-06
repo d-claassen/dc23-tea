@@ -138,6 +138,7 @@ namespace DC23 {
 	function _manually_load_plugin() {
 		require dirname( __DIR__ ) . '/../the-events-calendar/the-events-calendar.php';
 		require dirname( __DIR__ ) . '/../wordpress-seo/wp-seo.php';
+		require dirname( __DIR__ ) . '/../dc23-excessive-schema/dc23-excessive-schema.php';
 		require dirname( __DIR__ ) . '/dc23-tea.php';
 	}
 
