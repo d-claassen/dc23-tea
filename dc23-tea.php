@@ -29,7 +29,9 @@ require_once 'vendor/autoload.php';
 require_once 'lib/Event_Schema_Integration.php';
 require_once 'lib/Location_Schema_Integration.php';
 require_once 'lib/Organizer_Schema_Integration.php';
+require_once 'lib/Adapters/Event_Main_Entity.php';
 require_once 'lib/Integrations/Event_Schema_Adapter.php';
+
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets so they can be enqueued
