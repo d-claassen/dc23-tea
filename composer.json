@@ -6,6 +6,7 @@
         }
     },
     "require-dev": {
+        "d-claassen/dc23-excessive-schema": ">=0.4,<0.5",
         "wpackagist-plugin/the-events-calendar": ">=6.8,<7",
         "wpackagist-plugin/wordpress-seo": ">=24.0,<=27.6",
         "yoast/yoastcs": "^3.1",
@@ -14,6 +15,10 @@
         "yoast/phpunit-polyfills": "^4.0"
     },
     "repositories": {
+        "dc23-excessive-schema": {
+            "type": "vcs",
+            "url": "https://github.com/d-claassen/dc23-excessive-schema"
+        },
         "wpackagist": {
             "type": "composer",
             "url": "https://wpackagist.org",
