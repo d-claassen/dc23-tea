@@ -11,7 +11,8 @@
         "yoast/yoastcs": "^3.1",
         "composer/installers": "^2.0",
         "phpunit/phpunit": "^11.5",
-        "yoast/phpunit-polyfills": "^4.0"
+        "yoast/phpunit-polyfills": "^4.0",
+        "dennis/dc23-excessive-schema": "^0.4.0"
     },
     "repositories": {
         "dc23-excessive-schema": {
