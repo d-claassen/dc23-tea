@@ -86,7 +86,7 @@ final class Event_As_Main_Entity_Test extends WP_UnitTestCase {
 			])
 			->create();
 			
-		$post_id = $event->ID
+		$post_id = $event->ID;
 
 		// Fetch the Yoast schema, which runs relevant filters.
 		$event = $this->get_event_schema( $post_id, true );
