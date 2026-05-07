@@ -75,11 +75,18 @@ final class Event_As_Main_Entity_Test extends WP_UnitTestCase {
 			2
 		);
 
-		$post_id = self::factory()->post->create( [
-			'post_title'  => 'Test article',
-			'post_status' => 'publish',
-            'post_type'   => 'tribe_events',
-		] );
+		$event = tribe_events()
+			->set_args( [
+				'title'           => 'BBQ',
+				'start_date'      => '+2 weeks 10:00:00',
+				'end_date'        => '+2 weeks 12:00:00',
+				'cost'            => 14.99,
+				'currency_symbol' => '$',
+				'status'          => 'publish',
+			])
+			->create();
+			
+		$post_id = $event->ID
 
 		// Fetch the Yoast schema, which runs relevant filters.
 		$event = $this->get_event_schema( $post_id, true );
