@@ -53,9 +53,6 @@ jobs:
         with:
           php-version: ${{ matrix.php_version }}
 
-      - name: 'Add plugin'
-        run: 'composer require --dev "dennis/dc23-excessive-schema:^0.4.0"'
-
       - name: 'Validate composer.json and composer.lock'
         run: 'composer validate --no-check-publish'
 
