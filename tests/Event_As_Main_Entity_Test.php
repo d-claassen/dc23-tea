@@ -82,7 +82,7 @@ final class Event_As_Main_Entity_Test extends WP_UnitTestCase {
 		] );
 
 		// Fetch the Yoast schema, which runs relevant filters.
-		$event = $this->get_event_schema( $post_id );
+		$event = $this->get_event_schema( $post_id, true );
 
 		// Verify Event schema has the marker.
 		$this->assertTrue(
