@@ -20,15 +20,14 @@ final class Event_As_Main_Entity_Test extends WP_UnitTestCase {
 
 	public function set_up(): void {
 		parent::set_up();
-
-        /* //Create test user for publisher. was needed for Article ouput from wordpress-seo below 26.7.
-    	// do events need it too?
-        $this->user_id = self::factory()->user->create( [
+		
+		// Create test user for publisher. was needed for Article ouput from wordpress-seo below 26.7. events too?
+		$this->user_id = self::factory()->user->create( [
 			'display_name' => 'Test User',
 			'user_email'   => 'test@example.com',
 			'user_url'     => 'https://example.com',
 		] );
-        */
+
 
 		// Set Yoast user settings to use person schema
 		\YoastSEO()->helpers->options->set( 'company_or_person', 'person' );
