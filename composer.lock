@@ -305,16 +305,16 @@
         },
         {
             "name": "dennis/dc23-excessive-schema",
-            "version": "v0.4.1",
+            "version": "v0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/d-claassen/dc23-excessive-schema.git",
-                "reference": "550ca5b624d96f02e244e2bf4946b8e29f018e85"
+                "reference": "f8096da4fa093d19c48e3f09ab59e8ed2e8ad022"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/d-claassen/dc23-excessive-schema/zipball/550ca5b624d96f02e244e2bf4946b8e29f018e85",
-                "reference": "550ca5b624d96f02e244e2bf4946b8e29f018e85",
+                "url": "https://api.github.com/repos/d-claassen/dc23-excessive-schema/zipball/f8096da4fa093d19c48e3f09ab59e8ed2e8ad022",
+                "reference": "f8096da4fa093d19c48e3f09ab59e8ed2e8ad022",
                 "shasum": ""
             },
             "require": {
@@ -359,10 +359,10 @@
             ],
             "description": "Template-level schema enrichment for WordPress Query Loop blocks",
             "support": {
-                "source": "https://github.com/d-claassen/dc23-excessive-schema/tree/v0.4.1",
+                "source": "https://github.com/d-claassen/dc23-excessive-schema/tree/v0.4.2",
                 "issues": "https://github.com/d-claassen/dc23-excessive-schema/issues"
             },
-            "time": "2026-05-08T05:58:01+00:00"
+            "time": "2026-05-12T11:33:20+00:00"
         },
         {
             "name": "myclabs/deep-copy",
