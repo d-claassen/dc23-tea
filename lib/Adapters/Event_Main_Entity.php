@@ -69,18 +69,7 @@ final class Event_Main_Entity implements Main_Entity {
 	}
 
 	public function setup_main_entity_enrichment(): void {
-		add_filter( 'wpseo_schema_event', [ $this, 'enrich' ], 10, 2 );
-	}
-
-	/**
-	 * Bridge Yoast's Event filter into dc23_schema_main_entity.
-	 *
-	 * @param array             $data    Event schema data from TEC's piece.
-	 * @param Meta_Tags_Context $context Yoast's context object.
-	 *
-	 * @return array
-	 */
-	public function enrich( array $data, Meta_Tags_Context $context ): array {
-		return apply_filters( 'dc23_schema_main_entity', $data, $context->indexable );
+		// Main Entity enrichment adds a `mentions` property to the passed node.
+		// But since Event is not a CreativeWork, it has no `mentions` property.
 	}
 }

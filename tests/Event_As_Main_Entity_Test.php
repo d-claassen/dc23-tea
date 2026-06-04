@@ -62,44 +62,6 @@ final class Event_As_Main_Entity_Test extends WP_UnitTestCase {
 		$this->assertStringStartsWith( $indexable->permalink, $entity_id );
 	}
 
-	public function test_dc23_schema_main_entity_filter_fires_on_event_schema(): void {
-		$captured_indexable = null;
-		add_filter(
-			'dc23_schema_main_entity',
-			static function ( array $data, $indexable ) use ( &$captured_indexable ): array {
-				$captured_indexable     = $indexable;
-				$data['_test_marker'] = true;
-				return $data;
-			},
-			10,
-			2
-		);
-
-		$event = tribe_events()
-			->set_args( [
-				'title'           => 'BBQ',
-				'start_date'      => '+2 weeks 10:00:00',
-				'end_date'        => '+2 weeks 12:00:00',
-				'cost'            => 14.99,
-				'currency_symbol' => '$',
-				'status'          => 'publish',
-			])
-			->create();
-			
-		$post_id = $event->ID;
-
-		// Fetch the Yoast schema, which runs relevant filters.
-		$event = $this->get_event_schema( $post_id, true );
-
-		// Verify Event schema has the marker.
-		$this->assertTrue(
-			$event['_test_marker'] ?? false,
-			'dc23_schema_main_entity should fire when wpseo_schema_event is applied.'
-		);
-		$this->assertNotNull( $captured_indexable, 'Indexable should be passed to the filter.' );
-		$this->assertSame( $post_id, $captured_indexable->object_id );
-	}
-
 	// -------------------------------------------------------------------------
 	// Helpers
 	// -------------------------------------------------------------------------
