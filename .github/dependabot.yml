@@ -19,6 +19,14 @@ updates:
       timezone: Europe/Amsterdam
     assignees:
       - d-claassen
+    groups:
+      wordpress:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+        pattern:
+          - "@wordpress/*"
 
   - package-ecosystem: "composer"
     directory: "/"
