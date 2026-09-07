@@ -2,6 +2,7 @@
  * WordPress dependencies.
  */
 import { useBlockProps } from '@wordpress/block-editor';
+import { filterURLForDisplay } from '@wordpress/url';
 const { useSelect } = require( '@wordpress/data' );
 
 /**
@@ -54,9 +55,11 @@ function Content( { context: { postId } } ) {
 		[ postId ]
 	);
 
+	const filteredUrl = filterURLForDisplay( url, false );
+
 	return (
 		<div { ...useBlockProps() }>
-			<a href={ url }>{ url }</a>
+			<a href={ url }>{ filteredUrl }</a>
 		</div>
 	);
 }
