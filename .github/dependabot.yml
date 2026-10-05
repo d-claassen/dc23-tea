@@ -38,4 +38,32 @@ updates:
     assignees:
       - d-claassen
     versioning-strategy: widen
-    
+    allow:
+      - dependency-name: "*"
+        dependency-type: "all"
+    groups:
+      unit-tests:
+        patterns:
+          - "phpunit/*"
+          - "sebastian/*"
+          - "brain/*"
+          - "antecedent/*"
+          - "mockery/*"
+      static-analysis:
+        patterns:
+          - "phpstan/*"
+          - "szepeviktor/phpstan-wordpress"
+      code-style:
+        patterns:
+          - "yoast/yoastcs"
+          - "phpcsstandards/*"
+          - "phpcompatibility/*"
+          - "wp-coding-standards/*"
+          - "squizlabs/*"
+          - "slevomat/*"
+          - "automattic/vipwpcs"
+          - "dealerdirect/phpcodesniffer-composer-installer"
+      wp-compatibility:
+        patterns:
+          - "yoast/*"
+          - "wpackagist-plugin/*"
