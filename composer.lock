@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b113ad8a9268be3c14b36c1882f2887",
+    "content-hash": "b7b46edde9cb6b8659fce390c59d0893",
     "packages": [],
     "packages-dev": [
         {
@@ -3008,15 +3008,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "6.18.2",
+            "version": "6.18.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/6.18.2"
+                "reference": "tags/6.18.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.18.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.18.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3026,15 +3026,15 @@
         },
         {
             "name": "wpackagist-plugin/wordpress-seo",
-            "version": "28.7",
+            "version": "28.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/28.7"
+                "reference": "tags/28.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.28.8.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
