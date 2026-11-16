@@ -69,5 +69,5 @@ jobs:
       - name: 'Archive plugin zip'
         uses: actions/upload-artifact@v7
         with:
-          name: 'the-events-attendee'
-          path: 'the-events-attendee.zip'
+          name: 'dc23-tea'
+          path: 'dc23-tea.zip'
