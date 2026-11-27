@@ -1,53 +1,17 @@
 {
-    "name": "dennis/dc23-tea",
-    "autoload": {
-        "psr-4": {
-            "DC23\\TheEventAttendee\\": "lib/"
-        }
-    },
-    "require-dev": {
-        "wpackagist-plugin/the-events-calendar": ">=6.8,<7",
-        "wpackagist-plugin/wordpress-seo": ">=24.0,<=28.7",
-        "yoast/yoastcs": "^3.1",
-        "composer/installers": "^2.0",
-        "phpunit/phpunit": "^11.5",
-        "yoast/phpunit-polyfills": "^4.0",
-        "dennis/dc23-excessive-schema": "^0.4.0"
-    },
-    "repositories": {
-        "dc23-excessive-schema": {
-            "type": "vcs",
-            "url": "https://github.com/d-claassen/dc23-excessive-schema"
-        },
-        "wpackagist": {
-            "type": "composer",
-            "url": "https://wpackagist.org",
-            "only": [
-                "wpackagist-plugin/*"
-            ]
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "composer/installers": true
-        }
-    },
-    "extra": {
-        "installer-paths": {
-            "vendor/wpackagist/{$name}/": [
-                "type:wordpress-plugin"
-            ]
-        }
-    },
-    "scripts": {
-        "phplint": "@php ./vendor/bin/parallel-lint . -e php --show-deprecated --exclude vendor --exclude .git",
-        "phpcs": "@php ./vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1",
-        "test": "@php ./vendor/bin/phpunit --process-isolation"
-    },
-    "scripts-descriptions": {
-        "phplint": "Check the PHP files for parse errors.",
-        "phpcs": "Check the PHP files for code style violations and best practices.",
-        "test": "Test the PHP functionality behaves as expected."
-    }
+	"name": "d-claassen/dc23-tea",
+	"description": "A plugin to help list the events you attend(ed).",
+	"type": "wordpress-plugin",
+	"license": "GPL-2.0-or-later",
+	"suggest": {
+		"d-claassen/dc23-excessive-schema": "Adds this plugin's content as main entity to the schema graph."
+	},
+	"conflict": {
+		"d-claassen/dc23-excessive-schema": ">=0.6"
+	},
+	"autoload": {
+		"psr-4": {
+			"DC23\\TheEventAttendee\\": "lib/"
+		}
+	}
 }
