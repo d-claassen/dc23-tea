@@ -7,7 +7,7 @@
 		"d-claassen/dc23-excessive-schema": "Adds this plugin's content as main entity to the schema graph."
 	},
 	"conflict": {
-		"d-claassen/dc23-excessive-schema": ">=0.6"
+		"d-claassen/dc23-excessive-schema": ">=0.7"
 	},
 	"autoload": {
 		"psr-4": {

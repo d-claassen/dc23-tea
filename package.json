@@ -1,6 +1,6 @@
 {
 	"name": "dc23-tea",
-	"version": "0.12.0",
+	"version": "0.13.0",
 	"description": "A block for The Event Calendar event date from post meta.",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",

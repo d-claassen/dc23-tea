@@ -2,10 +2,10 @@
 /**
  * Plugin Name:       The Event Attendee
  * Description:       A plugin to help list the events you attend(ed).
- * Requires at least: 6.6
+ * Requires at least: 6.8
  * Requires PHP:      7.2
  * Requires Plugins:  wordpress-seo, the-events-calendar
- * Version:           0.12.0
+ * Version:           0.13.0
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
